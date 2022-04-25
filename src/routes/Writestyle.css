@@ -33,9 +33,10 @@ body {
     margin-left: 2px;
 }
 
-.avatar {
-    margin: 0 auto;
-}
+/*.avatar {*/
+/*    margin: 0 auto;*/
+/*}*/
+
 .weatherset div {
     margin-bottom: 6px;
     font-size: 11px;

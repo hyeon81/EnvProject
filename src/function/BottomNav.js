@@ -9,19 +9,23 @@ function BottomNav() {
         <>
             <nav className="wrapper">
                 <div className={activeNav === 1 ? "active-nav" : "nav-item"}>
-                    <Link to="/timeline" onClick={() => setActiveNav(1)}>타임라인</Link>
+                    <Link to="/timeline" onClick={() => setActiveNav(1)}>
+                        <div> 타임라인 </div>
+                    </Link>
                 </div>
                 <div className={activeNav === 2 ? "active-nav" : "nav-item"}>
-                    <Link to="/qna" onClick={() => setActiveNav(2)}>지식인</Link>
+                    <Link to="/qna" onClick={() => setActiveNav(2)}>
+                        <div> 지식인 </div>
+                    </Link>
                 </div>
                 <div className={activeNav === 3 ? "active-nav" : "nav-item"}>
-                    <Link to="/write" onClick={() => setActiveNav(3)}>일지쓰기</Link>
+                    <Link to="/write" onClick={() => setActiveNav(3)}><div>일지쓰기</div></Link>
                 </div>
                 <div className={activeNav === 4 ? "active-nav" : "nav-item"}>
-                    <Link to="/collection" onClick={() => setActiveNav(4)}>공유도감</Link>
+                    <Link to="/collection" onClick={() => setActiveNav(4)}><div>공유도감</div></Link>
                 </div>
                 <div className={activeNav === 5 ? "active-nav" : "nav-item"}>
-                    <Link to="/myarticle" onClick={() => setActiveNav(5)}>My일지</Link>
+                    <Link to="/myarticle" onClick={() => setActiveNav(5)}><div>My일지</div></Link>
                 </div>
             </nav>
         </>
