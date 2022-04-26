@@ -48,7 +48,7 @@ function Write() {
         }
     }
 
-    return (<div className='write'>
+    return (<div className='write' style={{width: '100vw'}}>
         <div className='toolbox'>
             도구함
         </div>
