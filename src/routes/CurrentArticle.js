@@ -7,27 +7,69 @@ import {
     RightOutlined,
     HeartOutlined,
     MessageOutlined,
-    ShareAltOutlined,
+    ShareAltOutlined, UserOutlined,
 } from "@ant-design/icons";
-import "./CurrentArticlestyle.css";
+import "./Stylesheet.css";
 import axios from "axios";
-import {Col, Row, Space} from "antd";
+import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
+import moment from 'moment';
+import CommentInput from "../function/CommentInput";
+import {useNavigate} from "react-router-dom";
 
 function CurrentArticle() {
     //웹에서 서버 요청
-    const [article, setArticle] = useState([]);
-    const getArticle = () => {
-        axios.get("url").then((res) => setArticle(res.data));
-    };
-    useEffect(getArticle, []);
+    // const [article, setArticle] = useState([]);
+    // const getArticle = () => {
+    //     axios.get("url").then((res) => setArticle(res.data));
+    // };
+    // useEffect(getArticle, []);
+
+    const navigate = useNavigate();
+    //댓글 보여주기
+    const data = [
+        {
+            actions: [<span key="comment-list-reply-to-0">답글</span>],
+            author: '한솔',
+            avatar: 'https://joeschmoe.io/api/v1/random',
+            content: (
+                <p>
+                    We supply a series of design principles, practical patterns and high quality design
+                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                    efficiently.
+                </p>
+            ),
+            datetime: (
+                <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                    <span>{moment().subtract(1, 'days').fromNow()}</span>
+                </Tooltip>
+            ),
+        },
+        {
+            actions: [<span key="comment-list-reply-to-0">답글</span>],
+            author: '한솔',
+            avatar: 'https://joeschmoe.io/api/v1/random',
+            content: (
+                <p>
+                    We supply a series of design principles, practical patterns and high quality design
+                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                    efficiently.
+                </p>
+            ),
+            datetime: (
+                <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+                    <span>{moment().subtract(2, 'days').fromNow()}</span>
+                </Tooltip>
+            ),
+        },
+    ];
 
     return (
         <>
             <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
                 <div className="top-nav">
-                    <Row style={{fontSize: '20px', padding: '0 8%'}}>
+                    <Row style={{fontSize: '20px', padding: '0 6%'}}>
                         <Col span={21}>
-                            <ArrowLeftOutlined className="right-nav"/>
+                            <ArrowLeftOutlined onClick={()=>{navigate('/myarticle')}} style={{color: 'white'}}/>
                         </Col>
                         <Col span={3}>
                             <Space size={12} style={{float: 'right'}}>
@@ -39,24 +81,19 @@ function CurrentArticle() {
                 </div>
                 <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
                     <Space size={12}>
-                        <img
-                            src="/img/avatar.jpg"
-                            alt="avatar"
-                            width="35px"
-                            height="35px"
-                        />
-                        <span className="username">username</span>
+                        <Avatar size="large" src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
+                        <span className="username" style={{fontSize: '16px'}}>username</span>
                     </Space>
                 </div>
 
-                <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '16px 0 4px'}}>
+                <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 4px'}}>
                     습도 70% 온도 25 미세먼지 나쁨
                 </div>
 
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
-                            <LeftOutlined style={{fontSize: '24px'}}/>
+                            <LeftOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
                         </Col>
                         <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
                             <img
@@ -67,7 +104,7 @@ function CurrentArticle() {
                             />
                         </Col>
                         <Col span={2}>
-                            <RightOutlined style={{fontSize: '24px'}}/>
+                            <RightOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
                         </Col>
                     </Row>
                 </div>
@@ -80,33 +117,41 @@ function CurrentArticle() {
                                 <MessageOutlined/>
                             </Space>
                         </Col>
-                        <Col span={2} style={{float: 'right'}}>
-                            <ShareAltOutlined/>
+                        <Col span={2}>
+                            <ShareAltOutlined style={{float: 'right'}}/>
                         </Col>
                     </Row>
-                    <div className="content" style={{lineHeight: '1.3'}}>Text - Double click to edit Text -
-                        Double click to edit Text - Double click to edit Text - Double click to edit
+                    <div className="content" style={{lineHeight: '1.3'}}>
+                        We supply a series of design principles, practical patterns and high quality design
+                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
+                        efficiently.
                     </div>
 
-                    <div style={{width: '100%', height: '1.5px', backgroundColor: 'lightgray'}}></div>
                     <div className="comment-info">
-                        <Row>
-                            <Col span={4}>
-                                <img src="/img/avatar.jpg" alt="avatar" width="30px" height="30px"/>
-                            </Col>
-                            <div className="comment">
-                                <Col span={20}>
-                                    <span style={{fontWeight: 'bold'}}>username</span>comment
-                                </Col>
-                            </div>
-                        </Row>
+                        <List
+                            className="comment-list"
+                            header={`댓글 ${data.length}`}
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={item => (
+                                <li>
+                                    <Comment
+                                        actions={item.actions}
+                                        author={item.author}
+                                        avatar={item.avatar}
+                                        content={item.content}
+                                        datetime={item.datetime}
+                                    />
+                                </li>
+                            )}
+                        />
                     </div>
+                    <CommentInput className="commentInput"/>
                 </div>
                 <div style={{width: '100%', height: '80px'}}></div>
             </div>
         </>
-    )
-        ;
+    );
 }
 
 export default CurrentArticle;

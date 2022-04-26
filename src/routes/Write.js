@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom"
 import {Checkbox, Button, Input, Form, Select, Upload} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
-import '../routes/Writestyle.css';
+import './Stylesheet.css';
 import axios from 'axios';
 
 function Write() {
@@ -66,13 +66,13 @@ function Write() {
             <Form.Item
                 rules={[{required: true, message: '파일을 선택하세요!'}]}
                 name="upload"
-                label="Upload"
+                label=""
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
             >
                 <Upload name="logo" listType="picture"
                         beforeUpload={()=>false}>
-                    <Button icon={<UploadOutlined/>}>Click to uploasssd</Button>
+                    <Button icon={<UploadOutlined/>}>사진 업로드</Button>
                 </Upload>
             </Form.Item>
             <div className="weatherset">

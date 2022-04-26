@@ -9,6 +9,7 @@ import Collection from "../routes/Collection";
 import MyArticle from "../routes/Myarticle";
 import ShowWeather from "../routes/ShowWeather";
 import BottomNav from "../function/BottomNav";
+import ProfileEdit from "../routes/ProfileEdit";
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
                     <Route exact path="/collection" element={<Collection/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
+                    <Route exact path="/profileEdit" element={<ProfileEdit/>}/>
                 </Routes>
                 <BottomNav/>
             </BrowserRouter>

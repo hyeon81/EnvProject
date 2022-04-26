@@ -1,0 +1,89 @@
+html {
+    width: 100%;
+    height: 100%;
+    /*overflow: hidden;*/
+}
+
+body {
+    background-color: darkgray;
+}
+
+/* Write */
+.write {
+    background-color: white;
+    display: flex;
+}
+
+.write form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10%;
+    width: 100%;
+    gap: 1.5%;
+}
+
+.toolbox {
+    display: inline;
+    width: 34%;
+    height: 100vh;
+    background: gray;
+}
+
+.category {
+    display: flex;
+}
+
+.catebtn {
+    margin-left: 2px;
+}
+
+.weatherset div {
+    margin-bottom: 6px;
+    font-size: 11px;
+}
+
+.weatherinfo {
+    display: none;
+}
+
+.submitbtn {
+    margin-top: 14px;
+}
+
+/*Myarticle*/
+.top-nav {
+    color: white;
+    height: 50px;
+    background-color: #1abc9c;
+    line-height: 50px;
+}
+
+.padding {
+    padding: 0 8%;
+}
+
+img[src='/img/avatar.jpg'] {
+    border-radius: 100%;
+}
+
+.commentInput {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+}
+
+.label {
+    background: #1abc9c;
+    color: white;
+    border-radius: 20px;
+    padding: 0 10px;
+    font-size: 13px;
+}
+
+.gallery-image {
+    width: 100px;
+    height: 100px;
+}
