@@ -15,7 +15,7 @@ function BottomNav() {
                 </div>
                 <div className={activeNav === 2 ? "active-nav" : "nav-item"}>
                     <Link to="/qna" onClick={() => setActiveNav(2)}>
-                        <div> 지식인 </div>
+                        <div> 길라잡이 </div>
                     </Link>
                 </div>
                 <div className={activeNav === 3 ? "active-nav" : "nav-item"}>

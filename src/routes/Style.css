@@ -57,6 +57,10 @@ body {
     height: 50px;
     background-color: #1abc9c;
     line-height: 50px;
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*position: fixed;*/
 }
 
 .padding {
@@ -86,4 +90,29 @@ img[src='/img/avatar.jpg'] {
 .gallery-image {
     width: 100px;
     height: 100px;
+}
+
+.Setting li {
+    border: solid 1px lightgrey;
+    height: 50px;
+    line-height: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subinfo1 {
+    padding-left: 6%;
+}
+
+.subinfo2 {
+    padding-right: 6%;
+}
+
+.register {
+    padding: 0 8%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
 }

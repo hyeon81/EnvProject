@@ -9,11 +9,11 @@ import {
     MessageOutlined,
     ShareAltOutlined, UserOutlined,
 } from "@ant-design/icons";
-import "./Stylesheet.css";
+import "../Style.css";
 import axios from "axios";
 import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
 import moment from 'moment';
-import CommentInput from "../function/CommentInput";
+import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 
 function CurrentArticle() {

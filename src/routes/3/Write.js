@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom"
 import {Checkbox, Button, Input, Form, Select, Upload} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
-import './Stylesheet.css';
+import '../Style.css';
 import axios from 'axios';
 
 function Write() {
