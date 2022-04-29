@@ -11,9 +11,11 @@ import ShowWeather from "../routes/3/ShowWeather";
 import BottomNav from "../function/BottomNav";
 import ProfileEdit from "../routes/5/ProfileEdit";
 import Setting from "../routes/5/Setting";
-import MyInfo from "../routes/5/MyInfo";
-import NormalLoginForm from "../routes/5/NormalLoginForm";
+import NormalLoginForm from "../routes/5/Login";
 import Register from "../routes/5/Register";
+import PWChange from "../routes/5/PWChange";
+import SelectedArticle from "../routes/1/SelectedArticle";
+import Article from "../routes/1/Article";
 
 function App() {
     return (
@@ -29,9 +31,11 @@ function App() {
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
                     <Route exact path="/profileEdit" element={<ProfileEdit/>}/>
                     <Route exact path="/Setting" element={<Setting/>}/>
-                    <Route exact path="/myinfo" element={<MyInfo/>}/>
                     <Route exact path="/login" element={<NormalLoginForm/>}/>
                     <Route exact path="/register" element={<Register/>}/>
+                    <Route exact path="/pwchange" element={<PWChange/>}/>
+                    <Route exact path="/selectedarticle" element={<SelectedArticle/>}/>
+                    <Route exact path="/article" element={<Article/>}/>
                 </Routes>
                 <BottomNav/>
             </BrowserRouter>

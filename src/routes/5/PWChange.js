@@ -1,9 +1,9 @@
 import React from "react";
 import {Col, Row, Space} from "antd";
-import {ArrowLeftOutlined, RightOutlined} from "@ant-design/icons";
+import {ArrowLeftOutlined, RightOutlined, SettingFilled} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
 
-function MyInfo() {
+function Setting() {
     const navigate = useNavigate();
     return (
         <>
@@ -16,24 +16,18 @@ function MyInfo() {
                         <Col span={21}>
                             <Space size={10}>
                                 <ArrowLeftOutlined onClick={() => {
-                                    navigate(-1)
+                                    navigate(-1);
                                 }}/>
-                                <span style={{fontSize: '16px', fontWeight: 'bold'}}>내 정보</span>
+                                <span style={{fontSize: '16px', fontWeight: 'bold'}}>비밀번호 변경</span>
                             </Space>
                         </Col>
                         <Col span={3} style={{fontWeight: 'bold', fontSize: '16px'}}>
                         </Col>
                     </Row>
                 </div>
-                <ul style={{listStyle: 'none', padding: '0'}}>
-                    <li><span className="subinfo1">이메일</span>
-                        <span className="subinfo2">example@email.com <RightOutlined/></span></li>
-                    <li><span className="subinfo1">비밀번호 변경</span>
-                        <span className="subinfo2"><RightOutlined/></span></li>
-                </ul>
             </div>
         </>
     )
 }
 
-export default MyInfo;
+export default Setting;

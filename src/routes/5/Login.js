@@ -1,11 +1,14 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {useNavigate} from "react-router-dom";
 
-const NormalLoginForm = () => {
+const Login = () => {
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
+
+    const navigate = useNavigate();
 
     return (
         <Form
@@ -56,10 +59,10 @@ const NormalLoginForm = () => {
                 <Button type="primary" htmlType="submit" className="login-form-button">
                     로그인
                 </Button>
-                또는 <a href="">회원가입</a>
+                 　또는　<a href="" onClick={()=>{navigate('/register')}}>회원가입</a>
             </Form.Item>
         </Form>
     );
 };
 
-export default () => <NormalLoginForm />;
+export default () => <Login />;

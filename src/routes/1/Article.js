@@ -16,7 +16,7 @@ import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 
-function CurrentArticle() {
+function Article() {
     //웹에서 서버 요청
     // const [article, setArticle] = useState([]);
     // const getArticle = () => {
@@ -65,35 +65,21 @@ function CurrentArticle() {
 
     return (
         <>
-            <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
-                <div className="top-nav">
-                    <Row style={{fontSize: '20px', padding: '0 6%'}}>
-                        <Col span={21}>
-                            <ArrowLeftOutlined onClick={()=>{navigate('/myarticle')}} style={{color: 'white'}}/>
-                        </Col>
-                        <Col span={3}>
-                            <Space size={12} style={{float: 'right'}}>
-                                <DeleteFilled/>
-                                <EditFilled/>
-                            </Space>
-                        </Col>
-                    </Row>
-                </div>
+            <div className="Article" style={{backgroundColor: 'white', height: '100%'}}>
                 <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
                     <Space size={12}>
-                        <Avatar size="large" src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
+                        <Avatar size={30} src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
                         <span className="username" style={{fontSize: '16px'}}>username</span>
                     </Space>
                 </div>
 
-                <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 4px'}}>
+                <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '20px 0 4px'}}>
                     습도 70% 온도 25 미세먼지 나쁨
                 </div>
 
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
-                            <LeftOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
                         </Col>
                         <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
                             <img
@@ -104,7 +90,6 @@ function CurrentArticle() {
                             />
                         </Col>
                         <Col span={2}>
-                            <RightOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
                         </Col>
                     </Row>
                 </div>
@@ -114,7 +99,13 @@ function CurrentArticle() {
                         <Col span={22}>
                             <Space size={12}>
                                 <HeartOutlined/>
-                                <MessageOutlined/>
+                                <div>
+                                    <MessageOutlined/>
+                                    <span
+                                        className="comment-list" style={{fontSize: '12px'}}>
+                                        {`댓글 ${data.length}`}
+                                    </span>
+                                </div>
                             </Space>
                         </Col>
                         <Col span={2}>
@@ -122,36 +113,13 @@ function CurrentArticle() {
                         </Col>
                     </Row>
                     <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
-                        We supply a series of design principles, practical patterns and high quality design
-                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                        efficiently.
+                        그들의 타오르고 커다란 기쁘며, 가장 예가 황금시대다. 이성은 무한한 바이며, 인도하겠다는 아니다.
+                        꽃이 창공에 끝에 있다. 봄바람을 앞이 용기가 얼마나 피가 있다.
                     </div>
-
-                    <div className="comment" style={{marginTop: '20px'}}>
-                        <List
-                            className="comment-list"
-                            header={`댓글 ${data.length}`}
-                            itemLayout="horizontal"
-                            dataSource={data}
-                            renderItem={item => (
-                                <li>
-                                    <Comment
-                                        actions={item.actions}
-                                        author={item.author}
-                                        avatar={item.avatar}
-                                        content={item.content}
-                                        datetime={item.datetime}
-                                    />
-                                </li>
-                            )}
-                        />
-                    </div>
-                    <CommentInput className="commentInput"/>
                 </div>
-                <div style={{width: '100%', height: '80px'}}></div>
             </div>
         </>
     );
 }
 
-export default CurrentArticle;
+export default Article;

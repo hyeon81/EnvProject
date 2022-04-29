@@ -16,7 +16,7 @@ import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 
-function CurrentArticle() {
+function SelectedArticle() {
     //웹에서 서버 요청
     // const [article, setArticle] = useState([]);
     // const getArticle = () => {
@@ -110,7 +110,7 @@ function CurrentArticle() {
                 </div>
 
                 <div className="padding">
-                    <Row style={{fontSize: '24px', margin: '4px 0'}}>
+                    <Row style={{fontSize: '24px'}}>
                         <Col span={22}>
                             <Space size={12}>
                                 <HeartOutlined/>
@@ -118,16 +118,16 @@ function CurrentArticle() {
                             </Space>
                         </Col>
                         <Col span={2}>
-                            <ShareAltOutlined/>
+                            <ShareAltOutlined style={{float: 'right'}}/>
                         </Col>
                     </Row>
-                    <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
+                    <div className="content" style={{lineHeight: '1.3'}}>
                         We supply a series of design principles, practical patterns and high quality design
                         resources (Sketch and Axure), to help people create their product prototypes beautifully and
                         efficiently.
                     </div>
 
-                    <div className="comment" style={{marginTop: '20px'}}>
+                    <div className="comment-info">
                         <List
                             className="comment-list"
                             header={`댓글 ${data.length}`}
@@ -154,4 +154,4 @@ function CurrentArticle() {
     );
 }
 
-export default CurrentArticle;
+export default SelectedArticle;
