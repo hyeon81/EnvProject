@@ -7,7 +7,7 @@ import {
     RightOutlined,
     HeartOutlined,
     MessageOutlined,
-    ShareAltOutlined, UserOutlined,
+    ShareAltOutlined, UserOutlined, HeartFilled,
 } from "@ant-design/icons";
 import "../Style.css";
 import axios from "axios";
@@ -15,6 +15,7 @@ import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
 import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
+import LikeButton from "../../function/LikeButton";
 
 function CurrentArticle() {
     //웹에서 서버 요청
@@ -69,7 +70,9 @@ function CurrentArticle() {
                 <div className="top-nav">
                     <Row style={{fontSize: '20px', padding: '0 6%'}}>
                         <Col span={21}>
-                            <ArrowLeftOutlined onClick={()=>{navigate('/myarticle')}} style={{color: 'white'}}/>
+                            <ArrowLeftOutlined onClick={() => {
+                                navigate('/myarticle')
+                            }} style={{color: 'white'}}/>
                         </Col>
                         <Col span={3}>
                             <Space size={12} style={{float: 'right'}}>
@@ -113,7 +116,7 @@ function CurrentArticle() {
                     <Row style={{fontSize: '24px', margin: '4px 0'}}>
                         <Col span={22}>
                             <Space size={12}>
-                                <HeartOutlined/>
+                                <LikeButton/>
                                 <MessageOutlined/>
                             </Space>
                         </Col>
