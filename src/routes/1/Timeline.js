@@ -15,8 +15,6 @@ function Timeline() {
                         타임라인
                     </Col>
                     <Col span={1} style={{marginTop: '3px'}}>
-                        {/*<SettingFilled style={{fontSize: '24px'}}*/}
-                        {/*               onClick={()=>{navigate('/setting')}}/>*/}
                     </Col>
                 </Row>
             </div>

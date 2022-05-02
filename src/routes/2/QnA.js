@@ -1,26 +1,17 @@
 import React from "react";
-import {Col, Row, Tabs, Input} from "antd";
-import {AudioOutlined, ReloadOutlined} from '@ant-design/icons';
+import {Col, Row, Input} from "antd";
+import {ReloadOutlined} from '@ant-design/icons';
 
 import './Tabs.css';
+import QnAlist from "./QnAlist";
+import QnATopNav from "../../function/QnATopNav";
 
 function QnA() {
-    const {TabPane} = Tabs;
     const {Search} = Input;
-
-    const suffix = (
-        <AudioOutlined
-            style={{
-                fontSize: 16,
-                color: '#1890ff',
-            }}
-        />
-    );
-
     const onSearch = value => console.log(value);
 
     return (
-        <div className="QnA">
+        <div className="QnA" style={{backgroundColor: 'white'}}>
             <div className="top-nav" style={{padding: '0 6%', fontSize: '16px'}}>
                 <Row>
                     <Col span={23}>
@@ -30,22 +21,15 @@ function QnA() {
                     </Col>
                 </Row>
             </div>
-            <div className="card-container">
-                <Tabs type="card" style={{width: '100vw'}}>
-                    <TabPane tab="식생 길라잡이" key="1">
-                        <div className="mid-menu">
-                            <Search placeholder="input search text" onSearch={onSearch} style={{width: '100%'}}/>
-                            <ReloadOutlined />
-                            <div style={{width: '100%', height: '2px',
-                                backgroundColor: 'lightgray'}}> </div>
-                        </div>
-                    </TabPane>
-                    <TabPane tab="이미지 검색" key="2">
-                        <p>Content of Tab Pane 2</p>
-                        <p>Content of Tab Pane 2</p>
-                        <p>Content of Tab Pane 2</p>
-                    </TabPane>
-                </Tabs>
+            <QnATopNav/>
+            <div className="mid-menu padding">
+                <Search placeholder="검색어를 입력하세요" onSearch={onSearch} style={{width: '100%', margin: '40px 0 6px'}}/>
+                <ReloadOutlined style={{margin: '12px'}}/>
+                <div style={{
+                    width: '100%', height: '2px',
+                    backgroundColor: 'lightgray', marginBottom: '12px'
+                }}> </div>
+                <QnAlist/>
             </div>
         </div>
     );

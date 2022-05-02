@@ -16,6 +16,9 @@ import Register from "../routes/5/Register";
 import PWChange from "../routes/5/PWChange";
 import SelectedArticle from "../routes/1/SelectedArticle";
 import Article from "../routes/1/Article";
+import QnATopNav from "../function/QnATopNav";
+import SelectedQnA from "../routes/2/SelectedQnA";
+import ImageSearch from "../routes/2/ImageSearch";
 
 function App() {
     return (
@@ -26,6 +29,8 @@ function App() {
                     <Route exact path="/write" element={<Write/>}/>
                     <Route exact path="/timeline" element={<Timeline/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
+                    <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
+                    <Route exact path="/imagesearch" element={<ImageSearch/>}/>
                     <Route exact path="/collection" element={<Collection/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
