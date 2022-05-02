@@ -23,6 +23,15 @@ body {
     gap: 1.5%;
 }
 
+.qnawrite form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 10%;
+    width: 100%;
+    gap: 1.5%;
+}
+
 .toolbox {
     display: inline;
     width: 34%;

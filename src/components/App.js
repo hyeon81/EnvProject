@@ -19,6 +19,8 @@ import Article from "../routes/1/Article";
 import QnATopNav from "../function/QnATopNav";
 import SelectedQnA from "../routes/2/SelectedQnA";
 import ImageSearch from "../routes/2/ImageSearch";
+import SearchResult from "../routes/2/SearchResult";
+import WriteQnA from "../routes/2/writeQnA";
 
 function App() {
     return (
@@ -30,7 +32,9 @@ function App() {
                     <Route exact path="/timeline" element={<Timeline/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
                     <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
+                    <Route exact path="/writeqna" element={<WriteQnA/>}/>
                     <Route exact path="/imagesearch" element={<ImageSearch/>}/>
+                    <Route exact path="/searchresult" element={<SearchResult/>}/>
                     <Route exact path="/collection" element={<Collection/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>

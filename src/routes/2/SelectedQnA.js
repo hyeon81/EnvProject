@@ -23,9 +23,10 @@ function CurrentArticle() {
     //댓글 보여주기
     const data = [
         {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
+            // actions: [<span key="comment-list-reply-to-0">답글</span>],
             author: '한솔',
             avatar: 'https://joeschmoe.io/api/v1/random',
+            grade: '답변왕',
             content: (
                 <p>
                     We supply a series of design principles, practical patterns and high quality design
@@ -40,7 +41,7 @@ function CurrentArticle() {
             ),
         },
         {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
+            // actions: [<span key="comment-list-reply-to-0">답글</span>],
             author: '한솔',
             avatar: 'https://joeschmoe.io/api/v1/random',
             content: (
@@ -61,7 +62,8 @@ function CurrentArticle() {
     return (
         <>
             <div className="SelectedQnA" style={{backgroundColor: 'white', height: '100%'}}>
-                <IoReturnUpBack style={{fontSize: '24px', margin: '36px 6% 0 8%'}}/>
+                <IoReturnUpBack style={{fontSize: '24px', margin: '36px 6% 0 8%', cursor: 'pointer'}}
+                                onClick={()=>{navigate(-1)}}/>
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
@@ -80,12 +82,12 @@ function CurrentArticle() {
                 </div>
 
                 <div className="padding"style={{marginTop: '12px'}}>
-                    <strong>Q. 봉숭아 물들이기 어떻게 하나요?</strong>
+                    <strong style={{fontSize: '16px'}}>Q. 봉숭아 물들이기 어떻게 하나요?</strong>
                     <div className="content" style={{lineHeight: '1.5', textAlign: 'justify',
                     marginTop: "4px"}}>
                         궁금합니다!
                     </div>
-                    <Row style={{fontSize: '24px', margin: '16px 0 -12px'}}>
+                    <Row style={{fontSize: '24px', margin: '12px 0 -12px'}}>
                         <Col span={22}>
                             <Space size={12}>
                                 <MessageOutlined/>
@@ -107,6 +109,7 @@ function CurrentArticle() {
                                     <Comment
                                         actions={item.actions}
                                         author={item.author}
+                                        grade={item.grade}
                                         avatar={item.avatar}
                                         content={item.content}
                                         datetime={item.datetime}

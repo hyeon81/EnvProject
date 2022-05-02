@@ -103,7 +103,7 @@ function Article() {
                                     <MessageOutlined/>
                                     <span
                                         className="comment-list" style={{fontSize: '12px'}}>
-                                        {`댓글 ${data.length}`}
+                                        {` 댓글 ${data.length}`}
                                     </span>
                                 </div>
                             </Space>
@@ -112,10 +112,15 @@ function Article() {
                             <ShareAltOutlined/>
                         </Col>
                     </Row>
-                    <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
+                    <div className="content" style={{lineHeight: '1.5', textAlign: 'justify', height: '40px',
+                    overflowX: 'hidden'}}>
                         그들의 타오르고 커다란 기쁘며, 가장 예가 황금시대다. 이성은 무한한 바이며, 인도하겠다는 아니다.
                         꽃이 창공에 끝에 있다. 봄바람을 앞이 용기가 얼마나 피가 있다.
                     </div>
+                    <div style={{
+                        width: '90%', height: '1px', backgroundColor: 'lightgray',
+                        margin: '12px auto 0'
+                    }}></div>
                 </div>
             </div>
         </>
