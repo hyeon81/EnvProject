@@ -11,11 +11,12 @@ import {
 } from "@ant-design/icons";
 import "../Style.css";
 import axios from "axios";
-import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
+import {Avatar, Col, Row, Space, Comment, Tooltip, List, Carousel} from "antd";
 import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
+import data from "../../json/Userdata.json"
 
 function CurrentArticle() {
     //웹에서 서버 요청
@@ -26,43 +27,71 @@ function CurrentArticle() {
     // useEffect(getArticle, []);
 
     const navigate = useNavigate();
-    //댓글 보여주기
-    const data = [
-        {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(1, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-        {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(2, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-    ];
+    //데이터
+    const contentStyle = {
+        height: '310px',
+        lineHeight: '310px',
+        textAlign: 'center',
+        margin: '0 auto',
+    };
+
+    // let data = [
+    //     {
+    //         "id": "1",
+    //         "password": "1234",
+    //         "username": "한솔",
+    //         "imageUrl": "",
+    //         "rank": "꽃신",
+    //         "introduction": "안녕하세요",
+    //         "articleIds": [
+    //             {
+    //                 "id": "1",
+    //                 "nextId": "0",
+    //                 "previousId": "2",
+    //                 "weather": "습도 70% 온도 25 미세먼지 나쁨",
+    //                 "context": "오늘 꽃이 너무 예쁘게 피었어요",
+    //                 "liked": 0,
+    //                 "imageIds": [
+    //                     "/img/infp.jpg",
+    //                     "/img/infj.jpg",
+    //                     "/img/enfp.jpg"
+    //                 ],
+    //                 "comments": [
+    //                     {
+    //                         // actions: [<span key="comment-list-reply-to-0">답글</span>],
+    //                         username: '두솔',
+    //                         imageUrl: 'https://joeschmoe.io/api/v1/random',
+    //                         content: (
+    //                             <p>
+    //                                 와 너무 예쁘네요
+    //                             </p>
+    //                         ),
+    //                         datetime: (
+    //                             <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+    //                                 <span>{moment().subtract(1, 'days').fromNow()}</span>
+    //                             </Tooltip>
+    //                         ),
+    //                     },
+    //                     {
+    //                         // actions: [<span key="comment-list-reply-to-0">답글</span>],
+    //                         username: '세솔',
+    //                         imageUrl: 'https://joeschmoe.io/api/v1/random',
+    //                         content: (
+    //                             <p>
+    //                                 저도 키우고 싶어요
+    //                             </p>
+    //                         ),
+    //                         datetime: (
+    //                             <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+    //                                 <span>{moment().subtract(2, 'days').fromNow()}</span>
+    //                             </Tooltip>
+    //                         ),
+    //                     },
+    //                 ]
+    //             }
+    //         ]
+    //     }
+    // ];
 
     return (
         <>
@@ -85,63 +114,67 @@ function CurrentArticle() {
                 <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
                     <Space size={12}>
                         <Avatar size="large" src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
-                        <span className="username" style={{fontSize: '16px'}}>username</span>
+                        <span className="username" style={{fontSize: '16px'}}>{data[0].username}</span>
                     </Space>
                 </div>
 
                 <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 4px'}}>
-                    습도 70% 온도 25 미세먼지 나쁨
+                    {data[0].articleIds[0].weather}
                 </div>
 
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
-                            <LeftOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
+                            {/*<LeftOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>*/}
                         </Col>
                         <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
-                            <img
-                                src="/img/img1.png"
-                                alt="userImage"
-                                width="300px"
-                                height="300px"
-                            />
+                            <Carousel>
+                                <div>
+                                    <img src={data[0].articleIds[0].imageIds[0]} alt="userImage" style={contentStyle}/>
+                                </div>
+                                <div>
+                                    <img src={data[0].articleIds[0].imageIds[1]} alt="userImage" style={contentStyle}/>
+                                </div>
+                                <div>
+                                    <img src={data[0].articleIds[0].imageIds[2]} alt="userImage" style={contentStyle}/>
+                                </div>
+                            </Carousel>
                         </Col>
                         <Col span={2}>
-                            <RightOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>
+                            {/*<RightOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>*/}
                         </Col>
                     </Row>
                 </div>
 
                 <div className="padding">
-                    <Row style={{fontSize: '24px', margin: '4px 0'}}>
+                    <Row style={{fontSize: '20px', margin: '8px 0'}}>
                         <Col span={22}>
                             <Space size={12}>
-                                <LikeButton/>
-                                <MessageOutlined/>
+                                <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
+                                {`공감 ${data[0].articleIds[0].liked}`}</span>
+                                <MessageOutlined/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>{`댓글 ${data[0].articleIds[0].comments.length}`}</span>
                             </Space>
                         </Col>
                         <Col span={2}>
-                            <ShareAltOutlined/>
+                            {/*<ShareAltOutlined/>*/}
                         </Col>
                     </Row>
                     <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
-                        We supply a series of design principles, practical patterns and high quality design
-                        resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                        efficiently.
+                        <p>{data[0].articleIds[0].context}</p>
                     </div>
 
                     <div className="comment" style={{marginTop: '20px'}}>
                         <List
                             className="comment-list"
-                            header={`댓글 ${data.length}`}
+                            // header={`공감 ${data[0].articleIds[0].liked}　댓글 ${data[0].articleIds[0].comments.length}`}
                             itemLayout="horizontal"
-                            dataSource={data}
+                            dataSource={data[0].articleIds[0].comments}
                             renderItem={item => (
                                 <li>
                                     <Comment
-                                        actions={item.actions}
-                                        author={item.author}
-                                        avatar={item.avatar}
+                                        // actions={item.actions}
+                                        author={item.username}
+                                        avatar={item.imageUrl}
                                         content={item.content}
                                         datetime={item.datetime}
                                     />

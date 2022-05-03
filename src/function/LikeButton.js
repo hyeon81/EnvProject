@@ -3,19 +3,19 @@ import {HeartOutlined, HeartFilled} from '@ant-design/icons';
 class LikeButton extends React.Component{
     state = {
         isChecked: false,
-        notice: ' ',
+        // notice: ' ',
     };
 
     onClick = () => {
         this.state.isChecked ?
             this.setState({
                 isChecked: false,
-                notice: '',
+                // notice: '',
             })
             :
             this.setState({
                 isChecked: true,
-                notice: '좋아요 1회',
+                // notice: '좋아요 1회',
             });
     }
     render(){
@@ -25,7 +25,7 @@ class LikeButton extends React.Component{
                     {this.state.isChecked ?
                         <HeartFilled className="button red" onClick={this.onClick}/> :
                         <HeartOutlined className="button" onClick={this.onClick}/>}
-                    <span style={{fontSize: '14px'}}> {this.state.notice}</span>
+                    {/*<span style={{fontSize: '14px'}}> {this.state.notice}</span>*/}
                 </div>
             </React.Fragment>
         )

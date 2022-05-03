@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import "./QnATopNavStyle.css";
 
-function QnATopNav() {
-    const [activeNav, setActiveNav] = useState(1);
+function QnATopNav2() {
+    const [activeNav, setActiveNav] = useState(2);
 
     return (
         <>
@@ -24,5 +24,5 @@ function QnATopNav() {
     )
 }
 
-export default QnATopNav;
+export default QnATopNav2;
 

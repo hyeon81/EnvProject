@@ -2,7 +2,6 @@ import React from "react";
 import {Col, Row, Input} from "antd";
 import {ReloadOutlined} from '@ant-design/icons';
 
-import './Tabs.css';
 import QnAlist from "./QnAlist";
 import QnATopNav from "../../function/QnATopNav";
 
@@ -17,8 +16,6 @@ function QnA() {
                     <Col span={23}>
                         길라잡이
                     </Col>
-                    <Col span={1} style={{marginTop: '3px'}}>
-                    </Col>
                 </Row>
             </div>
             <QnATopNav/>
@@ -26,8 +23,7 @@ function QnA() {
                 <Search placeholder="검색어를 입력하세요" onSearch={onSearch} style={{width: '100%', margin: '40px 0 6px'}}/>
                 <ReloadOutlined style={{margin: '12px'}}/>
                 <div style={{
-                    width: '100%', height: '2px',
-                    backgroundColor: 'lightgray', marginBottom: '12px'
+                    width: '100%', height: '2px', backgroundColor: 'lightgray', marginBottom: '12px'
                 }}> </div>
                 <QnAlist/>
             </div>

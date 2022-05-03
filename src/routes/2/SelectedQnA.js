@@ -10,6 +10,7 @@ import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
 import {IoReturnUpBack} from "react-icons/io5";
+import QnATopNav from "../../function/QnATopNav";
 
 function CurrentArticle() {
     //웹에서 서버 요청
@@ -61,9 +62,19 @@ function CurrentArticle() {
 
     return (
         <>
+            <div className="top-nav" style={{padding: '0 6%', fontSize: '16px'}}>
+                <Row>
+                    <Col span={23}>
+                        길라잡이
+                    </Col>
+                </Row>
+            </div>
+            <QnATopNav/>
             <div className="SelectedQnA" style={{backgroundColor: 'white', height: '100%'}}>
                 <IoReturnUpBack style={{fontSize: '24px', margin: '36px 6% 0 8%', cursor: 'pointer'}}
-                                onClick={()=>{navigate(-1)}}/>
+                                onClick={() => {
+                                    navigate(-1)
+                                }}/>
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
@@ -81,10 +92,12 @@ function CurrentArticle() {
                     </Row>
                 </div>
 
-                <div className="padding"style={{marginTop: '12px'}}>
+                <div className="padding" style={{marginTop: '12px'}}>
                     <strong style={{fontSize: '16px'}}>Q. 봉숭아 물들이기 어떻게 하나요?</strong>
-                    <div className="content" style={{lineHeight: '1.5', textAlign: 'justify',
-                    marginTop: "4px"}}>
+                    <div className="content" style={{
+                        lineHeight: '1.5', textAlign: 'justify',
+                        marginTop: "4px"
+                    }}>
                         궁금합니다!
                     </div>
                     <Row style={{fontSize: '24px', margin: '12px 0 -12px'}}>
@@ -120,7 +133,7 @@ function CurrentArticle() {
                     </div>
                     <CommentInput className="commentInput"/>
                 </div>
-                <div style={{width: '100%', height: '80px'}}> </div>
+                <div style={{width: '100%', height: '80px'}}></div>
             </div>
         </>
     );

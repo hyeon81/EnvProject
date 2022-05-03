@@ -10,58 +10,58 @@ import {
     ShareAltOutlined, UserOutlined,
 } from "@ant-design/icons";
 import "../Style.css";
-import axios from "axios";
-import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
+import {Avatar, Col, Row, Space, Carousel} from "antd";
 import moment from 'moment';
-import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
+import data from "../../json/Userdata.json";
+import LikeButton from "../../function/LikeButton";
 
-function Article() {
-    //웹에서 서버 요청
-    // const [article, setArticle] = useState([]);
-    // const getArticle = () => {
-    //     axios.get("url").then((res) => setArticle(res.data));
-    // };
-    // useEffect(getArticle, []);
+const contentStyle = {
+    height: '310px',
+    lineHeight: '310px',
+    textAlign: 'center',
+    margin: '0 auto',
+};
 
+function Article({props}) {
     const navigate = useNavigate();
     //댓글 보여주기
-    const data = [
-        {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(1, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-        {
-            actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(2, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-    ];
+    // const data = [
+    //     {
+    //         actions: [<span key="comment-list-reply-to-0">답글</span>],
+    //         author: '한솔',
+    //         avatar: 'https://joeschmoe.io/api/v1/random',
+    //         content: (
+    //             <p>
+    //                 We supply a series of design principles, practical patterns and high quality design
+    //                 resources (Sketch and Axure), to help people create their product prototypes beautifully and
+    //                 efficiently.
+    //             </p>
+    //         ),
+    //         datetime: (
+    //             <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+    //                 <span>{moment().subtract(1, 'days').fromNow()}</span>
+    //             </Tooltip>
+    //         ),
+    //     },
+    //     {
+    //         actions: [<span key="comment-list-reply-to-0">답글</span>],
+    //         author: '한솔',
+    //         avatar: 'https://joeschmoe.io/api/v1/random',
+    //         content: (
+    //             <p>
+    //                 We supply a series of design principles, practical patterns and high quality design
+    //                 resources (Sketch and Axure), to help people create their product prototypes beautifully and
+    //                 efficiently.
+    //             </p>
+    //         ),
+    //         datetime: (
+    //             <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
+    //                 <span>{moment().subtract(2, 'days').fromNow()}</span>
+    //             </Tooltip>
+    //         ),
+    //     },
+    // ];
 
     return (
         <>
@@ -74,53 +74,50 @@ function Article() {
                 </div>
 
                 <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '20px 0 4px'}}>
-                    습도 70% 온도 25 미세먼지 나쁨
+                    <p>{props.weather}</p>
                 </div>
 
                 <div className="img-slide">
                     <Row style={{textAlign: 'center', height: '50%', lineHeight: '300px'}}>
                         <Col span={2}>
+                            {/*<LeftOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>*/}
                         </Col>
                         <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
-                            <img
-                                src="/img/img1.png"
-                                alt="userImage"
-                                width="300px"
-                                height="300px"
-                            />
+                            <Carousel>
+                                <div>
+                                    <img src={props.imageIds[0]} alt="userImage" style={contentStyle}/>
+                                </div>
+                                <div>
+                                    <img src={props.imageIds[1]} alt="userImage" style={contentStyle}/>
+                                </div>
+                                <div>
+                                    <img src={props.imageIds[2]} alt="userImage" style={contentStyle}/>
+                                </div>
+                            </Carousel>
                         </Col>
                         <Col span={2}>
+                            {/*<RightOutlined style={{fontSize: '24px', color: '#1abc9c'}}/>*/}
                         </Col>
                     </Row>
                 </div>
 
                 <div className="padding">
-                    <Row style={{fontSize: '24px', margin: '4px 0'}}>
+                    <Row style={{fontSize: '20px', margin: '8px 0'}}>
                         <Col span={22}>
                             <Space size={12}>
-                                <HeartOutlined/>
-                                <div>
-                                    <MessageOutlined/>
-                                    <span
-                                        className="comment-list" style={{fontSize: '12px'}}>
-                                        {` 댓글 ${data.length}`}
-                                    </span>
-                                </div>
+                                <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
+                                {`공감 ${props.liked}`}</span>
+                                <MessageOutlined/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>{`댓글 ${data[0].articleIds[0].comments.length}`}</span>
                             </Space>
                         </Col>
                         <Col span={2}>
-                            <ShareAltOutlined/>
+                            {/*<ShareAltOutlined/>*/}
                         </Col>
                     </Row>
                     <div className="content" style={{lineHeight: '1.5', textAlign: 'justify', height: '40px',
-                    overflowX: 'hidden'}}>
-                        그들의 타오르고 커다란 기쁘며, 가장 예가 황금시대다. 이성은 무한한 바이며, 인도하겠다는 아니다.
-                        꽃이 창공에 끝에 있다. 봄바람을 앞이 용기가 얼마나 피가 있다.
+                    overflowX: 'hidden', marginBottom: '24px'}}>
+                        <p>{props.context}</p>
                     </div>
-                    <div style={{
-                        width: '90%', height: '1px', backgroundColor: 'lightgray',
-                        margin: '12px auto 0'
-                    }}></div>
                 </div>
             </div>
         </>

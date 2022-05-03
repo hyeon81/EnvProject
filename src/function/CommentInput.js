@@ -7,7 +7,7 @@ const { TextArea } = Input;
 const CommentList = ({ comments }) => (
     <List
         dataSource={comments}
-        header={`${comments.length} ${comments.length > 1 ? '답글' : '답글'}`}
+        // header={`${comments.length} ${comments.length > 1 ? '답글' : '답글'}`}
         itemLayout="horizontal"
         renderItem={props => <Comment {...props} />}
     />
@@ -49,7 +49,7 @@ class CommentInput extends React.Component {
                 comments: [
                     ...this.state.comments,
                     {
-                        author: 'Han Solo',
+                        author: '한솔',
                         avatar: 'https://joeschmoe.io/api/v1/random',
                         content: <p>{this.state.value}</p>,
                         datetime: moment().fromNow(),
