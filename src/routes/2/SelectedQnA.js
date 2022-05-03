@@ -11,6 +11,7 @@ import {useNavigate} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
 import {IoReturnUpBack} from "react-icons/io5";
 import QnATopNav from "../../function/QnATopNav";
+import data from "../../json/Userdata.json";
 
 function CurrentArticle() {
     //웹에서 서버 요청
@@ -61,7 +62,7 @@ function CurrentArticle() {
     ];
 
     return (
-        <>
+        <div style={{backgroundColor: 'white'}}>
             <div className="top-nav" style={{padding: '0 6%', fontSize: '16px'}}>
                 <Row>
                     <Col span={23}>
@@ -70,7 +71,7 @@ function CurrentArticle() {
                 </Row>
             </div>
             <QnATopNav/>
-            <div className="SelectedQnA" style={{backgroundColor: 'white', height: '100%'}}>
+            <div className="SelectedQnA" style={{height: '100%'}}>
                 <IoReturnUpBack style={{fontSize: '24px', margin: '36px 6% 0 8%', cursor: 'pointer'}}
                                 onClick={() => {
                                     navigate(-1)
@@ -93,21 +94,25 @@ function CurrentArticle() {
                 </div>
 
                 <div className="padding" style={{marginTop: '12px'}}>
-                    <strong style={{fontSize: '16px'}}>Q. 봉숭아 물들이기 어떻게 하나요?</strong>
-                    <div className="content" style={{
-                        lineHeight: '1.5', textAlign: 'justify',
-                        marginTop: "4px"
+                    <strong style={{fontSize: '16px'}}>Q. 패랭이 꽃에 물을 얼마나 주어야 하나요?</strong>
+                    <div className="content" style={{lineHeight: '1.5',
+                        textAlign: 'justify', marginTop: "4px"
                     }}>
-                        궁금합니다!
+                        안녕하세요. 패랭이 꽃을 4월 25일부터 키우고 있습니다. 꽃에 물을 얼마나 주어야 하는지 궁금합니다.
                     </div>
-                    <Row style={{fontSize: '24px', margin: '12px 0 -12px'}}>
+                    <Row style={{fontSize: '20px', margin: '8px 0'}}>
                         <Col span={22}>
                             <Space size={12}>
-                                <MessageOutlined/>
-                                <span style={{fontSize: '12px'}}>{`댓글 ${data.length}`}</span>
+                                <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
+                                {/*{`공감 ${data[0].articleIds[0].liked}`}</span>*/}
+                                공감 0</span>
+                                <MessageOutlined/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
+                                {/*{`댓글 ${data[0].articleIds[0].comments.length}`}</span>*/}
+                                댓글 2</span>
                             </Space>
                         </Col>
                         <Col span={2}>
+                            {/*<ShareAltOutlined/>*/}
                         </Col>
                     </Row>
 
@@ -135,7 +140,7 @@ function CurrentArticle() {
                 </div>
                 <div style={{width: '100%', height: '80px'}}></div>
             </div>
-        </>
+        </div>
     );
 }
 

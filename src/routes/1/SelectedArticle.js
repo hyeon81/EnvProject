@@ -95,7 +95,7 @@ function SelectedArticle() {
                     <Row style={{fontSize: '20px', padding: '0 6%'}}>
                         <Col span={21}>
                             <ArrowLeftOutlined onClick={() => {
-                                navigate('-1')
+                                navigate('/timeline')
                             }} style={{color: 'white'}}/>
                         </Col>
                     </Row>

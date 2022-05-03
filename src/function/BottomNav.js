@@ -19,7 +19,7 @@ function BottomNav() {
                     </Link>
                 </div>
                 <div className={activeNav === 3 ? "active-nav" : "nav-item"}>
-                    <Link to="/weather" onClick={() => setActiveNav(3)}><div>일지쓰기</div></Link>
+                    <Link to="/" onClick={() => setActiveNav(3)}><div>일지쓰기</div></Link>
                 </div>
                 <div className={activeNav === 4 ? "active-nav" : "nav-item"}>
                     <Link to="/collection" onClick={() => setActiveNav(4)}><div>공유도감</div></Link>

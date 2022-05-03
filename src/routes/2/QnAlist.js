@@ -1,10 +1,13 @@
 import React from "react";
 import {MessageOutlined} from "@ant-design/icons";
+import {useNavigate} from "react-router-dom";
 
 function QnAlist() {
+    const navigate = useNavigate();
     const allStyle = {
         background: 'white',
-        padding: '6px'
+        padding: '6px',
+        cursor: 'pointer'
     }
     const topStyle = {
         display: 'flex',
@@ -21,7 +24,7 @@ function QnAlist() {
     }
 
     return (
-        <div className="qnalist" style={allStyle}>
+        <div className="qnalist" style={allStyle} onClick={()=>{navigate('/selectedqna')}}>
             <div className="topqna" style={topStyle}>
                 <img src="/img/img1.png" alt="img"
                      width="100px" height="100px"/>

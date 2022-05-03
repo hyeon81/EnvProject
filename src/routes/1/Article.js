@@ -65,8 +65,8 @@ function Article({props}) {
 
     return (
         <>
-            <div className="Article" style={{backgroundColor: 'white', height: '100%'}}>
-                <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
+            <div className="Article" style={{backgroundColor: 'white', height: '100%', cursor: 'pointer'}}>
+                <div className="userinfo" style={{padding: '16px 8%', backgroundColor: 'lightgray'}}>
                     <Space size={12}>
                         <Avatar size={30} src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
                         <span className="username" style={{fontSize: '16px'}}>username</span>

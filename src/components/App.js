@@ -27,7 +27,7 @@ function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/weather" element={<ShowWeather/>}/>
+                    <Route exact path="/" element={<ShowWeather/>}/>
                     <Route exact path="/write" element={<Write/>}/>
                     <Route exact path="/timeline" element={<Timeline/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
