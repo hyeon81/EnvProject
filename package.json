@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "antd": "^4.19.5",
     "axios": "^0.26.1",
+    "http-proxy-middleware": "^2.0.6",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-icons": "^4.3.1",
@@ -46,5 +47,6 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "react-app-rewired": "^2.2.1"
-  }
+  },
+  "proxy": "http://environment.goldenmine.kr:8080"
 }
