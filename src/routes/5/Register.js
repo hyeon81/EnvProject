@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {
     Form,
     Input,
-    Button,
+    Select,
+    Button, Alert,
 } from 'antd';
+import axios from "axios";
 
 const formItemLayout = {
     labelCol: {
@@ -38,9 +40,25 @@ const tailFormItemLayout = {
 
 function Register() {
     const [form] = Form.useForm();
+    const [registerSucceed, setRegisterSucceed] = useState(0);
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', values["email"]);
+        bodyFormData.append('password', values["password"]);
+        bodyFormData.append('nickname', values["nickname"]);
+
+        axios.post('http://localhost:8080/profile/register', bodyFormData).then(function (response) {
+            console.log(response)
+            setRegisterSucceed(response.data["register_succeed"] ? 2 : 1);
+
+            // setTimeout(function() { }, 3);
+            // this.setState({registerSucceed: response.data["register_succeed"] ? 2 : 1})
+        }).catch(function (error) {
+            console.log(error);
+        });
     };
 
     return (
@@ -56,6 +74,8 @@ function Register() {
             // }}
             scrollToFirstError
         >
+            {registerSucceed !== 0 ? (registerSucceed === 2 ? <Alert message="Success Text" type="success" />
+                : <Alert message="Error Text" type="error" />) : <div/>}
             <Form.Item
                 name="email"
                 label="이메일"
@@ -105,6 +125,7 @@ function Register() {
                             if (!value || getFieldValue('password') === value) {
                                 return Promise.resolve();
                             }
+
                             return Promise.reject(new Error('비밀번호가 일치하지 않습니다'));
                         },
                     }),

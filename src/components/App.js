@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter, Route, Router, Routes} from 'react-router-dom';
-import 'antd/dist/antd.min.css';
+import 'antd/dist/antd.variable.min.css';
 import Timeline from "../routes/1/Timeline";
 import Write from "../routes/3/Write";
 import CurrentArticle from "../routes/5/CurrentArticle";
@@ -21,8 +21,14 @@ import SelectedQnA from "../routes/2/SelectedQnA";
 import ImageSearch from "../routes/2/ImageSearch";
 import SearchResult from "../routes/2/SearchResult";
 import WriteQnA from "../routes/2/writeQnA";
+import {ConfigProvider} from "antd";
 
 function App() {
+    ConfigProvider.config({
+        theme:{
+            primaryColor:"red"
+        }
+    })
     return (
         <>
             <BrowserRouter>
