@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {
-    MessageOutlined,
-} from "@ant-design/icons";
+import React from "react";
+import {MessageOutlined,} from "@ant-design/icons";
 import "../Style.css";
 import axios from "axios";
 import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";

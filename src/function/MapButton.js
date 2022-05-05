@@ -1,8 +1,8 @@
-import React from "react";
-import {IoMdCreate} from "react-icons/io";
+import React, {useState} from "react";
+import {BsFillMapFill} from "react-icons/bs";
 import {useNavigate} from "react-router-dom";
 
-function WriteButton() {
+function MapButton() {
     const navigate = useNavigate();
     const allStyle ={
         position: 'fixed',
@@ -16,16 +16,15 @@ function WriteButton() {
         justifyContent: 'center',
         alignItems: 'center',
         cursor: 'pointer'
-
     }
     return (
-        <div className="PlantWriteButton" style={allStyle}
-             onClick={()=>{navigate('/writeqna')}}>
-            <IoMdCreate style={{color: 'white', fontSize: '56px',
+        <div className="MapButton" style={allStyle}
+        onClick={()=>{navigate('/currentmap')}}>
+            <BsFillMapFill style={{color: 'white', fontSize: '56px',
                 padding: '8px'}}/>
         </div>
     )
 }
 
-export default WriteButton;
+export default MapButton;
 

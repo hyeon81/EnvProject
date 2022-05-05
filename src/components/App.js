@@ -16,17 +16,19 @@ import Register from "../routes/5/Register";
 import PWChange from "../routes/5/PWChange";
 import SelectedArticle from "../routes/1/SelectedArticle";
 import Article from "../routes/1/Article";
-import QnATopNav from "../function/QnATopNav";
 import SelectedQnA from "../routes/2/SelectedQnA";
 import ImageSearch from "../routes/2/ImageSearch";
 import SearchResult from "../routes/2/SearchResult";
 import WriteQnA from "../routes/2/writeQnA";
 import {ConfigProvider} from "antd";
+import CurrentMap from "../routes/4/CurrentMap";
+import PlantDetail from "../routes/4/PlantDetail";
+import WriteCollection from "../routes/4/WriteCollection";
 
 function App() {
     ConfigProvider.config({
         theme:{
-            primaryColor:"red"
+            primaryColor:"#1abc9c"
         }
     })
     return (
@@ -42,6 +44,9 @@ function App() {
                     <Route exact path="/imagesearch" element={<ImageSearch/>}/>
                     <Route exact path="/searchresult" element={<SearchResult/>}/>
                     <Route exact path="/collection" element={<Collection/>}/>
+                    <Route exact path="/currentMap" element={<CurrentMap/>}/>
+                    <Route exact path="/plantdetail" element={<PlantDetail/>}/>
+                    <Route exact path="/writecollection" element={<WriteCollection/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
                     <Route exact path="/profileEdit" element={<ProfileEdit/>}/>

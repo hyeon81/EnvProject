@@ -8,6 +8,30 @@ body {
     overflow-x: hidden;
 }
 
+ul {
+    list-style: none;
+}
+
+.left-nav {
+    position: fixed;
+    top: 170px;
+    left: -24px;
+    background-color: white;
+}
+
+.left-nav li{
+    border: solid 1px lightgrey;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+}
+
+.background {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+}
+
 /* Write */
 .write {
     background-color: white;
@@ -146,4 +170,20 @@ img[src='/img/avatar.jpg'] {
     align-items: center;
     justify-content: center;
     gap: 2%;
+}
+
+/* plantdetail */
+.content {
+    line-height: 1.5;
+    text-align: justify;
+    margin-top: 4px;
+}
+
+.label2 {
+    background: #1abc9c;
+    color: white;
+    border-radius: 20px;
+    padding: 2px 24px;
+    font-size: 14px;
+    margin-right: 8px;
 }

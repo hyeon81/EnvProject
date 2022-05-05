@@ -2,7 +2,7 @@ import React from "react";
 import {IoMdCreate} from "react-icons/io";
 import {useNavigate} from "react-router-dom";
 
-function WriteButton() {
+function PlantWriteButton() {
     const navigate = useNavigate();
     const allStyle ={
         position: 'fixed',
@@ -20,12 +20,12 @@ function WriteButton() {
     }
     return (
         <div className="PlantWriteButton" style={allStyle}
-             onClick={()=>{navigate('/writeqna')}}>
+        onClick={()=>{navigate('/writecollection')}}>
             <IoMdCreate style={{color: 'white', fontSize: '56px',
                 padding: '8px'}}/>
         </div>
     )
 }
 
-export default WriteButton;
+export default PlantWriteButton;
 

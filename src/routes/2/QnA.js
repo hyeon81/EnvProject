@@ -4,6 +4,7 @@ import {ReloadOutlined} from '@ant-design/icons';
 
 import QnAlist from "./QnAlist";
 import QnATopNav from "../../function/QnATopNav";
+import WriteButton from "../../function/WriteButton";
 
 function QnA() {
     const {Search} = Input;
@@ -27,6 +28,7 @@ function QnA() {
                 }}> </div>
                 <QnAlist/>
             </div>
+            <WriteButton/>
         </div>
     );
 }

@@ -44,7 +44,7 @@ function SearchResult() {
                 <div style={{
                     width: '90%', height: '1px', backgroundColor: 'lightgray',
                     margin: '0 auto'
-                }}></div>
+                }}> </div>
             </div>
         </div>
     )

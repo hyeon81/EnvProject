@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom"
-import {Checkbox, Button, Input, Form, Select, Upload, Image, Row, Col} from 'antd';
-import {UploadOutlined} from '@ant-design/icons';
+import {Checkbox, Button, Input, Form, Select, Upload, Image, Row, Col, Space} from 'antd';
+import {CloseOutlined, UploadOutlined} from '@ant-design/icons';
 import '../Style.css';
 import axios from 'axios';
-import "../../function/QnATopNavStyle.css"
 
-function WriteQnA() {
+function WriteCollection() {
     const {TextArea} = Input;
     const element = useRef(null);
     const navigate = useNavigate();
@@ -21,7 +20,7 @@ function WriteQnA() {
         axios.post("", formData).then().catch((error) => {
             console.log(error);
         })
-        navigate("/currentarticle", true);
+        navigate("/plantdetail", true);
     }
 
     const normFile = (e) => {
@@ -62,4 +61,4 @@ function WriteQnA() {
     </div>);
 }
 
-export default WriteQnA;
+export default WriteCollection;
