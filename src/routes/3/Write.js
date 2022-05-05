@@ -56,12 +56,10 @@ function Write() {
             <div className="category">
                 <Form.Item name="category" style={{width: 120}} rules={[{required: true, message: '카테고리를 선택하세요!'}]}>
                     <Select>
-                        <Select.Option value="jack">장미</Select.Option>
-                        <Select.Option value="lucy">민들레</Select.Option>
-                        <Select.Option value="Yiminghe">튤립</Select.Option>
+                        <Select.Option value="basic">기본</Select.Option>
                     </Select>
                 </Form.Item>
-                <Button className="catebtn">설정</Button>
+                <Button className="catebtn" onClick={()=>(navigate('/categorysetting'))}>설정</Button>
             </div>
             <Form.Item
                 rules={[{required: true, message: '파일을 선택하세요!'}]}
@@ -82,7 +80,7 @@ function Write() {
                 </Form.Item>
             </div>
             <Form.Item name="content" rules={[{required: true, message: '내용을 입력하세요!'}]}>
-                <TextArea showCount maxLength={100} style={{height: 120}} ㅓ/>
+                <TextArea showCount maxLength={100} style={{height: 120}}/>
             </Form.Item>
             <Button type="primary" className="submitbtn" htmlType="submit" block>
                 성장일지 등록하기

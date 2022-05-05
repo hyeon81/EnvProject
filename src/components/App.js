@@ -24,6 +24,8 @@ import {ConfigProvider} from "antd";
 import CurrentMap from "../routes/4/CurrentMap";
 import PlantDetail from "../routes/4/PlantDetail";
 import WriteCollection from "../routes/4/WriteCollection";
+import SelectedDetail from "../routes/4/SelectedDetail";
+import CategorySetting from "../routes/2/CategorySetting";
 
 function App() {
     ConfigProvider.config({
@@ -37,6 +39,7 @@ function App() {
                 <Routes>
                     <Route exact path="/" element={<ShowWeather/>}/>
                     <Route exact path="/write" element={<Write/>}/>
+                    <Route exact path="/categorysetting" element={<CategorySetting/>}/>
                     <Route exact path="/timeline" element={<Timeline/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
                     <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
@@ -47,6 +50,7 @@ function App() {
                     <Route exact path="/currentMap" element={<CurrentMap/>}/>
                     <Route exact path="/plantdetail" element={<PlantDetail/>}/>
                     <Route exact path="/writecollection" element={<WriteCollection/>}/>
+                    <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
                     <Route exact path="/profileEdit" element={<ProfileEdit/>}/>

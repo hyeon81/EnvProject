@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {
     Form,
     Input,
-    Select,
     Button, Alert,
 } from 'antd';
 import axios from "axios";
@@ -74,8 +73,7 @@ function Register() {
             // }}
             scrollToFirstError
         >
-            {registerSucceed !== 0 ? (registerSucceed === 2 ? <Alert message="Success Text" type="success" />
-                : <Alert message="Error Text" type="error" />) : <div/>}
+            {registerSucceed !== 0 ? (registerSucceed === 2 ? <Alert message="Success Text" type="success" /> : <Alert message="Error Text" type="error" />) : <div/>}
             <Form.Item
                 name="email"
                 label="이메일"

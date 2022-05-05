@@ -36,7 +36,7 @@ function CurrentMap() {
             <div className="collection-content"
                  style={{
                      padding: '4% 8%', borderTop: 'solid 2px #f1c40f', display: 'flex',
-                     position: "fixed", bottom: '0'
+                     position: "fixed", bottom: '0', right: '0', left: '0'
                  }}>
                 <img src="/img/img1.png" alt="img"
                      width="100px" height="100px"/>

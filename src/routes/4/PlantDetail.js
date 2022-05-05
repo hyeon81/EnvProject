@@ -15,7 +15,7 @@ function PlantDetail() {
                 }}/>
             </div>
 
-            <div className="padding plantinfo" style={{margin: '30px auto 20px'}}>
+            <div className="padding plantinfo" style={{margin: '30px auto 20px', cursor: 'pointer'}}>
                 <div className="img">
                     <img
                         src="/img/img1.png"
@@ -33,7 +33,9 @@ function PlantDetail() {
             <div className="collection-content"
                  style={{
                      padding: '4% 8%', borderTop: 'solid 1px lightgray', display: 'flex'
-                 }}>
+                 }} onClick={() => {
+                navigate('/selecteddetail')
+            }}>
                 <div className="img" style={{height: '90px'}}>
                     <img src="/img/img1.png" alt="img"
                          width="90px" height="90px"/>
@@ -48,7 +50,6 @@ function PlantDetail() {
                     <div style={{height: '30px', lineHeight: '30px'}}><span className="label2">계절</span>미입력</div>
                 </div>
             </div>
-
             <PlantWriteButton/>
         </div>
     );

@@ -21,8 +21,6 @@ function Setting() {
                                 <span style={{fontSize: '16px', fontWeight: 'bold'}}>설정</span>
                             </Space>
                         </Col>
-                        <Col span={3} style={{fontWeight: 'bold', fontSize: '16px'}}>
-                        </Col>
                     </Row>
                 </div>
                 <ul style={{
