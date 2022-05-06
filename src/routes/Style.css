@@ -224,4 +224,17 @@ img[src='/img/avatar.jpg'] {
 /*WriteCollection*/
 .a-input{
     display: flex;
+    height: 6vh;
+}
+
+.label4 {
+    background: #1abc9c;
+    color: white;
+    border-radius: 20px;
+    padding: 2px;
+    font-size: 14px;
+    margin-right: 12px;
+    width: 80px;
+    height: 30px;
+    text-align: center;
 }

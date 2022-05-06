@@ -1,22 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {
     ArrowLeftOutlined,
-    DeleteFilled,
-    EditFilled,
-    LeftOutlined,
-    RightOutlined,
-    HeartOutlined,
     MessageOutlined,
-    ShareAltOutlined, UserOutlined,
+    UserOutlined,
 } from "@ant-design/icons";
 import "../Style.css";
 import axios from "axios";
-import {Avatar, Col, Row, Space, Comment, Tooltip, List, Carousel} from "antd";
+import {Avatar, Col, Row, Space, Comment, List, Carousel} from "antd";
 import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 import data from "../../json/Userdata.json";
 import LikeButton from "../../function/LikeButton";
+import BottomNav from "../../function/BottomNav";
 
 function SelectedArticle() {
     const navigate = useNavigate();
@@ -26,67 +22,7 @@ function SelectedArticle() {
         textAlign: 'center',
         margin: '0 auto',
     };
-    //댓글 보여주기
-    // const data = [
-    //     {
-    //         "UserProfile": [
-    //             {
-    //                 "id": "1",
-    //                 "password": "1234",
-    //                 "username": "한솔",
-    //                 "imageUrl": "",
-    //                 "rank": "꽃신",
-    //                 "introduction": "안녕하세요",
-    //                 "articleIds": [
-    //                     {
-    //                         "id": "1",
-    //                         "nextId": "0",
-    //                         "previousId": "2",
-    //                         "weather": "습도 70% 온도 25 미세먼지 나쁨",
-    //                         "context": "오늘 꽃이 너무 예쁘게 피었어요",
-    //                         "imageIds": [
-    //                             "/img/infp.jpg",
-    //                             "/img/infj.jpg",
-    //                             "/img/intj.jpg"
-    //                         ],
-    //                         "comments": [
-    //                             {
-    //                                 // actions: [<span key="comment-list-reply-to-0">답글</span>],
-    //                                 username: '한솔',
-    //                                 imageUrl: 'https://joeschmoe.io/api/v1/random',
-    //                                 content: (
-    //                                     <p>
-    //                                         와 너무 예쁘네요
-    //                                     </p>
-    //                                 ),
-    //                                 datetime: (
-    //                                     <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-    //                                         <span>{moment().subtract(1, 'days').fromNow()}</span>
-    //                                     </Tooltip>
-    //                                 ),
-    //                             },
-    //                             {
-    //                                 // actions: [<span key="comment-list-reply-to-0">답글</span>],
-    //                                 author: '한솔',
-    //                                 avatar: 'https://joeschmoe.io/api/v1/random',
-    //                                 content: (
-    //                                     <p>
-    //                                         저도 키우고 싶어요
-    //                                     </p>
-    //                                 ),
-    //                                 datetime: (
-    //                                     <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-    //                                         <span>{moment().subtract(2, 'days').fromNow()}</span>
-    //                                     </Tooltip>
-    //                                 ),
-    //                             },
-    //                         ]
-    //                     }
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // ]
+
 
     return (
         <>
@@ -141,7 +77,10 @@ function SelectedArticle() {
                             <Space size={12}>
                                 <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
                                 {`공감 ${data[0].articleIds[0].liked}`}</span>
-                                <MessageOutlined/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>{`댓글 ${data[0].articleIds[0].comments.length}`}</span>
+                                <MessageOutlined/> <span style={{
+                                fontSize: '12px',
+                                marginLeft: '-20px'
+                            }}>{`댓글 ${data[0].articleIds[0].comments.length}`}</span>
                             </Space>
                         </Col>
                         <Col span={2}>

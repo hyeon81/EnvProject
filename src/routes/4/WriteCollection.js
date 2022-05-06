@@ -24,7 +24,7 @@ function WriteCollection() {
     }
 
     return (
-        <div style={{backgroundColor: 'white', height: '100%', width: '100vw'}}>
+        <div style={{backgroundColor: 'white', height: '100vh', width: '100%'}}>
             <div className="top-nav" style={{
                 padding: '0 6%', fontSize: '20px',
                 backgroundColor: 'white', border: 'solid 1px lightgray'
@@ -40,7 +40,7 @@ function WriteCollection() {
                     </Col>
                 </Row>
             </div>
-            <div className='write'>
+            <div className='write' style={{display: 'flex', alignItems: 'center', height: '100%'}}>
                 <Form onFinish={onFinish} autoComplete="off" requiredMark={false} style={{
                     overflow: 'hidden',
                 }}>
@@ -58,28 +58,28 @@ function WriteCollection() {
                     </Form.Item>
                     <div className={"input-list"}>
                         <div className={"a-input"}>
-                            <div className="label2">종류</div>
+                            <div className="label4">종류</div>
                             <Form.Item name="species">
                                 <div>지정값</div>
                             </Form.Item>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">날짜</div>
+                            <div className="label4">날짜</div>
                             <Form.Item name="date" rules={[{required: true, message: ''}]}>
-                                <DatePicker onChange={onChange}/>
+                                <DatePicker onChange={onChange} style={{width: '55vw'}}/>
                             </Form.Item>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">장소</div>
+                            <div className="label4">장소</div>
                             <Form.Item name="location" rules={[{required: true, message: ''}]}>
-                                <Input/>
+                                <Input style={{width: '38vw'}}/>
                             </Form.Item>
-                            <Button>검색</Button>
+                            <Button style={{marginLeft: '4px'}}>검색</Button>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">계절</div>
+                            <div className="label4">계절</div>
                             <Form.Item name="season" rules={[{required: true, message: ''}]}>
-                                <Select>
+                                <Select style={{width: '55vw'}}>
                                     <Select.Option value="spring">봄</Select.Option>
                                     <Select.Option value="summer">여름</Select.Option>
                                     <Select.Option value="fall">가을</Select.Option>
@@ -88,25 +88,26 @@ function WriteCollection() {
                             </Form.Item>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">색상</div>
+                            <div className="label4">색상</div>
                             <Form.Item name="color" rules={[{required: true, message: ''}]}>
-                                <Input/>
+                                <Input style={{width: '55vw'}}/>
                             </Form.Item>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">별칭</div>
+                            <div className="label4">별칭</div>
                             <Form.Item name="byname" rules={[{required: true, message: ''}]}>
-                                <Input/>
+                                <Input style={{width: '55vw'}}/>
                             </Form.Item>
                         </div>
                         <div className={"a-input"}>
-                            <div className="label2">특징</div>
+                            <div className="label4">특징</div>
                             <Form.Item name="content" rules={[{required: true, message: ''}]}>
-                                <TextArea showCount maxLength={100} style={{height: 20}}/>
+                                <TextArea showCount maxLength={100} style={{height: 20}}
+                                          style={{width: '55vw'}}/>
                             </Form.Item>
                         </div>
-                        <Button type="primary" className="submitbtn" htmlType="submit" block
-                                style={{marginBottom: '20%'}}>
+                        <Button type="primary" htmlType="submit" block
+                                style={{marginBottom: '20%', marginTop: '36px', width: '100%'}}>
                             식생 길라잡이 등록
                         </Button>
                     </div>

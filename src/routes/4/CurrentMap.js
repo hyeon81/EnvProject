@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Col, Input, Row, Space} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
+import Map from "../../function/Map";
 
 function CurrentMap() {
     const navigate = useNavigate();
@@ -30,8 +31,8 @@ function CurrentMap() {
                 <Search placeholder="검색어를 입력하세요" onSearch={onSearch}
                         style={{width: '100%', margin: '36px 0 12px'}}/>
             </div>
-            <div style={{textAlign: 'center'}}>
-                지도
+            <div className="location-map" style={{textAlign: 'center'}}>
+                <Map/>
             </div>
             <div className="collection-content"
                  style={{
@@ -42,7 +43,8 @@ function CurrentMap() {
                      width="100px" height="100px"/>
                 <div style={{
                     marginLeft: '18px', height: '100px', width: '100%',
-                    display: "flex", flexDirection: "column", justifyContent: 'center'
+                    display: "flex", flexDirection: "column", justifyContent: 'center',
+                    marginBottom: '40px'
                 }}>
                     <div style={{fontWeight: 'bold', fontSize: '16px'}}>장미</div>
                     <div>쌍떡잎식물 장미목 장미과 장미속에 속하는 식물의 총칭.</div>
