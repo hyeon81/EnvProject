@@ -1,31 +1,19 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     ArrowLeftOutlined,
     DeleteFilled,
     EditFilled,
-    LeftOutlined,
-    RightOutlined,
-    HeartOutlined,
     MessageOutlined,
-    ShareAltOutlined, UserOutlined, HeartFilled,
+    ShareAltOutlined, UserOutlined, ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import "../Style.css";
-import axios from "axios";
-import {Avatar, Col, Row, Space, Comment, Tooltip, List, Carousel} from "antd";
-import moment from 'moment';
+import {Avatar, Col, Row, Space, Comment, Modal, Carousel, List} from "antd";
 import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
 import data from "../../json/Userdata.json"
 
 function CurrentArticle() {
-    //웹에서 서버 요청
-    // const [article, setArticle] = useState([]);
-    // const getArticle = () => {
-    //     axios.get("url").then((res) => setArticle(res.data));
-    // };
-    // useEffect(getArticle, []);
-
     const navigate = useNavigate();
     //데이터
     const contentStyle = {
@@ -35,63 +23,21 @@ function CurrentArticle() {
         margin: '0 auto',
     };
 
-    // let data = [
-    //     {
-    //         "id": "1",
-    //         "password": "1234",
-    //         "username": "한솔",
-    //         "imageUrl": "",
-    //         "rank": "꽃신",
-    //         "introduction": "안녕하세요",
-    //         "articleIds": [
-    //             {
-    //                 "id": "1",
-    //                 "nextId": "0",
-    //                 "previousId": "2",
-    //                 "weather": "습도 70% 온도 25 미세먼지 나쁨",
-    //                 "context": "오늘 꽃이 너무 예쁘게 피었어요",
-    //                 "liked": 0,
-    //                 "imageIds": [
-    //                     "/img/infp.jpg",
-    //                     "/img/infj.jpg",
-    //                     "/img/enfp.jpg"
-    //                 ],
-    //                 "comments": [
-    //                     {
-    //                         // actions: [<span key="comment-list-reply-to-0">답글</span>],
-    //                         username: '두솔',
-    //                         imageUrl: 'https://joeschmoe.io/api/v1/random',
-    //                         content: (
-    //                             <p>
-    //                                 와 너무 예쁘네요
-    //                             </p>
-    //                         ),
-    //                         datetime: (
-    //                             <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-    //                                 <span>{moment().subtract(1, 'days').fromNow()}</span>
-    //                             </Tooltip>
-    //                         ),
-    //                     },
-    //                     {
-    //                         // actions: [<span key="comment-list-reply-to-0">답글</span>],
-    //                         username: '세솔',
-    //                         imageUrl: 'https://joeschmoe.io/api/v1/random',
-    //                         content: (
-    //                             <p>
-    //                                 저도 키우고 싶어요
-    //                             </p>
-    //                         ),
-    //                         datetime: (
-    //                             <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-    //                                 <span>{moment().subtract(2, 'days').fromNow()}</span>
-    //                             </Tooltip>
-    //                         ),
-    //                     },
-    //                 ]
-    //             }
-    //         ]
-    //     }
-    // ];
+    //모달 창 띄우기
+    const {confirm} = Modal;
+    function showConfirm() {
+        confirm({
+            title: '게시글을 삭제하시겠습니까?',
+            icon: <ExclamationCircleOutlined/>,
+            content: '선택한 게시글이 삭제됩니다',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
 
     return (
         <>
@@ -105,7 +51,7 @@ function CurrentArticle() {
                         </Col>
                         <Col span={3}>
                             <Space size={12} style={{float: 'right'}}>
-                                <DeleteFilled/>
+                                <DeleteFilled onClick={showConfirm}/>
                                 <EditFilled/>
                             </Space>
                         </Col>
@@ -184,7 +130,7 @@ function CurrentArticle() {
                     </div>
                     <CommentInput className="commentInput"/>
                 </div>
-                <div style={{width: '100%', height: '80px'}}></div>
+                <div style={{width: '100%', height: '80px'}}> </div>
             </div>
         </>
     );

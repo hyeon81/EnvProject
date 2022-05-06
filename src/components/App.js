@@ -25,12 +25,14 @@ import CurrentMap from "../routes/4/CurrentMap";
 import PlantDetail from "../routes/4/PlantDetail";
 import WriteCollection from "../routes/4/WriteCollection";
 import SelectedDetail from "../routes/4/SelectedDetail";
-import CategorySetting from "../routes/2/CategorySetting";
+import CategorySetting from "../routes/3/CategorySetting";
+import CategoryAdd from "../routes/3/CategoryAdd";
+import EditArticle from "../routes/3/EditArticle";
 
 function App() {
     ConfigProvider.config({
-        theme:{
-            primaryColor:"#1abc9c"
+        theme: {
+            primaryColor: "#1abc9c"
         }
     })
     return (
@@ -40,6 +42,7 @@ function App() {
                     <Route exact path="/" element={<ShowWeather/>}/>
                     <Route exact path="/write" element={<Write/>}/>
                     <Route exact path="/categorysetting" element={<CategorySetting/>}/>
+                    <Route exact path="/categoryadd" element={<CategoryAdd/>}/>
                     <Route exact path="/timeline" element={<Timeline/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
                     <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
@@ -53,6 +56,7 @@ function App() {
                     <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
                     <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
+                    <Route exact path="/editarticle" element={<EditArticle/>}/>
                     <Route exact path="/profileEdit" element={<ProfileEdit/>}/>
                     <Route exact path="/Setting" element={<Setting/>}/>
                     <Route exact path="/login" element={<NormalLoginForm/>}/>

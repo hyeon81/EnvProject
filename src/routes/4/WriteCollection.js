@@ -1,25 +1,14 @@
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 import {useNavigate} from "react-router-dom"
-import {Checkbox, Button, Input, Form, Select, Upload, Image, Row, Col, Space, DatePicker} from 'antd';
-import {ArrowLeftOutlined, CloseOutlined, UploadOutlined} from '@ant-design/icons';
+import {Button, Input, Form, Select, Upload, Image, Row, Col, Space, DatePicker} from 'antd';
+import {ArrowLeftOutlined, UploadOutlined} from '@ant-design/icons';
 import '../Style.css';
-import {SketchPicker} from 'react-color';
-import axios from 'axios';
 
 function WriteCollection() {
     const {TextArea} = Input;
     const navigate = useNavigate();
     const onFinish = (values) => {
         console.log('Success:', values);
-        const formData = new FormData()
-        formData.append("category", values.category);
-        formData.append("upload", values.upload);
-        formData.append("checkbox", values.checkbox);
-        formData.append("content", values.content);
-
-        axios.post("", formData).then().catch((error) => {
-            console.log(error);
-        })
         navigate("/plantdetail", true);
     }
     const normFile = (e) => {
@@ -67,43 +56,60 @@ function WriteCollection() {
                             <Button icon={<UploadOutlined/>}>사진 업로드</Button>
                         </Upload>
                     </Form.Item>
-                    <Form.Item label={<label className="label2">종류</label>} name="species">
-                        <div>지정값</div>
-                    </Form.Item>
-                    <Form.Item label={<label className="label2">날짜</label>} name="date"
-                               rules={[{required: true, message: ''}]}>
-                        <DatePicker onChange={onChange}/>
-                    </Form.Item>
-                    <Form.Item label={<label className="label2">장소</label>} name="location"
-                               rules={[{required: true, message: '',}]}>
-                        <Input/>
-                    </Form.Item>
-                    <Button>검색</Button>
-                    <Form.Item label={<label className="label2">계절</label>} name="season"
-                               rules={[{required: true, message: ''}]}>
-                        <Select>
-                            <Select.Option value="spring">봄</Select.Option>
-                            <Select.Option value="summer">여름</Select.Option>
-                            <Select.Option value="fall">가을</Select.Option>
-                            <Select.Option value="winter">겨울</Select.Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item label={<label className="label2">색상</label>} name="color"
-                               rules={[{required: true, message: '',}]}>
-                        <Input/>
-                    </Form.Item>
-                    <Form.Item label={<label className="label2">별칭</label>} name="byname"
-                               rules={[{required: true, message: '',}]}>
-                        <Input/>
-                    </Form.Item>
-                    <Form.Item label={<label className="label2">특징</label>} name="contents"
-                               rules={[{required: true, message: '',}]}>
-                        <TextArea showCount maxLength={100} style={{height: 20}}/>
-                    </Form.Item>
-                    <Button type="primary" className="submitbtn" htmlType="submit" block
-                            style={{marginBottom: '20%'}}>
-                        식생 길라잡이 등록
-                    </Button>
+                    <div className={"input-list"}>
+                        <div className={"a-input"}>
+                            <div className="label2">종류</div>
+                            <Form.Item name="species">
+                                <div>지정값</div>
+                            </Form.Item>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">날짜</div>
+                            <Form.Item name="date" rules={[{required: true, message: ''}]}>
+                                <DatePicker onChange={onChange}/>
+                            </Form.Item>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">장소</div>
+                            <Form.Item name="location" rules={[{required: true, message: ''}]}>
+                                <Input/>
+                            </Form.Item>
+                            <Button>검색</Button>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">계절</div>
+                            <Form.Item name="season" rules={[{required: true, message: ''}]}>
+                                <Select>
+                                    <Select.Option value="spring">봄</Select.Option>
+                                    <Select.Option value="summer">여름</Select.Option>
+                                    <Select.Option value="fall">가을</Select.Option>
+                                    <Select.Option value="winter">겨울</Select.Option>
+                                </Select>
+                            </Form.Item>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">색상</div>
+                            <Form.Item name="color" rules={[{required: true, message: ''}]}>
+                                <Input/>
+                            </Form.Item>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">별칭</div>
+                            <Form.Item name="byname" rules={[{required: true, message: ''}]}>
+                                <Input/>
+                            </Form.Item>
+                        </div>
+                        <div className={"a-input"}>
+                            <div className="label2">특징</div>
+                            <Form.Item name="content" rules={[{required: true, message: ''}]}>
+                                <TextArea showCount maxLength={100} style={{height: 20}}/>
+                            </Form.Item>
+                        </div>
+                        <Button type="primary" className="submitbtn" htmlType="submit" block
+                                style={{marginBottom: '20%'}}>
+                            식생 길라잡이 등록
+                        </Button>
+                    </div>
                 </Form>
             </div>
         </div>
