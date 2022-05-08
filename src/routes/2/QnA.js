@@ -1,14 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import {Col, Row, Input} from "antd";
 import {ReloadOutlined} from '@ant-design/icons';
-
 import QnAlist from "./QnAlist";
 import QnATopNav from "../../function/QnATopNav";
 import WriteButton from "../../function/WriteButton";
+import data from "../../json/Userdata.json"
 
 function QnA() {
+    let searchword;
+    const [search, setSearch] = useState('');
     const {Search} = Input;
-    const onSearch = value => console.log(value);
+    const onSearch = value => {
+        searchword = value;
+    }
+
 
     return (
         <div className="QnA" style={{backgroundColor: 'white'}}>
@@ -25,8 +30,12 @@ function QnA() {
                 <ReloadOutlined style={{margin: '12px'}}/>
                 <div style={{
                     width: '100%', height: '2px', backgroundColor: 'lightgray', marginBottom: '12px'
-                }}> </div>
-                <QnAlist/>
+                }}></div>
+
+                {data[0].qna.map((item) => {
+                return(<QnAlist props={item}/>)
+                    })
+                }
             </div>
             <WriteButton/>
         </div>

@@ -21,21 +21,20 @@ function Article({props}) {
     const navigate = useNavigate();
     const [like, setLike] = useState(false);
 
-    useEffect(async () => {
-        const fetchData = async () => {
-            const res = await axios.get('http://localhost:8080/')
-            if (res.data.type === 'liked')
+    useEffect (() => {
+        // const fetchData = async () => {
+        //     const res = await axios.get('http://localhost:8080/')
+        //     if (res.data.type === 'liked')
                 setLike(true)
-        }
-        await fetchData()
+        // }
+        // await fetchData()
     }, []);
 
-    const toggleLike = async (e) => {
-        const res = await axios.post('http://localhost:8080/')
-        // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
+    const toggleLike = () => {
+        // const res = await axios.post('http://localhost:8080/')
+        // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
         setLike(!like)
         }
-
 
         return (
             <>
@@ -81,7 +80,7 @@ function Article({props}) {
                                 <Space size={12}>
                                     <LikeButton like={like} onClick={toggleLike}/>
                                     <span
-                                    style={{fontSize: '12px', marginLeft: '-20px'}}>
+                                    style={{fontSize: '12px', marginLeft: '-10px'}}>
                                 {`공감 ${props.liked}`}</span>
                                     <MessageOutlined/> <span style={{
                                     fontSize: '12px',
