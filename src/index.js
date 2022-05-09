@@ -4,11 +4,16 @@ import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 import BottomNav from "./function/BottomNav";
+import {StoreProvider} from "./context";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <>
-        <App/>
+        <React.StrictMode>
+            <StoreProvider>
+                <App/>
+            </StoreProvider>
+        </React.StrictMode>
     </>
 );
 

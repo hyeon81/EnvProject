@@ -2,10 +2,21 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', values["email"]);
+        bodyFormData.append('password', values["password"]);
+
+        axios.post('http://environment.goldenmine.kr:8080/profile/login', bodyFormData).then(function (response){
+            console.log(response)
+        }).catch(function (error){
+            console.log(error);
+        })
     };
 
     const navigate = useNavigate();
@@ -25,7 +36,7 @@ const Login = () => {
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your Username!',
+                        message: '이메일을 입력해주세요',
                     },
                 ]}
             >
@@ -36,7 +47,7 @@ const Login = () => {
                 rules={[
                     {
                         required: true,
-                        message: 'Please input your Password!',
+                        message: '패스워드를 입력해주세요',
                     },
                 ]}
             >
@@ -46,14 +57,12 @@ const Login = () => {
                     placeholder="Password"
                 />
             </Form.Item>
-            <Form.Item>
                 {/*<Form.Item name="remember" valuePropName="checked" noStyle>*/}
                 {/*    <Checkbox>Remember me</Checkbox>*/}
                 {/*</Form.Item>*/}
-                <a className="login-form-forgot" href="">
-                    비밀번호 찾기
-                </a>
-            </Form.Item>
+                {/*<a className="login-form-forgot" href="">*/}
+                {/*    비밀번호 찾기*/}
+                {/*</a>*/}
 
             <Form.Item>
                 <Button type="primary" htmlType="submit" className="login-form-button">

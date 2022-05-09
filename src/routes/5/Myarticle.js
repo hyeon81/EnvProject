@@ -1,12 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form, Select, Avatar, Row, Col, Tooltip} from "antd";
 import {SettingFilled, UserOutlined} from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
 import moment from "moment";
+import axios from "axios";
 
 function MyArticle() {
     const navigate = useNavigate();
     const imgdata = ["/img/ENFJ.jpg", "/img/ENFP.jpg", "/img/ENTJ.jpg", "/img/ENTP.jpg", "/img/ESFJ.jpg", "/img/ESFP.jpg", "/img/ESTJ.jpg", "/img/ESTP.jpg", "/img/INFJ.jpg", "/img/INFP.jpg"];
+    let [nickname, SetNickname] = useState('이름없음');
+    let [imgurl, SetImgUrl] = useState()
+
+    useEffect(() => {
+        axios.get('http://environment.goldenmine.kr:8080/profile/currentprofile').then(function (response){
+            console.log(JSON.stringify(response.data))
+            SetNickname(response.data["nickname"])
+            SetImgUrl(response.data["imageUrl"])
+        }).catch(function (error) {
+            console.log(error)
+        })
+    }, []);
 
     return (<>
         <div className="myArticle" style={{background: 'white', height: '100%'}}>
@@ -32,7 +45,7 @@ function MyArticle() {
                     margin: '30px 0'
                 }}>
                     <Avatar size={140} icon={<UserOutlined/>}/>
-                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>닉네임</div>
+                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{nickname}</div>
                     <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>자기소개를 입력하세요</div>
                     <div className="label">꽃신 등급</div>
                     <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}

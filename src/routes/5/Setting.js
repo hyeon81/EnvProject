@@ -29,10 +29,11 @@ function Setting() {
                     <li><span className="subinfo1">내 정보</span></li>
                     <li><span className="subinfo1" style={{paddingLeft: '10%'}}>이메일</span>
                         <span className="subinfo2" >example@email.com</span></li>
-                    <li><span className="subinfo1"style={{paddingLeft: '10%'}}
+                    <li><span className="subinfo1" style={{paddingLeft: '10%'}}
                     >비밀번호 변경</span>
                         <span className="subinfo2" onClick={()=>navigate('/pwchange')}
                         style={{cursor: 'pointer'}}><RightOutlined /></span></li>
+                    <li><span className="subinfo1" style={{paddingLeft: '10%'}}>로그아웃</span></li>
                     <li><span className="subinfo1">버전 정보</span></li>
                 </ul>
             </div>

@@ -49,7 +49,7 @@ function Register() {
         bodyFormData.append('password', values["password"]);
         bodyFormData.append('nickname', values["nickname"]);
 
-        axios.post('http://localhost:8080/profile/register', bodyFormData).then(function (response) {
+        axios.post('http://environment.goldenmine.kr:8080/profile/register', bodyFormData).then(function (response) {
             console.log(response)
             setRegisterSucceed(response.data["register_succeed"] ? 2 : 1);
 
@@ -109,7 +109,7 @@ function Register() {
 
             <Form.Item
                 name="confirm"
-                label="Confirm Password"
+                label="비밀번호 확인"
                 dependencies={['password']}
                 hasFeedback
                 style={{width: '200px'}}
