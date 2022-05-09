@@ -15,7 +15,7 @@ function PlantDetail() {
                 }}/>
             </div>
 
-            <div className="padding plantinfo" style={{margin: '30px auto 20px', cursor: 'pointer'}}>
+            <div className="padding plantinfo" style={{margin: '30px auto 20px'}}>
                 <div className="img">
                     <img
                         src="/img/img1.png"
@@ -32,7 +32,7 @@ function PlantDetail() {
             </div>
             <div className="collection-content"
                  style={{
-                     padding: '4% 8%', borderTop: 'solid 1px lightgray', display: 'flex'
+                     padding: '4% 8%', borderTop: 'solid 1px lightgray', display: 'flex', cursor: 'pointer'
                  }} onClick={() => {
                 navigate('/selecteddetail')
             }}>
@@ -51,6 +51,7 @@ function PlantDetail() {
                 </div>
             </div>
             <PlantWriteButton/>
+            <div style={{width: '100%', height: '80px', background: 'white'}}></div>
         </div>
     );
 }

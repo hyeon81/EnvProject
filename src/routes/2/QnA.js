@@ -8,10 +8,10 @@ import data from "../../json/Userdata.json"
 
 function QnA() {
     let searchword;
-    const [search, setSearch] = useState('');
+    let [search, setSearch] = useState('');
     const {Search} = Input;
     const onSearch = value => {
-        searchword = value;
+        setSearch(value);
     }
 
 
@@ -27,17 +27,23 @@ function QnA() {
             <QnATopNav/>
             <div className="mid-menu padding">
                 <Search placeholder="검색어를 입력하세요" onSearch={onSearch} style={{width: '100%', margin: '40px 0 6px'}}/>
-                <ReloadOutlined style={{margin: '12px'}}/>
+                <ReloadOutlined style={{margin: '12px'}} onClick={()=>{window.location.reload()}}/>
                 <div style={{
                     width: '100%', height: '2px', backgroundColor: 'lightgray', marginBottom: '12px'
                 }}></div>
 
-                {data[0].qna.map((item) => {
-                return(<QnAlist props={item}/>)
-                    })
-                }
+                {data[0].qna.filter((item) => {
+                    if (search == '') {
+                        return item
+                    } else if (item.title.includes(search)) {
+                        return item
+                    }
+                }).map(item => {
+                    return (<QnAlist props={item}/>)
+                })}
             </div>
             <WriteButton/>
+            <div style={{width: '100%', height: '80px'}}></div>
         </div>
     );
 }

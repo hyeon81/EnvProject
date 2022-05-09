@@ -28,6 +28,8 @@ import SelectedDetail from "../routes/4/SelectedDetail";
 import CategorySetting from "../routes/3/CategorySetting";
 import CategoryAdd from "../routes/3/CategoryAdd";
 import EditArticle from "../routes/3/EditArticle";
+import SelectAddress from "../routes/4/SelectAddress";
+import UserProfile from "../routes/1/UserProfile";
 
 function App() {
     ConfigProvider.config({
@@ -44,6 +46,9 @@ function App() {
                     <Route exact path="/categorysetting" element={<CategorySetting/>}/>
                     <Route exact path="/categoryadd" element={<CategoryAdd/>}/>
                     <Route exact path="/timeline" element={<Timeline/>}/>
+                    <Route exact path="/selectedarticle" element={<SelectedArticle/>}/>
+                    <Route exact path="/article" element={<Article/>}/>
+                    <Route exact path="/userprofile" element={<UserProfile/>}/>
                     <Route exact path="/qna" element={<QnA/>}/>
                     <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
                     <Route exact path="/writeqna" element={<WriteQnA/>}/>
@@ -52,6 +57,7 @@ function App() {
                     <Route exact path="/collection" element={<Collection/>}/>
                     <Route exact path="/currentMap" element={<CurrentMap/>}/>
                     <Route exact path="/plantdetail" element={<PlantDetail/>}/>
+                    <Route exact path="/selectaddress" element={<SelectAddress/>}/>
                     <Route exact path="/writecollection" element={<WriteCollection/>}/>
                     <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>
                     <Route exact path="/myarticle" element={<MyArticle/>}/>
@@ -62,8 +68,6 @@ function App() {
                     <Route exact path="/login" element={<NormalLoginForm/>}/>
                     <Route exact path="/register" element={<Register/>}/>
                     <Route exact path="/pwchange" element={<PWChange/>}/>
-                    <Route exact path="/selectedarticle" element={<SelectedArticle/>}/>
-                    <Route exact path="/article" element={<Article/>}/>
                 </Routes>
                 <BottomNav/>
             </BrowserRouter>

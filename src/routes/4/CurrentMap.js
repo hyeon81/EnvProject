@@ -9,8 +9,13 @@ function CurrentMap() {
     const {Search} = Input;
     const onSearch = value => console.log(value);
 
+    const BottomStyle = {
+        marginLeft: '18px', height: '100px', width: '100%',
+        display: "flex", flexDirection: "column", justifyContent: 'center',
+        marginBottom: '40px'
+    }
     return (
-        <div className="background CurrentMap">
+        <div className="background2 CurrentMap">
             <div className="top-nav" style={{
                 padding: '0 6%', fontSize: '20px',
                 backgroundColor: 'white', borderBottom: 'solid 1px lightgray'
@@ -22,8 +27,10 @@ function CurrentMap() {
                         </Space>
                     </Col>
                     <Col span={1} style={{fontWeight: 'bold', fontSize: '16px'}}
-                    onClick={()=>{navigate(-1)}}>
-                        <CloseOutlined />
+                         onClick={() => {
+                             navigate(-1)
+                         }}>
+                        <CloseOutlined/>
                     </Col>
                 </Row>
             </div>
@@ -36,16 +43,11 @@ function CurrentMap() {
             </div>
             <div className="collection-content"
                  style={{
-                     padding: '4% 8%', borderTop: 'solid 2px #f1c40f', display: 'flex',
-                     position: "fixed", bottom: '0', right: '0', left: '0'
+                     padding: '4% 8%', marginTop: '6%', borderTop: 'solid 2px #f1c40f', display: 'flex',
                  }}>
                 <img src="/img/img1.png" alt="img"
                      width="100px" height="100px"/>
-                <div style={{
-                    marginLeft: '18px', height: '100px', width: '100%',
-                    display: "flex", flexDirection: "column", justifyContent: 'center',
-                    marginBottom: '40px'
-                }}>
+                <div style={BottomStyle}>
                     <div style={{fontWeight: 'bold', fontSize: '16px'}}>장미</div>
                     <div>쌍떡잎식물 장미목 장미과 장미속에 속하는 식물의 총칭.</div>
                 </div>

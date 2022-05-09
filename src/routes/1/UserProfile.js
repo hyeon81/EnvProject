@@ -1,25 +1,21 @@
 import React from "react";
 import {Button, Form, Select, Avatar, Row, Col, Tooltip} from "antd";
-import {SettingFilled, UserOutlined} from '@ant-design/icons';
+import {ArrowLeftOutlined, SettingFilled, UserOutlined} from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
 import moment from "moment";
 
-function MyArticle() {
+function UserProfile() {
     const navigate = useNavigate();
     const imgdata = ["/img/ENFJ.jpg", "/img/ENFP.jpg", "/img/ENTJ.jpg", "/img/ENTP.jpg", "/img/ESFJ.jpg", "/img/ESFP.jpg", "/img/ESTJ.jpg", "/img/ESTP.jpg", "/img/INFJ.jpg", "/img/INFP.jpg"];
 
     return (<>
         <div className="myArticle" style={{background: 'white', height: '100%'}}>
-            <div className="top-nav" style={{padding: '0 6%', fontSize: '16px'}}>
-                <Row>
-                    <Col span={23}>
-                        My일지
-                    </Col>
-                    <Col span={1} style={{marginTop: '3px'}}>
-                        <SettingFilled style={{fontSize: '24px'}}
-                                       onClick={() => {
-                                           navigate('/setting')
-                                       }}/>
+            <div className="top-nav">
+                <Row style={{fontSize: '20px', padding: '0 6%'}}>
+                    <Col span={21}>
+                        <ArrowLeftOutlined onClick={() => {
+                            navigate('/timeline')
+                        }} style={{color: 'white'}}/>
                     </Col>
                 </Row>
             </div>
@@ -35,11 +31,6 @@ function MyArticle() {
                     <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>닉네임</div>
                     <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>자기소개를 입력하세요</div>
                     <div className="label">꽃신 등급</div>
-                    <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}
-                            onClick={() => {
-                                navigate('/profileEdit')
-                            }}>프로필
-                        수정</Button>
                 </div>
 
                 <div className="category">
@@ -47,7 +38,6 @@ function MyArticle() {
                         <Select.Option value="recent">최신순</Select.Option>
                         <Select.Option value="group">그룹순</Select.Option>
                     </Select>
-                    <Button size={'small'} className="catebtn" onClick={()=>{navigate()}}>설정</Button>
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
                     {imgdata.map((item) => {
@@ -61,4 +51,4 @@ function MyArticle() {
     </>);
 }
 
-export default MyArticle;
+export default UserProfile;

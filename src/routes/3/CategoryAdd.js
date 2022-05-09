@@ -20,7 +20,7 @@ function CategoryAdd() {
                             fontSize: '20px', padding: '0 4%', backgroundColor: 'white',
                             color: 'black', borderBottom: 'solid 1px lightgray'
                         }}>
-                            <Col span={20}>
+                            <Col span={21}>
                                 <Space size={8}>
                                     <CloseOutlined onClick={() => {
                                         navigate(-1);
@@ -28,7 +28,7 @@ function CategoryAdd() {
                                     <span style={{fontSize: '16px'}}>카테고리 추가</span>
                                 </Space>
                             </Col>
-                            <Col span={4} style={{fontSize: '16px'}} >
+                            <Col span={3} style={{fontSize: '16px'}} >
                                 <Button type="text" htmlType="submit">확인</Button>
                             </Col>
                         </Row>

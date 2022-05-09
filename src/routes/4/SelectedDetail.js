@@ -8,7 +8,7 @@ function SelectedDetail() {
     const navigate = useNavigate();
 
     return (
-        <div className="background selectedDetail">
+        <div className="background2 selectedDetail">
             <div className="top-nav" style={{padding: '0 6%', fontSize: '24px'}}>
                 <ArrowLeftOutlined onClick={() => {
                     navigate(-1)

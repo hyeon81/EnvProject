@@ -7,8 +7,11 @@ import LeftNav from "../../function/LeftNav";
 
 function Collection() {
     const navigate = useNavigate();
+    let [search, setSearch] = useState('');
     const {Search} = Input;
-    const onSearch = value => console.log(value);
+    const onSearch = value => {
+        setSearch(value);
+    }
 
     return (
         <div className="background Collection">
@@ -21,12 +24,14 @@ function Collection() {
                 </Col>
             </div>
 
-            <div className="collection-wrapper" style={{display: 'flex', }}>
+            <div className="collection-wrapper" style={{display: 'flex',}}>
                 <div className="leftnav" style={{width: '10%', height: '100%',}}>
                     <LeftNav/>
                 </div>
-                <div className="right-wrapper" style={{width: '90%', height: '100%',
-                display: 'flex', flexDirection: 'column'}}>
+                <div className="right-wrapper" style={{
+                    width: '90%', height: '100%',
+                    display: 'flex', flexDirection: 'column'
+                }}>
                     <div className="padding">
                         <Search placeholder="검색어를 입력하세요" onSearch={onSearch}
                                 style={{margin: '36px 0 12px'}}/>
@@ -37,7 +42,8 @@ function Collection() {
                          }}
                          style={{
                              float: 'left', padding: '4% 8%',
-                             borderBottom: 'solid 2px lightgray', display: 'flex'
+                             borderBottom: 'solid 2px lightgray', display: 'flex',
+                             cursor: 'pointer'
                          }}>
                         <img src="/img/img1.png" alt="img"
                              width="100px" height="100px"/>

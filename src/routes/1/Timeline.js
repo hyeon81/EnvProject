@@ -32,8 +32,8 @@ function Timeline() {
                         <UnorderedListOutlined style={{fontSize: '20px', fontWeight: 'bold'}} onClick={showModal}/>
                     </Col>
                     <Modal title="게시글 정렬" width={'300px'} footer={null} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                        <div style={{border: 'solid 1px gray'}}>최신순</div>
-                        <div>인기순</div>
+                        <div style={{padding: '2%', cursor: 'pointer'}}>최신순</div>
+                        <div style={{padding: '2%', cursor: 'pointer'}}>인기순</div>
                     </Modal>
                 </Row>
             </div>

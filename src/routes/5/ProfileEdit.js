@@ -55,10 +55,14 @@ function ProfileEdit() {
                     </Form.Item>
                     <div>닉네임</div>
                     <Form.Item name={['user', 'name']} label=""
-                    > <Input placeholder="닉네임을 입력해주세요" style={{width: '100%'}}/> </Form.Item>
+                               rules={[{required: true, message: ''}]}
+                    > <Input placeholder="닉네임을 입력해주세요" style={{width: '300px'}}
+                    /> </Form.Item>
                     <div>자기소개</div>
-                    <Form.Item name={['user', 'introduction']} label="">
-                        <Input.TextArea placeholder="자기소개를 입력해주세요"/>
+                    <Form.Item name={['user', 'introduction']} label=""
+                               rules={[{required: true, message: ''}]}
+                    >
+                        <Input.TextArea placeholder="자기소개를 입력해주세요" style={{width: '300px'}}/>
                     </Form.Item>
                 </div>
             </Form>

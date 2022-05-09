@@ -11,6 +11,7 @@ function Weather() {
     let [humidity, SetHumidity] = useState('');
     let [temp, SetTemp] = useState('');
     let [icon, SetIcon] = useState('');
+    let [des, SetDes] = useState('');
 
     // getlocation
     var lat;
@@ -31,14 +32,11 @@ function Weather() {
                     '&appid=acc8e230eb5bb6987bcf996197066aea&units=metric')
             ])
             .then(axios.spread((res1, res2) => {
-                    location = res1.data.documents[0].address_name
-                    SetLocation(location)
-                    humidity = res2.data.main.humidity
-                    SetHumidity(humidity)
-                    temp = res2.data.main.temp
-                    SetTemp(temp)
-                    icon = 'http://openweathermap.org/img/wn/' + res2.data.weather[0].icon + '@2x.png'
-                    SetIcon(icon)
+                    SetLocation(res1.data.documents[0].address_name)
+                    SetHumidity(res2.data.main.humidity)
+                    SetTemp(res2.data.main.temp)
+                    SetIcon('http://openweathermap.org/img/wn/' + res2.data.weather[0].icon + '@2x.png')
+                    SetDes(res2.data.weather[0].main)
                 })
             ).catch(err => {
             console.log(err);
@@ -62,11 +60,11 @@ function Weather() {
                 <div><AiTwotoneEnvironment/>
                     {location}
                 </div>
-                <img src={icon} width={"200px"} height={"200px"}/>
+                {icon && <img src={icon} width={"200px"} height={"200px"}/>}
                 <div style={{textAlign: 'center'}}>현재 날씨
                     {
                         humidity && temp && <div style={{marginTop: '12px'}}>
-                            습도 {humidity}% 온도 {temp}°C
+                            {des} 습도 {humidity}% 온도 {temp}°C
                         </div>
                     }
                 </div>

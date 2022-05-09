@@ -34,6 +34,12 @@ ul {
     height: 100vh;
 }
 
+.background2 {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+}
+
 /* Write */
 .write {
     background-color: white;

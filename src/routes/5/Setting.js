@@ -1,6 +1,6 @@
 import React from "react";
 import {Col, Row, Space} from "antd";
-import {ArrowLeftOutlined, RightOutlined, SettingFilled} from "@ant-design/icons";
+import {ArrowLeftOutlined, RightOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
 
 function Setting() {
@@ -10,7 +10,7 @@ function Setting() {
             <div className="Setting" style={{height: '100vh', backgroundColor: 'white'}}>
                 <div className="top-nav" style={{
                     padding: '0 6%', fontSize: '20px',
-                    backgroundColor: 'white', border: 'solid 1px lightgray'
+                    backgroundColor: 'white', borderBottom: 'solid 1px lightgray'
                 }}>
                     <Row style={{fontSize: '20px', color: 'black'}}>
                         <Col span={21}>

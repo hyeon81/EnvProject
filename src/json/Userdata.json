@@ -70,7 +70,7 @@
         "title": "장미 꽃에 물을 얼마나 주어야 하나요?",
         "context": "안녕하세요. 장미 꽃을 4월 25일부터 키우고 있습니다. 현재 씨앗을 흙 속에 묻어",
         "liked": 0,
-        "datetime": "1시간 전",
+        "datetime": "2시간 전",
         "imageIds": [
           "/img/infp.jpg",
           "/img/infj.jpg",
@@ -105,12 +105,6 @@
           "/img/enfp.jpg"
         ],
         "comments": [
-          {
-            "username": "네솔",
-            "imageUrl": "https://joeschmoe.io/api/v1/random",
-            "content": "와 너무 예쁘네요",
-            "datetime": "2시간 전"
-          },
           {
             "username": "다솔",
             "imageUrl": "https://joeschmoe.io/api/v1/random",

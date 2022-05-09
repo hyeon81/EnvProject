@@ -37,7 +37,7 @@ function SelectedArticle() {
                     </Row>
                 </div>
                 <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
-                    <Space size={12}>
+                    <Space size={12} onClick={()=>{navigate('/userprofile')}}>
                         <Avatar size="large" src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
                         <span className="username" style={{fontSize: '16px'}}>{data[0].username}</span>
                     </Space>
