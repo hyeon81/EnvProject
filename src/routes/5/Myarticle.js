@@ -1,25 +1,41 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Button, Form, Select, Avatar, Row, Col, Tooltip} from "antd";
 import {SettingFilled, UserOutlined} from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
-import moment from "moment";
 import axios from "axios";
+import UserInfo from "../../json/UserInfo";
 
 function MyArticle() {
     const navigate = useNavigate();
+    const info = useContext(UserInfo);
+    let id = info.state.id;
+    let pwd = info.state.pwd;
+    console.log(id)
+    console.log(pwd)
+
     const imgdata = ["/img/ENFJ.jpg", "/img/ENFP.jpg", "/img/ENTJ.jpg", "/img/ENTP.jpg", "/img/ESFJ.jpg", "/img/ESFP.jpg", "/img/ESTJ.jpg", "/img/ESTP.jpg", "/img/INFJ.jpg", "/img/INFP.jpg"];
-    let [nickname, SetNickname] = useState('이름없음');
-    let [imgurl, SetImgUrl] = useState()
+    let [nickname, SetNickname] = useState('이름없음')
+    let [context, SetContext] = useState('설명없음')
+    let [rank, SetRank] = useState('랭크없음')
+    let [imgUrl, SetImgUrl] = useState('')
 
     useEffect(() => {
-        axios.get('http://environment.goldenmine.kr:8080/profile/currentprofile').then(function (response){
-            console.log(JSON.stringify(response.data))
-            SetNickname(response.data["nickname"])
-            SetImgUrl(response.data["imageUrl"])
-        }).catch(function (error) {
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', info.state.id);
+        bodyFormData.append('password', info.state.pwd);
+
+        axios.post('http://environment.goldenmine.kr:8080/profile/currentprofile', bodyFormData)
+            .then(function (response){
+                console.log(JSON.stringify(response.data))
+                SetNickname(response.data["nickname"])
+                SetContext(response.data["context"])
+                SetImgUrl(response.data["imageUrl"])
+                SetRank(response.data["rank"])
+
+            }).catch(function (error) {
             console.log(error)
         })
-    }, []);
+    }, [info.state.id, info.state.pwd]);
 
     return (<>
         <div className="myArticle" style={{background: 'white', height: '100%'}}>
@@ -44,10 +60,10 @@ function MyArticle() {
                     textAlign: 'center',
                     margin: '30px 0'
                 }}>
-                    <Avatar size={140} icon={<UserOutlined/>}/>
+                    <Avatar size={140} icon={<UserOutlined/>} src={imgUrl}/>
                     <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{nickname}</div>
-                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>자기소개를 입력하세요</div>
-                    <div className="label">꽃신 등급</div>
+                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{context}</div>
+                    <div className="label">{rank}</div>
                     <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}
                             onClick={() => {
                                 navigate('/profileEdit')

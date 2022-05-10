@@ -8,6 +8,7 @@ import {Avatar, Col, Row, Space, Carousel} from "antd";
 import {useNavigate} from "react-router-dom";
 import data from "../../json/Userdata.json";
 import LikeButton from "../../function/LikeButton";
+
 import axios from "axios";
 
 const contentStyle = {
