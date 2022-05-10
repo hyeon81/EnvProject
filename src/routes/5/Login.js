@@ -34,8 +34,6 @@ const Login = () => {
         axios.post('http://environment.goldenmine.kr:8080/profile/login', bodyFormData)
             .then(function (response) {
                 console.log(response)
-                console.log(info.state.id)
-                console.log(info.state.pwd)
             }).catch(function (error) {
             console.log(error);
         })

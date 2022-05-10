@@ -4,28 +4,30 @@ import {Checkbox, Button, Input, Form, Select, Upload} from 'antd';
 import {UploadOutlined} from '@ant-design/icons';
 import '../Style.css';
 import axios from 'axios';
+import {useContext} from "react";
+import UserInfo from "../../json/UserInfo";
 
 function Write() {
+    const info = useContext(UserInfo);
     const {TextArea} = Input;
     const element = useRef(null);
     const navigate = useNavigate();
     const onFinish = (values) => {
         console.log('Success:', values);
-        const formData = new FormData()
-        formData.append("category", values.category);
-        formData.append("upload", values.upload);
-        formData.append("checkbox", values.checkbox);
-        formData.append("content", values.content);
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', info.state.id);
+        bodyFormData.append('password', info.state.pwd);
+        bodyFormData.append('type', "article");
+        // bodyFormData.append('weather', values["weather"]);
+        // bodyFormData.append('checked', values["checkbox"]);
+        bodyFormData.append('context', values["content"]);
+        bodyFormData.append('imageIds', values["upload"]);
 
-        // const data = {
-        //     category: values.category,
-        //     upload: values.upload,
-        //     checkbox: values.checkbox,
-        //     content: values.content
-        // }
+        axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
+            .then(function (response){
 
-        axios.post("", formData).then().catch((error) => {
-            console.log(error);
+            }).catch(function (error) {
+            console.log(error)
         })
         navigate("/currentarticle", true);
     }

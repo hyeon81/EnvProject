@@ -8,16 +8,12 @@ import UserInfo from "../../json/UserInfo";
 function MyArticle() {
     const navigate = useNavigate();
     const info = useContext(UserInfo);
-    let id = info.state.id;
-    let pwd = info.state.pwd;
-    console.log(id)
-    console.log(pwd)
 
-    const imgdata = ["/img/ENFJ.jpg", "/img/ENFP.jpg", "/img/ENTJ.jpg", "/img/ENTP.jpg", "/img/ESFJ.jpg", "/img/ESFP.jpg", "/img/ESTJ.jpg", "/img/ESTP.jpg", "/img/INFJ.jpg", "/img/INFP.jpg"];
     let [nickname, SetNickname] = useState('이름없음')
-    let [context, SetContext] = useState('설명없음')
+    let [intro, SetIntro] = useState('설명없음')
     let [rank, SetRank] = useState('랭크없음')
     let [imgUrl, SetImgUrl] = useState('')
+    let [articles, SetArticles] = useState([]);
 
     useEffect(() => {
         const bodyFormData = new FormData();
@@ -28,10 +24,10 @@ function MyArticle() {
             .then(function (response){
                 console.log(JSON.stringify(response.data))
                 SetNickname(response.data["nickname"])
-                SetContext(response.data["context"])
+                SetIntro(response.data["introduction"])
                 SetImgUrl(response.data["imageUrl"])
                 SetRank(response.data["rank"])
-
+                SetArticles(response.data["articleIds"])
             }).catch(function (error) {
             console.log(error)
         })
@@ -62,7 +58,7 @@ function MyArticle() {
                 }}>
                     <Avatar size={140} icon={<UserOutlined/>} src={imgUrl}/>
                     <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{nickname}</div>
-                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{context}</div>
+                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{intro}</div>
                     <div className="label">{rank}</div>
                     <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}
                             onClick={() => {
@@ -78,9 +74,10 @@ function MyArticle() {
                     </Select>
                     <Button size={'small'} className="catebtn" onClick={()=>{navigate()}}>설정</Button>
                 </div>
-                <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
-                    {imgdata.map((item) => {
-                        return (<img src={item} alt="img" width="32%" height="32%"
+                <div className="gallery" style={{width: '100%', marginTop: '10px', height: '30vh'}}>
+                    {articles.map((item) => {
+                        let src = "http://environment.goldenmine.kr:8080/images/view/article-" + item + "-" + "0" + ".jpg"
+                        return (<img src={src} alt="img" width="32%" height="32%"
                                      style={{margin: '0.3%', border: 'solid 1px gray'}}/>)
                     })}
                 </div>

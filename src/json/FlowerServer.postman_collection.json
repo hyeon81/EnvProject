@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "fa27b580-b6b3-eac8-0e7c-10f671690f9a",
+		"name": "FlowerServer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "flower server check session",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/profile/checksession",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"checksession"
+					]
+				},
+				"description": "단순 세션 확인용 api. 사용할 일이 있을지 모르겠다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "nickname",
+							"value": "goldenmine",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/profile/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"register"
+					]
+				},
+				"description": "id, password, nickname을 입력하면 회원가입이 된다.  \n  \nid가 중복되는 경우 회원가입에 실패한다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/profile/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"login"
+					]
+				},
+				"description": "로그인 성공시 서버에 세션이 남기 시작한다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "localhost:8080/profile/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"logout"
+					]
+				},
+				"description": "로그아웃. 서버에서 세션을 제거한다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get profile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/profile/getprofile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"getprofile"
+					]
+				},
+				"description": "해당하는 id에 대한 프로필을 가져온다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get article",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/article/getarticle",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"getarticle"
+					]
+				},
+				"description": "하나의 글 정보를 받아온다.  \n  \ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\n\n*   none: 글쓰기 성공\n*   no session: 세션 없음(로그인 안 됨)\n*   no service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get articles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "ids",
+							"value": "[0, 1]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/article/getarticles",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"getarticles"
+					]
+				},
+				"description": "get article은 하나의 글만 가져오는 반면 이 api는 여러개의 글을 한번에 받을 수 있다.\n\ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\n\n*   none: 글쓰기 성공\n*   no session: 세션 없음(로그인 안 됨)\n*   no service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get recent articles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "page",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "index",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/article/recentarticles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"recentarticles"
+					]
+				},
+				"description": "가장 최근에 등록된 글의 목록을 가져온다.  \npage: 1페이지당 보여줄 글 수  \nindex: 인덱스  \n\n만약 page가 20, index가 1이라면\n21번째부터 40번째의 글을 갖고온다.\n\npage가 20, index가 2라면\n41번째부터 60번째의 글을 가져온다.\n\ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\nnone: 글쓰기 성공\nno session: 세션 없음(로그인 안 됨)\nno service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력함"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/article/getcomment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"getcomment"
+					]
+				},
+				"description": "해당하는 id의 코멘트를 얻습니다.\n\n코멘트는 type이 없다. article과 question 둘 다 같은 comment를 참조한다.\n\nplus: 추천수  \ninserted: 답글인지 아닌지 여부, true면 답글"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get comments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/article/getcomment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"getcomment"
+					]
+				},
+				"description": "해당하는 id들의 코멘트를 얻습니다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server write article",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "title",
+							"value": "testtest",
+							"type": "text"
+						},
+						{
+							"key": "context",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "imageIds",
+							"value": "[]",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/article/writearticle",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"writearticle"
+					]
+				},
+				"description": "\\[이 기능은 세션이 있어야 작동함\\]\n\nid는 그냥 아무값이나 해도 된다.  \ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\n\n*   none: 글쓰기 성공\n*   no session: 세션 없음(로그인 안 됨)\n*   no service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력함"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server write comment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "parentId",
+							"value": "-1",
+							"type": "text"
+						},
+						{
+							"key": "comment",
+							"value": "test comment",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "article",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/article/writecomment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"article",
+						"writecomment"
+					]
+				},
+				"description": "\\[이 기능은 세션이 있어야 작동함\\]\n\nid는 댓글 쓰는 글의 id\n\nparentId는 답글을 쓸 때 답글의 번호. -1을 넣으면 무조건 맨 아래에 새로운 댓글이 달린다.  \nex)  \nasdfasdf (id 0)  \nㄴ zxcvzxvc (id 1)  \nㄴ zxcvzxcv (id 2)  \nzxcvzxcv (id 3)\n\n이렇게 있는 경우 asdfasdf에 답글을 달려면 parentId를 0으로 하면 된다.  \n내용을 qwerqwer라 한다면 다음과 같이 답글이 써진다.\n\nasdfasdf (id 0)  \nㄴ zxcvzxvc (id 1)  \nㄴ zxcvzxcv (id 2)  \nㄴ qwerqwer (id 3)  \nzxcvzxvc (id 4)\n\ncomment는 말 그대로 내용.\n\ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\n\n*   none: 글쓰기 성공\n*   no session: 세션 없음(로그인 안 됨)\n*   no service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력"
+			},
+			"response": []
+		}
+	]
+}
