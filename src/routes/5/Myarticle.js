@@ -21,12 +21,9 @@ function MyArticle() {
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
-        console.log(info);
-        console.log(info.state);
-        console.log(info.state.id);
 
         axios.post('http://environment.goldenmine.kr:8080/profile/currentprofile', bodyFormData)
-            .then(function (response){
+            .then(function (response) {
                 console.log(JSON.stringify(response.data))
                 SetNickname(response.data["nickname"])
                 SetIntro(response.data["introduction"])
@@ -36,6 +33,10 @@ function MyArticle() {
             }).catch(function (error) {
             console.log(error)
         })
+        // axios.get('http://environment.goldenmine.kr:8080/images/view/article-1-0.jpg')
+        //     .then(res => console.log(res.data)).catch((err) => {
+        //     console.log(err)
+        // })
     }, [info.state.id, info.state.pwd]);
 
 
@@ -78,7 +79,9 @@ function MyArticle() {
                         <Select.Option value="recent">최신순</Select.Option>
                         <Select.Option value="group">그룹순</Select.Option>
                     </Select>
-                    <Button size={'small'} className="catebtn" onClick={()=>{navigate()}}>설정</Button>
+                    <Button size={'small'} className="catebtn" onClick={() => {
+                        navigate()
+                    }}>설정</Button>
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px', height: '30vh'}}>
                     {articles.map((item) => {

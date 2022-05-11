@@ -60,7 +60,7 @@ function Timeline() {
             </div>
             <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
                 {obj.map((item) => {
-                    return (<Article props={item}/>)
+                    return (<Article props={item} key={item.id}/>)
                 })}
             </div>
             <div style={{width: '100%', height: '80px'}}></div>

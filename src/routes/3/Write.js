@@ -32,7 +32,7 @@ function Write() {
             SetHumidity(res.data.main.humidity)
             SetTemp(res.data.main.temp)
             SetDes(res.data.weather[0].main)
-            SetWeather(des+ ' 습도 ' +humidity+'% 온도'+ temp + '°C')
+            SetWeather(res.data.weather[0].main+ ' 습도 ' +res.data.main.humidity+'% 온도'+ res.data.main.temp + '°C')
         }).catch((err) => {
             console.log(err)
         })
@@ -52,7 +52,8 @@ function Write() {
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
         bodyFormData.append('type', "article");
-        bodyFormData.append('weather', values["weather"]);
+        bodyFormData.append('weather', weather);
+        bodyFormData.append('title', values["category"]);
         // bodyFormData.append('checked', values["checkbox"]);
         bodyFormData.append('context', values["content"]);
         bodyFormData.append('imageIds', values["upload"]);
@@ -60,10 +61,10 @@ function Write() {
         axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
             .then(function (response) {
                 console.log(response)
+                navigate("/currentarticle", true);
             }).catch(function (error) {
             console.log(error)
         })
-        navigate("/currentarticle", true);
     }
 
     const normFile = (e) => {
@@ -110,9 +111,7 @@ function Write() {
                 </Upload>
             </Form.Item>
             <div className="weatherset">
-                <Form.Item name="weather">
-                <div className="weatherinfo" ref={element}>{des} 습도 {humidity}% 온도 {temp}°C</div>
-                </Form.Item>
+                <span className="weatherinfo" ref={element}>{weather}</span>
                 <Form.Item name="checkbox" valuePropName="checked">
                     <Checkbox onChange={onChangeCheckbox}>날씨 정보 넣기</Checkbox>
                 </Form.Item>

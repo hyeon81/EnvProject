@@ -22,9 +22,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/profile/checksession",
+					"raw": "http://environment.goldenmine.kr:8080/profile/checksession",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -62,9 +65,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/profile/register",
+					"raw": "http://environment.goldenmine.kr:8080/profile/register",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -97,9 +103,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/profile/login",
+					"raw": "http://environment.goldenmine.kr:8080/profile/login",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -121,9 +130,12 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "localhost:8080/profile/logout",
+					"raw": "http://environment.goldenmine.kr:8080/profile/logout",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -151,9 +163,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/profile/getprofile",
+					"raw": "http://environment.goldenmine.kr:8080/profile/getprofile",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -186,9 +201,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/article/getarticle",
+					"raw": "http://environment.goldenmine.kr:8080/article/getarticle",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -221,9 +239,12 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/article/getarticles",
+					"raw": "http://environment.goldenmine.kr:8080/article/getarticles",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -261,10 +282,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/article/recentarticles",
+					"raw": "http://environment.goldenmine.kr:8080/article/recentarticles",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -297,10 +320,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/article/getcomment",
+					"raw": "http://environment.goldenmine.kr:8080/article/getcomment",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -333,10 +358,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/article/getcomment",
+					"raw": "http://environment.goldenmine.kr:8080/article/getcomment",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -380,13 +407,21 @@
 							"key": "type",
 							"value": "article",
 							"type": "text"
+						},
+						{
+							"key": "images",
+							"type": "file",
+							"src": "/D:/사진/2022/해돋이공원/DSC03909.JPG"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/article/writearticle",
+					"raw": "http://environment.goldenmine.kr:8080/article/writearticle",
+					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -429,10 +464,12 @@
 					]
 				},
 				"url": {
-					"raw": "http://localhost:8080/article/writecomment",
+					"raw": "http://environment.goldenmine.kr:8080/article/writecomment",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"environment",
+						"goldenmine",
+						"kr"
 					],
 					"port": "8080",
 					"path": [
@@ -441,6 +478,63 @@
 					]
 				},
 				"description": "\\[이 기능은 세션이 있어야 작동함\\]\n\nid는 댓글 쓰는 글의 id\n\nparentId는 답글을 쓸 때 답글의 번호. -1을 넣으면 무조건 맨 아래에 새로운 댓글이 달린다.  \nex)  \nasdfasdf (id 0)  \nㄴ zxcvzxvc (id 1)  \nㄴ zxcvzxcv (id 2)  \nzxcvzxcv (id 3)\n\n이렇게 있는 경우 asdfasdf에 답글을 달려면 parentId를 0으로 하면 된다.  \n내용을 qwerqwer라 한다면 다음과 같이 답글이 써진다.\n\nasdfasdf (id 0)  \nㄴ zxcvzxvc (id 1)  \nㄴ zxcvzxcv (id 2)  \nㄴ qwerqwer (id 3)  \nzxcvzxvc (id 4)\n\ncomment는 말 그대로 내용.\n\ntype은 \"article\", \"question\"으로 나뉜다. 글 자체를 두 갈래로 나누었는데 article은 성장일지와 같은 일반적인 글, question은 질문답변 받는 글 이렇게 두개로 나뉘어져서 글을 찾게 된다.\n\n실패 원인 의미:\n\n*   none: 글쓰기 성공\n*   no session: 세션 없음(로그인 안 됨)\n*   no service: 타입에 \"article\", \"question\"만 입력해야 하는데 이 외의 타입을 입력"
+			},
+			"response": []
+		},
+		{
+			"name": "flower server get image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://environment.goldenmine.kr:8080/images/view/article-0-0.jpg",
+					"protocol": "http",
+					"host": [
+						"environment",
+						"goldenmine",
+						"kr"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"view",
+						"article-0-0.jpg"
+					]
+				},
+				"description": "/images/view/파일이름\n\n서버에서 해당하는 파일 이름인 이미지를 가져온다.\n\n파일이름 포맷: type-글id-이미지번호.jpg  \n(확장자는 jpg로 그냥 고정)\n\n예시) 글을 작성할 때 type이 article이고 id가 20, 업로드한 이미지 갯수가 3개인 경우 접근 가능한 이미지 목록:  \narticle-20-0.jpg  \narticle-20-1.jpg  \narticle-20-2.jpg\n\n이렇게 해당하는 링크로 들어가면 이미지 3개가 순서대로 나온다.\n\n호출하는 링크 예시:  \n/images/view/article-20-0.jpg  \n/images/view/article-20-1.jpg  \n/images/view/article-20-2.jpg\n\n그래서 그냥 이미지 태그에다가\n\nimg src =\"http://도메인/images/view/article-20-0.jpg\"\n\n이렇게 하면 이미지 알아서 나온다."
+			},
+			"response": []
+		},
+		{
+			"name": "flower server set profile image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/D:/사진/2022/해돋이공원/DSC03909.JPG"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://environment.goldenmine.kr:8080/profile/profileimage",
+					"protocol": "http",
+					"host": [
+						"environment",
+						"goldenmine",
+						"kr"
+					],
+					"port": "8080",
+					"path": [
+						"profile",
+						"profileimage"
+					]
+				},
+				"description": "프로필 사진을 설정하는 api. 이미지를 전송하면 된다.  \n나중에 프로필 사진을 가져오려면\n\nimages/view/아이디.jpg\n로 호출하면 된다."
 			},
 			"response": []
 		}

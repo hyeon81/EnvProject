@@ -50,9 +50,9 @@ function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    {
-                        isLogin ?
-                            [
+                    {/*{*/}
+                        // isLogin ?
+                            // [
                                 <Route exact path="/" element={<ShowWeather/>}/>,
                                 <Route exact path="/write" element={<Write/>}/>,
                                 <Route exact path="/categorysetting" element={<CategorySetting/>}/>,
@@ -81,12 +81,12 @@ function App() {
                                 <Route exact path="/pwchange" element={<PWChange/>}/>,
                                 <Route exact path="*" element={<Navigate to={"/"}/>}/>
 
-                            ] : [
+                            // ] : [
                                 <Route exact path="/register" element={<Register/>}/>,
                                 <Route exact path="/login" element={<NormalLoginForm/>}/>,
                                 <Route exact path="*" element={<Navigate to={"/login"}/>}/>
-                            ]
-                    }
+                            // ]
+                    // }
                 </Routes>
                 <BottomNav/>
             </BrowserRouter>

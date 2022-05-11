@@ -1,57 +1,53 @@
 import React from "react";
 import { Comment, Avatar, Form, Button, List, Input } from 'antd';
 import moment from 'moment';
+import {useContext} from "react";
+import UserInfo from "../json/UserInfo";
 
 const { TextArea } = Input;
-
-const CommentList = ({ comments }) => (
-    <List
-        dataSource={comments}
-        // header={`${comments.length} ${comments.length > 1 ? '답글' : '답글'}`}
-        itemLayout="horizontal"
-        renderItem={props => <Comment {...props} />}
-    />
-);
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
     <>
         <Form.Item>
-            <TextArea rows={2} onChange={onChange} value={value} />
+            <TextArea rows={4} onChange={onChange} value={value} />
         </Form.Item>
         <Form.Item>
             <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                게시
+                댓글
             </Button>
         </Form.Item>
     </>
 );
 
-class CommentInput extends React.Component {
-    state = {
+export default function CommentInput() {
+    const info = useContext(UserInfo);
+
+    const [state, setState] = React.useState({
         comments: [],
         submitting: false,
         value: '',
-    };
+    });
 
-    handleSubmit = () => {
-        if (!this.state.value) {
+    const handleSubmit = () => {
+        if (!state.value) {
             return;
         }
 
-        this.setState({
+        setState({
+            ...state,
             submitting: true,
         });
 
         setTimeout(() => {
-            this.setState({
+            setState({
                 submitting: false,
                 value: '',
                 comments: [
-                    ...this.state.comments,
+                    ...state.comments,
                     {
-                        author: '한솔',
+                        author: 'Han Solo',
                         avatar: 'https://joeschmoe.io/api/v1/random',
-                        content: <p>{this.state.value}</p>,
+                        content: <p>{state.value}</p>,
                         datetime: moment().fromNow(),
                     },
                 ],
@@ -59,32 +55,26 @@ class CommentInput extends React.Component {
         }, 1000);
     };
 
-    handleChange = e => {
-        this.setState({
+    const handleChange = e => {
+        setState({
+            ...state,
             value: e.target.value,
         });
     };
 
-    render() {
-        const { comments, submitting, value } = this.state;
-
-        return (
-            <>
-                {comments.length > 0 && <CommentList comments={comments} />}
-                <Comment
-                    avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
-                    content={
-                        <Editor
-                            onChange={this.handleChange}
-                            onSubmit={this.handleSubmit}
-                            submitting={submitting}
-                            value={value}
-                        />
-                    }
-                />
-            </>
-        );
-    }
-}
-
-export default CommentInput;
+    return (
+        <>
+            <Comment
+                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+                content={
+                    <Editor
+                        onChange={handleChange}
+                        onSubmit={handleSubmit}
+                        submitting={state.submitting}
+                        value={state.value}
+                    />
+                }
+            />
+        </>
+    );
+};

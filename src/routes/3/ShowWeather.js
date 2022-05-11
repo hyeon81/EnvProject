@@ -21,8 +21,8 @@ function Weather() {
         var crd = pos.coords;
         lat = crd.latitude;
         lon = crd.longitude;
-        console.log('위도:' + lat);
-        console.log('경도:' + lon);
+        // console.log('위도:' + lat);
+        // console.log('경도:' + lon);
 
         axios.all(
             [axios.get('https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=' + lon + '&y=' + lat, {
