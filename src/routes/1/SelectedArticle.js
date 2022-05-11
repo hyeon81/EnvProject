@@ -9,13 +9,29 @@ import axios from "axios";
 import {Avatar, Col, Row, Space, Comment, List, Carousel} from "antd";
 import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import data from "../../json/Userdata.json";
 import LikeButton from "../../function/LikeButton";
 import BottomNav from "../../function/BottomNav";
 
 function SelectedArticle() {
     const navigate = useNavigate();
+    const {id} = useParams()
+    console.log(id)
+    const [article, setArticle] = useState(null)
+
+    useEffect(() => {
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', id);
+        bodyFormData.append('type', 'article');
+
+        axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+            .then(res => {
+                console.log(JSON.stringify(res.data))
+                setArticle(res.data)
+            })
+    }, [])
+
     const contentStyle = {
         height: '310px',
         lineHeight: '310px',

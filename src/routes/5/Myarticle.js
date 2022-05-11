@@ -15,10 +15,15 @@ function MyArticle() {
     let [imgUrl, SetImgUrl] = useState('')
     let [articles, SetArticles] = useState([]);
 
+    // obj?.name ?? "~~~"
+
     useEffect(() => {
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
+        console.log(info);
+        console.log(info.state);
+        console.log(info.state.id);
 
         axios.post('http://environment.goldenmine.kr:8080/profile/currentprofile', bodyFormData)
             .then(function (response){
@@ -32,6 +37,7 @@ function MyArticle() {
             console.log(error)
         })
     }, [info.state.id, info.state.pwd]);
+
 
     return (<>
         <div className="myArticle" style={{background: 'white', height: '100%'}}>
@@ -76,7 +82,7 @@ function MyArticle() {
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px', height: '30vh'}}>
                     {articles.map((item) => {
-                        let src = "http://environment.goldenmine.kr:8080/images/view/article-" + item + "-" + "0" + ".jpg"
+                        let src = "http://environment.goldenmine.kr:8080/images/view/article-" + item + "-0.jpg"
                         return (<img src={src} alt="img" width="32%" height="32%"
                                      style={{margin: '0.3%', border: 'solid 1px gray'}}/>)
                     })}

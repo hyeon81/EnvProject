@@ -30,5 +30,5 @@ export default function Map() {
         });
     };
 
-    return <div id="map" style={{ width: "85vw", height: "85vh", margin: '0 auto' }}></div>;
+    return <div id="map" style={{ width: "85vw", height: "85vw", margin: '0 auto' }}></div>;
 }

@@ -7,7 +7,7 @@ import axios from "axios";
 
 function Weather() {
     const navigate = useNavigate();
-    let [location, SetLocation] = useState('위치정보 없음');
+    let [location, SetLocation] = useState('');
     let [humidity, SetHumidity] = useState('');
     let [temp, SetTemp] = useState('');
     let [icon, SetIcon] = useState('');

@@ -12,20 +12,54 @@ function Write() {
     const {TextArea} = Input;
     const element = useRef(null);
     const navigate = useNavigate();
+
+    let [humidity, SetHumidity] = useState('');
+    let [temp, SetTemp] = useState('');
+    let [des, SetDes] = useState('');
+    let [weather, SetWeather] = useState('');
+
+    // getlocation
+    var lat;
+    var lon;
+
+    function success(pos) {
+        var crd = pos.coords;
+        lat = crd.latitude;
+        lon = crd.longitude;
+
+        axios.get('https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon +
+            '&appid=acc8e230eb5bb6987bcf996197066aea&units=metric').then(res => {
+            SetHumidity(res.data.main.humidity)
+            SetTemp(res.data.main.temp)
+            SetDes(res.data.weather[0].main)
+            SetWeather(des+ ' 습도 ' +humidity+'% 온도'+ temp + '°C')
+        }).catch((err) => {
+            console.log(err)
+        })
+    };
+
+    function error(err) {
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+    };
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(success, error);
+    }, [])
+
     const onFinish = (values) => {
         console.log('Success:', values);
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
         bodyFormData.append('type', "article");
-        // bodyFormData.append('weather', values["weather"]);
+        bodyFormData.append('weather', values["weather"]);
         // bodyFormData.append('checked', values["checkbox"]);
         bodyFormData.append('context', values["content"]);
         bodyFormData.append('imageIds', values["upload"]);
 
         axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
-            .then(function (response){
-
+            .then(function (response) {
+                console.log(response)
             }).catch(function (error) {
             console.log(error)
         })
@@ -43,7 +77,7 @@ function Write() {
     // 체크박스 on off
     function onChangeCheckbox(e) {
         let checked = e.target.checked;
-        if (checked === true) {
+        if (checked) {
             element.current.style.display = 'block';
         } else {
             element.current.style.display = 'none';
@@ -61,7 +95,7 @@ function Write() {
                         <Select.Option value="basic">기본</Select.Option>
                     </Select>
                 </Form.Item>
-                <Button className="catebtn" onClick={()=>(navigate('/categorysetting'))}>설정</Button>
+                <Button className="catebtn" onClick={() => (navigate('/categorysetting'))}>설정</Button>
             </div>
             <Form.Item
                 rules={[{required: true, message: '파일을 선택하세요!'}]}
@@ -71,12 +105,14 @@ function Write() {
                 getValueFromEvent={normFile}
             >
                 <Upload name="logo" listType="picture"
-                        beforeUpload={()=>false}>
+                        beforeUpload={() => false}>
                     <Button icon={<UploadOutlined/>}>사진 업로드</Button>
                 </Upload>
             </Form.Item>
             <div className="weatherset">
-                <div className="weatherinfo" ref={element}>날씨아이콘 습도 70% 온도 25 미세먼지 나쁨</div>
+                <Form.Item name="weather">
+                <div className="weatherinfo" ref={element}>{des} 습도 {humidity}% 온도 {temp}°C</div>
+                </Form.Item>
                 <Form.Item name="checkbox" valuePropName="checked">
                     <Checkbox onChange={onChangeCheckbox}>날씨 정보 넣기</Checkbox>
                 </Form.Item>

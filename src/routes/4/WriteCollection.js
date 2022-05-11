@@ -74,7 +74,7 @@ function WriteCollection() {
                             <Form.Item name="location" rules={[{required: true, message: ''}]}>
                                 <Input style={{width: '38vw'}}/>
                             </Form.Item>
-                            <Button style={{marginLeft: '4px'}}>검색</Button>
+                            <Button style={{marginLeft: '4px'}} onClick={()=>{navigate('/selectaddress')}}>검색</Button>
                         </div>
                         <div className={"a-input"}>
                             <div className="label4">계절</div>

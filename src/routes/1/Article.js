@@ -21,7 +21,10 @@ const contentStyle = {
 function Article({props}) {
     const navigate = useNavigate();
     const [like, setLike] = useState(false);
+    const [obj, setObj] = useState('');
+    const [profile, setProfile] = useState('');
 
+    console.log(props.id)
     useEffect(() => {
         // const fetchData = async () => {
         //     const res = await axios.get('http://localhost:8080/')
@@ -29,6 +32,25 @@ function Article({props}) {
         setLike(true)
         // }
         // await fetchData()
+        // console.log(props)
+
+        const bodyFormData = new FormData();
+        const bodyFormData2 = new FormData();
+
+        bodyFormData.append('id', 1);
+        bodyFormData.append('type', 'article');
+        bodyFormData2.append('id', props.authorId);
+
+        axios.post('http://environment.goldenmine.kr:8080/article/getcomment', bodyFormData)
+            .then(res => {
+                console.log(res.data)
+                setObj(res.data)
+            })
+        axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+            .then(res2 => {
+                console.log(res2.data)
+                setProfile(res2.data)
+            })
     }, []);
 
     const toggleLike = () => {
@@ -41,14 +63,16 @@ function Article({props}) {
         <>
             <div className="Article" style={{backgroundColor: 'white', height: '100%', cursor: 'pointer'}}>
                 <div className="userinfo" style={{padding: '16px 8%', backgroundColor: 'lightgray'}}>
-                    <Space size={12} onClick={()=>{navigate('/userprofile')}}>
+                    <Space size={12} onClick={() => {
+                        navigate('/userprofile')
+                    }}>
                         <Avatar size={30} src="https://joeschmoe.io/api/v1/random" icon={<UserOutlined/>}/>
-                        <span className="username" style={{fontSize: '16px'}}>username</span>
+                        <span className="username" style={{fontSize: '16px'}}>{profile.nickname}</span>
                     </Space>
                 </div>
 
                 <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '20px 0 4px'}}>
-                    <p>{props.weather}</p>
+                    {/*<p>{props.weather}</p>*/}
                 </div>
 
                 <div className="img-slide">
@@ -59,13 +83,19 @@ function Article({props}) {
                         <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
                             <Carousel>
                                 <div>
-                                    <img src={props.imageIds[0]} alt="userImage" style={contentStyle}/>
+                                    <img
+                                        src={"http://environment.goldenmine.kr:8080/images/view/article-" + props.id + "-0.jpg"}
+                                        alt="userImage" style={contentStyle}/>
                                 </div>
                                 <div>
-                                    <img src={props.imageIds[1]} alt="userImage" style={contentStyle}/>
+                                    <img
+                                        src={"http://environment.goldenmine.kr:8080/images/view/article-" + props.id + "-1.jpg"}
+                                        alt="userImage" style={contentStyle}/>
                                 </div>
                                 <div>
-                                    <img src={props.imageIds[2]} alt="userImage" style={contentStyle}/>
+                                    <img
+                                        src={"http://environment.goldenmine.kr:8080/images/view/article-" + props.id + "-0.jpg"}
+                                        alt="userImage" style={contentStyle}/>
                                 </div>
                             </Carousel>
                         </Col>
@@ -82,15 +112,15 @@ function Article({props}) {
                                 <LikeButton like={like} onClick={toggleLike}/>
                                 <span
                                     style={{fontSize: '12px', marginLeft: '-10px'}}>
-                                {`공감 ${props.liked}`}</span>
+                                {`공감 ${obj.plusCount}`}</span>
                                 <MessageOutlined/> <span
                                 onClick={() => {
-                                    navigate('/selectedarticle')
+                                    navigate('/selectedarticle/+props.id')
                                 }}
                                 style={{
                                     fontSize: '12px',
                                     marginLeft: '-20px'
-                                }}>{`댓글 ${data[0].articleIds[0].comments.length}`}</span>
+                                }}>{`댓글 ${obj.length}`}</span>
                             </Space>
                         </Col>
                         <Col span={2}>
@@ -101,7 +131,7 @@ function Article({props}) {
                         lineHeight: '1.5', textAlign: 'justify', height: '40px',
                         overflowX: 'hidden', marginBottom: '24px'
                     }} onClick={() => {
-                        navigate('/selectedarticle')
+                        navigate('/selectedarticle/'+props.id)
                     }}>
                         <p>{props.context}</p>
                     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter, Route, Router, Routes} from 'react-router-dom';
+import {BrowserRouter, Redirect, Route, Navigate, Routes} from 'react-router-dom';
 import 'antd/dist/antd.variable.min.css';
 import Timeline from "../routes/1/Timeline";
 import Write from "../routes/3/Write";
@@ -30,6 +30,8 @@ import CategoryAdd from "../routes/3/CategoryAdd";
 import EditArticle from "../routes/3/EditArticle";
 import SelectAddress from "../routes/4/SelectAddress";
 import UserProfile from "../routes/1/UserProfile";
+import {useContext} from "react";
+import UserInfo from "../json/UserInfo";
 
 function App() {
     ConfigProvider.config({
@@ -37,37 +39,54 @@ function App() {
             primaryColor: "#1abc9c"
         }
     })
+
+    const info = useContext(UserInfo);
+    console.log('info.state.id')
+    console.log(info.state.id)
+    const isLogin = info.state.id.length && info.state.pwd.length
+
+
     return (
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<ShowWeather/>}/>
-                    <Route exact path="/write" element={<Write/>}/>
-                    <Route exact path="/categorysetting" element={<CategorySetting/>}/>
-                    <Route exact path="/categoryadd" element={<CategoryAdd/>}/>
-                    <Route exact path="/timeline" element={<Timeline/>}/>
-                    <Route exact path="/selectedarticle" element={<SelectedArticle/>}/>
-                    <Route exact path="/article" element={<Article/>}/>
-                    <Route exact path="/userprofile" element={<UserProfile/>}/>
-                    <Route exact path="/qna" element={<QnA/>}/>
-                    <Route exact path="/selectedqna" element={<SelectedQnA/>}/>
-                    <Route exact path="/writeqna" element={<WriteQnA/>}/>
-                    <Route exact path="/imagesearch" element={<ImageSearch/>}/>
-                    <Route exact path="/searchresult" element={<SearchResult/>}/>
-                    <Route exact path="/collection" element={<Collection/>}/>
-                    <Route exact path="/currentMap" element={<CurrentMap/>}/>
-                    <Route exact path="/plantdetail" element={<PlantDetail/>}/>
-                    <Route exact path="/selectaddress" element={<SelectAddress/>}/>
-                    <Route exact path="/writecollection" element={<WriteCollection/>}/>
-                    <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>
-                    <Route exact path="/myarticle" element={<MyArticle/>}/>
-                    <Route exact path="/currentarticle" element={<CurrentArticle/>}/>
-                    <Route exact path="/editarticle" element={<EditArticle/>}/>
-                    <Route exact path="/profileEdit" element={<ProfileEdit/>}/>
-                    <Route exact path="/Setting" element={<Setting/>}/>
-                    <Route exact path="/login" element={<NormalLoginForm/>}/>
-                    <Route exact path="/register" element={<Register/>}/>
-                    <Route exact path="/pwchange" element={<PWChange/>}/>
+                    {
+                        isLogin ?
+                            [
+                                <Route exact path="/" element={<ShowWeather/>}/>,
+                                <Route exact path="/write" element={<Write/>}/>,
+                                <Route exact path="/categorysetting" element={<CategorySetting/>}/>,
+                                <Route exact path="/categoryadd" element={<CategoryAdd/>}/>,
+                                <Route exact path="/timeline" element={<Timeline/>}/>,
+                                <Route exact path="/selectedarticle/:id" element={<SelectedArticle/>}/>,
+                                <Route exact path="/article" element={<Article/>}/>,
+                                <Route exact path="/userprofile" element={<UserProfile/>}/>,
+                                <Route exact path="/qna" element={<QnA/>}/>,
+                                <Route exact path="/selectedqna" element={<SelectedQnA/>}/>,
+                                <Route exact path="/writeqna" element={<WriteQnA/>}/>,
+                                <Route exact path="/imagesearch" element={<ImageSearch/>}/>,
+                                <Route exact path="/searchresult" element={<SearchResult/>}/>,
+                                <Route exact path="/collection" element={<Collection/>}/>,
+                                <Route exact path="/currentMap" element={<CurrentMap/>}/>,
+                                <Route exact path="/plantdetail" element={<PlantDetail/>}/>,
+                                <Route exact path="/selectaddress" element={<SelectAddress/>}/>,
+                                <Route exact path="/writecollection" element={<WriteCollection/>}/>,
+                                <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>,
+                                <Route exact path="/myarticle" element={<MyArticle/>}/>,
+                                <Route exact path="/currentarticle" element={<CurrentArticle/>}/>,
+                                <Route exact path="/editarticle" element={<EditArticle/>}/>,
+                                <Route exact path="/profileEdit" element={<ProfileEdit/>}/>,
+                                <Route exact path="/Setting" element={<Setting/>}/>,
+                                <Route exact path="/register" element={<Register/>}/>,
+                                <Route exact path="/pwchange" element={<PWChange/>}/>,
+                                <Route exact path="*" element={<Navigate to={"/"}/>}/>
+
+                            ] : [
+                                <Route exact path="/register" element={<Register/>}/>,
+                                <Route exact path="/login" element={<NormalLoginForm/>}/>,
+                                <Route exact path="*" element={<Navigate to={"/login"}/>}/>
+                            ]
+                    }
                 </Routes>
                 <BottomNav/>
             </BrowserRouter>

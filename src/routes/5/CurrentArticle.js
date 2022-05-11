@@ -4,7 +4,7 @@ import {
     DeleteFilled,
     EditFilled,
     MessageOutlined,
-    ShareAltOutlined, UserOutlined, ExclamationCircleOutlined,
+    UserOutlined, ExclamationCircleOutlined,
 } from "@ant-design/icons";
 import "../Style.css";
 import {Avatar, Col, Row, Space, Comment, Modal, Carousel, List} from "antd";
@@ -12,9 +12,29 @@ import CommentInput from "../../function/CommentInput";
 import {useNavigate} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
 import data from "../../json/Userdata.json"
+import {useContext, useEffect, useState} from "react";
+import axios from "axios";
+import UserInfo from "../../json/UserInfo";
 
 function CurrentArticle() {
+    const info = useContext(UserInfo);
     const navigate = useNavigate();
+    const [obj, setObj] = useState(null)
+
+    useEffect(() => {
+        const bodyFormData = new FormData();
+        // bodyFormData.append('id', info.state.id);
+        // bodyFormData.append('password', info.state.pwd);
+        bodyFormData.append('id', 0);
+        bodyFormData.append('type', 'article');
+
+        axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+            .then(res => {
+                // console.log(JSON.stringify(res.data))
+                setObj(res.data)
+            })
+    }, [])
+
     //데이터
     const contentStyle = {
         height: '310px',
