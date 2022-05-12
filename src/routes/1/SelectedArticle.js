@@ -139,7 +139,7 @@ function SelectedArticle() {
                         </li>)}
                     />
                 </div>
-                {/*<CommentInput className="commentInput"/>*/}
+                <CommentInput className="commentInput" props={id}/>
             </div>
         </div>
     </>);
