@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Form, Select, Avatar, Row, Col, Tooltip} from "antd";
 import {ArrowLeftOutlined, SettingFilled, UserOutlined} from '@ant-design/icons';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import moment from "moment";
+import axios from "axios";
 
 function UserProfile() {
     const navigate = useNavigate();
-    const imgdata = ["/img/ENFJ.jpg", "/img/ENFP.jpg", "/img/ENTJ.jpg", "/img/ENTP.jpg", "/img/ESFJ.jpg", "/img/ESFP.jpg", "/img/ESTJ.jpg", "/img/ESTP.jpg", "/img/INFJ.jpg", "/img/INFP.jpg"];
+    const {userid} = useParams();
+    const [profile, setProfile] = useState('');
+
+    useEffect(() => {
+            const bodyFormData = new FormData();
+            bodyFormData.append('id', userid);
+            console.log(userid)
+
+            axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
+                .then(res => {
+                    console.log(res.data)
+                    setProfile(res.data)
+                })
+        }, []
+    )
 
     return (<>
         <div className="myArticle" style={{background: 'white', height: '100%'}}>
@@ -28,9 +43,9 @@ function UserProfile() {
                     margin: '30px 0'
                 }}>
                     <Avatar size={140} icon={<UserOutlined/>}/>
-                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>닉네임</div>
-                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>자기소개를 입력하세요</div>
-                    <div className="label">꽃신 등급</div>
+                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{profile.nickname}</div>
+                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{profile.introduction}</div>
+                    <div className="label">{profile.rank}</div>
                 </div>
 
                 <div className="category">
@@ -40,9 +55,10 @@ function UserProfile() {
                     </Select>
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
-                    {imgdata.map((item) => {
-                        return (<img src={item} alt="img" width="32%" height="32%"
-                                     style={{margin: '0.3%', border: 'solid 1px gray'}}/>)
+                    {profile && profile.articleIds.map((item) => {
+                        return (<img src={'http://environment.goldenmine.kr:8080/images/view/article-'+item+'-0.jpg'} alt="img"
+                                     onError={(e)=>{e.target.src='/img/noimage.jpg'}} width="32%" height="32%"
+                                     style={{margin: '0.3%'}}/>)
                     })}
                 </div>
             </div>

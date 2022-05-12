@@ -47,7 +47,7 @@ function Write() {
     }, [])
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        // console.log('Success:', values);
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
@@ -56,12 +56,13 @@ function Write() {
         bodyFormData.append('title', values["category"]);
         // bodyFormData.append('checked', values["checkbox"]);
         bodyFormData.append('context', values["content"]);
-        bodyFormData.append('imageIds', values["upload"]);
-
+        values.upload.forEach(file => bodyFormData.append('images', file.originFileObj))
+        // console.log(values.upload[0].originFileObj
         axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
-            .then(function (response) {
-                console.log(response)
-                navigate("/currentarticle", true);
+            .then(function (res) {
+                console.log(res)
+                if(res.data.write_succeed)
+                    navigate("/currentarticle", true);
             }).catch(function (error) {
             console.log(error)
         })

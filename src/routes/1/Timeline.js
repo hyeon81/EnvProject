@@ -18,7 +18,6 @@ function Timeline() {
 
         axios.post('http://environment.goldenmine.kr:8080/article/recentarticles', bodyFormData)
             .then(res => {
-                console.log(JSON.stringify(res.data))
                 setObj(res.data)
             })
     }, [])

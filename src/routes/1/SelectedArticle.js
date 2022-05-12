@@ -13,46 +13,72 @@ import LikeButton from "../../function/LikeButton";
 
 function SelectedArticle() {
     const navigate = useNavigate();
-    const {id} = useParams()
+    const {no} = useParams()
     const [article, setArticle] = useState('')
     const [profile, setProfile] = useState('')
     const [comments, setComments] = useState('')
+
     const actions = [
         <span key="comment-basic-reply-to">답글</span>]
 
     useEffect(() => {
-        const bodyFormData = new FormData();
-        const bodyFormData2 = new FormData();
-        const bodyFormData3 = new FormData();
-        bodyFormData.append('id', id);
-        bodyFormData.append('type', 'article');
+            const bodyFormData = new FormData();
+            const bodyFormData2 = new FormData();
+            const bodyFormData3 = new FormData();
+            const bodyFormData4 = new FormData();
+            bodyFormData.append('id', no);
+            bodyFormData.append('type', 'article');
 
-        axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
-            .then(res => {
-                console.log(JSON.stringify(res.data))
-                setArticle(res.data)
-            })
-            .then(res => {
-                bodyFormData2.append('id', article.authorId);
-                axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
-                    .then(res2 => {
-                        console.log(JSON.stringify(res2.data))
-                        setProfile(res2.data)
-                    })
+            axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+                .then(res => {
+                    setArticle(res.data)
+                    bodyFormData2.append('id', res.data.authorId);
 
-                bodyFormData3.append('id', id);
-                axios.post('http://environment.goldenmine.kr:8080/article/getcomment', bodyFormData3)
-                    .then(res3 => {
-                        console.log(JSON.stringify(res3.data))
-                        setComments(res3.data)
+                    res.data.commentIds.forEach(ids => {
+                        bodyFormData3.append('ids', ids)
                     })
-            })
-    }, [])
+                    axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormData3)
+                        .then(res3 => {
+                            setComments(res3.data)
+                        }).then(() => {
+                        Array.from(comments).forEach(object => {
+                            bodyFormData4.set('id', object.authorId)
+                            axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
+                                .then(res => {
+                                    object.nickname = res.data.nickname
+                                })
+                        })
+                    })
+                })
+                .then(() => {
+                    axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+                        .then(res2 => {
+                            setProfile(res2.data)
+                        })
+                })
+        }, [comments]
+    )
 
     const contentStyle = {
         height: '310px', lineHeight: '310px', textAlign: 'center', margin: '0 auto',
     };
 
+    function ImageSlide() {
+        if (article.imageCount <= 0){
+            return (<div><img alt="이미지가 존재하지 않습니다" style={contentStyle}/></div>)
+        }
+        const imagarray = [];
+        for (let i = 0; i < article.imageCount; i++) {
+            imagarray.push(
+                <div>
+                    <img src={
+                        'http://environment.goldenmine.kr:8080/images/view/article-' + no + '-' + i + '.jpg'
+                    } alt="userImage" style={contentStyle}/>
+                </div>
+            )
+        }
+        return imagarray
+    }
 
     return (<>
         <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
@@ -69,13 +95,14 @@ function SelectedArticle() {
                 <Space size={12} onClick={() => {
                     navigate('/userprofile')
                 }}>
-                    <Avatar size="large" src={'http://environment.goldenmine.kr:8080/images/view/' + article.authorId}
+                    <Avatar size="large"
+                            src={'http://environment.goldenmine.kr:8080/images/view/' + article.authorId}
                             icon={<UserOutlined/>}/>
                     <span className="username" style={{fontSize: '16px'}}>{profile.nickname}</span>
                 </Space>
             </div>
 
-            <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 4px'}}>
+            <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 8px'}}>
                 {data[0].articleIds[0].weather}
             </div>
 
@@ -86,15 +113,7 @@ function SelectedArticle() {
                     </Col>
                     <Col span={20} style={{width: '100%', backgroundColor: 'lightgray'}}>
                         <Carousel>
-                            <div>
-                                <img src={data[0].articleIds[0].imageIds[0]} alt="userImage" style={contentStyle}/>
-                            </div>
-                            <div>
-                                <img src={data[0].articleIds[0].imageIds[1]} alt="userImage" style={contentStyle}/>
-                            </div>
-                            <div>
-                                <img src={data[0].articleIds[0].imageIds[2]} alt="userImage" style={contentStyle}/>
-                            </div>
+                            {ImageSlide()}
                         </Carousel>
                     </Col>
                     <Col span={2}>
@@ -107,10 +126,10 @@ function SelectedArticle() {
                 <Row style={{fontSize: '20px', margin: '8px 0'}}>
                     <Col span={22}>
                         <Space size={12}>
-                            <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px'}}>
+                            <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px', lineHeight: '30px'}}>
                                 {`공감 ${data[0].articleIds[0].liked}`}</span>
                             <MessageOutlined/> <span style={{
-                            fontSize: '12px', marginLeft: '-20px'
+                            fontSize: '12px', marginLeft: '-18px', lineHeight: '30px'
                         }}>{`댓글 ${comments.length}`}</span>
                         </Space>
                     </Col>
@@ -119,30 +138,35 @@ function SelectedArticle() {
                     </Col>
                 </Row>
                 <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
-                    <p>{article.context}</p>
+                    <p style={{padding: '0.5vh 0 20px'}}>{article.context}</p>
                 </div>
 
-                <div className="comment" style={{marginTop: '20px'}}>
+                <div style={{width: '100%', height: '1px', backgroundColor: 'lightgray'}}> </div>
+                <div className="comment" style={{marginTop: '8px'}}>
                     <List
                         className="comment-list"
-                        // header={`공감 ${data[0].articleIds[0].liked}　댓글 ${data[0].articleIds[0].comments.length}`}
+                        // header={`공감 ${data[0].articleIds[0].liked}　댓글 ${comments.length}`}
                         itemLayout="horizontal"
-                        dataSource={data[0].articleIds[0].comments}
-                        renderItem={item => (<li>
+                        dataSource={comments}
+                        renderItem={item => (<li style={{padding: 0, marginBottom: -10}}>
                             <Comment
                                 actions={actions}
-                                author={item.username}
-                                avatar={item.imageUrl}
-                                content={item.content}
-                                datetime={item.datetime}
+                                author={item.nickname}
+                                // avatar={'http://environment.goldenmine.kr:8080/images/view/'+item.authorId}
+                                avatar={'http://environment.goldenmine.kr:8080/images/view/'+item.authorId == null ? 'http://environment.goldenmine.kr:8080/images/view/'+item.authorId
+                                     : 'https://joeschmoe.io/api/v1/random' }
+                                content={item.comment}
+                                // datetime={item.datetime}
                             />
                         </li>)}
                     />
                 </div>
-                <CommentInput className="commentInput" props={id}/>
+                <CommentInput className="commentInput" props={no}/>
             </div>
         </div>
-    </>);
+        <div style={{width: '100%', height: '4vh', backgroundColor:'white'}}></div>
+    </>)
 }
+;
 
 export default SelectedArticle;

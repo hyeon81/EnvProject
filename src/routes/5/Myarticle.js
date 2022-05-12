@@ -84,7 +84,7 @@ function MyArticle() {
                     }}>설정</Button>
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px', height: '30vh'}}>
-                    {articles.map((item) => {
+                    {articles && articles.map((item) => {
                         let src = "http://environment.goldenmine.kr:8080/images/view/article-" + item + "-0.jpg"
                         return (<img src={src} alt="img" width="32%" height="32%"
                                      style={{margin: '0.3%', border: 'solid 1px gray'}}/>)
