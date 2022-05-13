@@ -5,59 +5,15 @@ import axios from "axios";
 import {Avatar, Col, Row, Space, Comment, Tooltip, List} from "antd";
 import moment from 'moment';
 import CommentInput from "../../function/CommentInput";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import LikeButton from "../../function/LikeButton";
 import {IoReturnUpBack} from "react-icons/io5";
 import QnATopNav from "../../function/QnATopNav";
 import data from "../../json/Userdata.json";
 
-function CurrentArticle() {
-    //웹에서 서버 요청
-    // const [article, setArticle] = useState([]);
-    // const getArticle = () => {
-    //     axios.get("url").then((res) => setArticle(res.data));
-    // };
-    // useEffect(getArticle, []);
-
+function SelectedQnA() {
     const navigate = useNavigate();
-    //댓글 보여주기
-    const data = [
-        {
-            // actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            grade: '답변왕',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(1, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-        {
-            // actions: [<span key="comment-list-reply-to-0">답글</span>],
-            author: '한솔',
-            avatar: 'https://joeschmoe.io/api/v1/random',
-            content: (
-                <p>
-                    We supply a series of design principles, practical patterns and high quality design
-                    resources (Sketch and Axure), to help people create their product prototypes beautifully and
-                    efficiently.
-                </p>
-            ),
-            datetime: (
-                <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-                    <span>{moment().subtract(2, 'days').fromNow()}</span>
-                </Tooltip>
-            ),
-        },
-    ];
+    const {no} = useParams();
 
     return (
         <div style={{backgroundColor: 'white'}}>
@@ -142,4 +98,4 @@ function CurrentArticle() {
     );
 }
 
-export default CurrentArticle;
+export default SelectedQnA;

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Col, Modal, Row, Space} from "antd";
 import {useNavigate} from "react-router-dom";
 import Article from "./Article";
-import data from "../../json/Userdata.json"
 import {UnorderedListOutlined} from "@ant-design/icons";
 import axios from "axios";
 
@@ -14,9 +13,10 @@ function Timeline() {
 
         bodyFormData.append('page', '10');
         bodyFormData.append('index', '0');
-        bodyFormData.append('type', 'article');
+        bodyFormData.append('articleType', 'article');
+        bodyFormData.append('sortType', 'recent');
 
-        axios.post('http://environment.goldenmine.kr:8080/article/recentarticles', bodyFormData)
+        axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData)
             .then(res => {
                 setObj(res.data)
             })

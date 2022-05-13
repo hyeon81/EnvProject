@@ -8,40 +8,24 @@ import UserInfo from "../../json/UserInfo";
 function MyArticle() {
     const navigate = useNavigate();
     const info = useContext(UserInfo);
-
-    let [nickname, SetNickname] = useState('이름없음')
-    let [intro, SetIntro] = useState('설명없음')
-    let [rank, SetRank] = useState('랭크없음')
-    let [imgUrl, SetImgUrl] = useState('')
-    let [articles, SetArticles] = useState([]);
-
-    // obj?.name ?? "~~~"
+    const [profile, setProfile] = useState('');
 
     useEffect(() => {
-        const bodyFormData = new FormData();
-        bodyFormData.append('id', info.state.id);
-        bodyFormData.append('password', info.state.pwd);
+            const bodyFormData = new FormData();
+            bodyFormData.append('id', info.state.id);
+            bodyFormData.append('password', info.state.pwd);
 
-        axios.post('http://environment.goldenmine.kr:8080/profile/currentprofile', bodyFormData)
-            .then(function (response) {
-                console.log(JSON.stringify(response.data))
-                SetNickname(response.data["nickname"])
-                SetIntro(response.data["introduction"])
-                SetImgUrl(response.data["imageUrl"])
-                SetRank(response.data["rank"])
-                SetArticles(response.data["articleIds"])
-            }).catch(function (error) {
-            console.log(error)
-        })
-        // axios.get('http://environment.goldenmine.kr:8080/images/view/article-1-0.jpg')
-        //     .then(res => console.log(res.data)).catch((err) => {
-        //     console.log(err)
-        // })
-    }, [info.state.id, info.state.pwd]);
+            axios.post('http://environment.goldenmine.kr:8080/profile/currentprofile', bodyFormData)
+                .then(res => {
+                    console.log(res.data)
+                    setProfile(res.data)
+                })
+        }, []
+    )
 
 
     return (<>
-        <div className="myArticle" style={{background: 'white', height: '100%'}}>
+        <div className="myArticle" style={{background: 'white', minHeight: '100vh', backgroundColor: 'white'}}>
             <div className="top-nav" style={{padding: '0 6%', fontSize: '16px'}}>
                 <Row>
                     <Col span={23}>
@@ -63,15 +47,10 @@ function MyArticle() {
                     textAlign: 'center',
                     margin: '30px 0'
                 }}>
-                    <Avatar size={140} icon={<UserOutlined/>} src={imgUrl}/>
-                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{nickname}</div>
-                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{intro}</div>
-                    <div className="label">{rank}</div>
-                    <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}
-                            onClick={() => {
-                                navigate('/profileEdit')
-                            }}>프로필
-                        수정</Button>
+                    <Avatar size={140} icon={<UserOutlined/>}/>
+                    <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{profile.nickname}</div>
+                    <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{profile.introduction}</div>
+                    <div className="label">{profile.rank}</div>
                 </div>
 
                 <div className="category">
@@ -79,15 +58,19 @@ function MyArticle() {
                         <Select.Option value="recent">최신순</Select.Option>
                         <Select.Option value="group">그룹순</Select.Option>
                     </Select>
-                    <Button size={'small'} className="catebtn" onClick={() => {
-                        navigate()
-                    }}>설정</Button>
                 </div>
-                <div className="gallery" style={{width: '100%', marginTop: '10px', height: '30vh'}}>
-                    {articles && articles.map((item) => {
-                        let src = "http://environment.goldenmine.kr:8080/images/view/article-" + item + "-0.jpg"
-                        return (<img src={src} alt="img" width="32%" height="32%"
-                                     style={{margin: '0.3%', border: 'solid 1px gray'}}/>)
+                <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
+                    {profile && profile.articleIds.map((item) => {
+                        return (<div style={{width: '26vw', height: '26vw', float: 'left'}}>
+                                <img
+                                    src={'http://environment.goldenmine.kr:8080/images/view/article-' + item + '-0.jpg'}
+                                    alt="img"
+                                    onError={(e) => {
+                                        e.target.src = '/img/noimage.jpg'
+                                    }} width="100%" height="100%"
+                                    style={{margin: '0.3%'}}/>
+                            </div>
+                        )
                     })}
                 </div>
             </div>

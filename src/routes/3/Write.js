@@ -32,7 +32,7 @@ function Write() {
             SetHumidity(res.data.main.humidity)
             SetTemp(res.data.main.temp)
             SetDes(res.data.weather[0].main)
-            SetWeather(res.data.weather[0].main+ ' 습도 ' +res.data.main.humidity+'% 온도'+ res.data.main.temp + '°C')
+            SetWeather(res.data.weather[0].main+ ' 습도 ' +res.data.main.humidity+'% 온도 '+ res.data.main.temp + '°C')
         }).catch((err) => {
             console.log(err)
         })
@@ -47,15 +47,18 @@ function Write() {
     }, [])
 
     const onFinish = (values) => {
-        // console.log('Success:', values);
+        console.log('Success:', values);
+
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
         bodyFormData.append('type', "article");
-        bodyFormData.append('weather', weather);
+        {values.checkbox ? bodyFormData.append('weather', weather) :
+            bodyFormData.append('weather', '')}
         bodyFormData.append('title', values["category"]);
-        // bodyFormData.append('checked', values["checkbox"]);
         bodyFormData.append('context', values["content"]);
+
+        console.log(weather)
         values.upload.forEach(file => bodyFormData.append('images', file.originFileObj))
         // console.log(values.upload[0].originFileObj
         axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)

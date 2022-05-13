@@ -127,6 +127,10 @@ img[src='/img/avatar.jpg'] {
     height: 40px;
 }
 
+.replyInput {
+    display: none;
+}
+
 .label {
     background: #1abc9c;
     color: white;

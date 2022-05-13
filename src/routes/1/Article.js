@@ -30,16 +30,14 @@ function Article({props}) {
         setLike(true)
         // }
         // await fetchData()
-
-        const bodyFormData = new FormData();
-
-        bodyFormData.append('id', props.authorId);
-
         // axios.post('http://environment.goldenmine.kr:8080/article/getcomment', bodyFormData)
         //     .then(res => {
         //         // console.log(res.data)
         //         setObj(res.data)
         //     })
+
+        const bodyFormData = new FormData();
+        bodyFormData.append('id', props.authorId);
         axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
             .then(res => {
                 setProfile(res.data)
@@ -82,7 +80,7 @@ function Article({props}) {
                 </div>
 
                 <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '20px 0 4px'}}>
-                    {/*<p>{props.weather}</p>*/}
+                    <p>{props.weather}</p>
                 </div>
 
                 <div className="img-slide">

@@ -62,7 +62,7 @@ function App() {
                                 <Route exact path="/article" element={<Article/>}/>,
                                 <Route exact path="/userprofile/:userid" element={<UserProfile/>}/>,
                                 <Route exact path="/qna" element={<QnA/>}/>,
-                                <Route exact path="/selectedqna" element={<SelectedQnA/>}/>,
+                                <Route exact path="/selectedqna/:no" element={<SelectedQnA/>}/>,
                                 <Route exact path="/writeqna" element={<WriteQnA/>}/>,
                                 <Route exact path="/imagesearch" element={<ImageSearch/>}/>,
                                 <Route exact path="/searchresult" element={<SearchResult/>}/>,

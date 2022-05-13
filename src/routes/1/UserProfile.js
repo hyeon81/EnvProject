@@ -24,7 +24,7 @@ function UserProfile() {
     )
 
     return (<>
-        <div className="myArticle" style={{background: 'white', height: '100%'}}>
+        <div className="myArticle" style={{background: 'white', minHeight: '100vh'}}>
             <div className="top-nav">
                 <Row style={{fontSize: '20px', padding: '0 6%'}}>
                     <Col span={21}>
@@ -56,9 +56,16 @@ function UserProfile() {
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
                     {profile && profile.articleIds.map((item) => {
-                        return (<img src={'http://environment.goldenmine.kr:8080/images/view/article-'+item+'-0.jpg'} alt="img"
-                                     onError={(e)=>{e.target.src='/img/noimage.jpg'}} width="32%" height="32%"
-                                     style={{margin: '0.3%'}}/>)
+                        return (<div style={{width: '26vw', height: '26vw', float:'left', border:'solid 1px white'}}>
+                                <img
+                                    src={'http://environment.goldenmine.kr:8080/images/view/article-' + item + '-0.jpg'}
+                                    alt="img"
+                                    onError={(e) => {
+                                        e.target.src = '/img/noimage.jpg'
+                                    }} width="100%" height="100%"
+                                    style={{margin: '0.3%'}}/>
+                            </div>
+                        )
                     })}
                 </div>
             </div>

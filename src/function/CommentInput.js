@@ -16,33 +16,36 @@ const CommentList = ({comments}) => (
     />
 );
 
-const Editor = ({onChange, onSubmit, submitting, value}) => (
+const Editor = ({onChange, onSubmit, submitting, value, parentId}) => (
     <>
+        <div style={parentId !== -1 ? {paddingLeft: '6vw'} : {paddingLeft: '0'}}>
         <Form.Item>
             <TextArea rows={2} onChange={onChange} value={value}/>
         </Form.Item>
         <Form.Item style={{marginTop: '-12px'}}>
-            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary"
+            <Button htmlType="submit" onClick={onSubmit} type="primary"
             style={{fontSize: '12px'}}>
-                댓글 추가
+                {parentId == -1 ? '댓글 추가' : '답글 추가'}
             </Button>
         </Form.Item>
+        </div>
     </>
 );
 
-export default ({props}) => {
+export default ({props, parentId}) => {
     const info = useContext(UserInfo);
-    const [profile, setProfile] = useState('');
-    useEffect(() => {
-        const bodyFormData = new FormData();
-        bodyFormData.append('id', info.state.id);
-        bodyFormData.append('password', info.state.pwd);
-
-        axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
-            .then(res2 => {
-                setProfile(res2.data)
-            })
-    }, [])
+    // const [profile, setProfile] = useState('');
+    // console.log(parentId)
+    // useEffect(() => {
+    //     const bodyFormData = new FormData();
+    //     bodyFormData.append('id', info.state.id);
+    //     bodyFormData.append('password', info.state.pwd);
+    //
+    //     axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
+    //         .then(res2 => {
+    //             setProfile(res2.data)
+    //         })
+    // }, [])
 
     const [state, setState] = React.useState({
         comments: [],
@@ -64,7 +67,7 @@ export default ({props}) => {
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
         bodyFormData.append('articleId', props)
-        bodyFormData.append('parentIndex', '-1')
+        bodyFormData.append('parentIndex', parentId)
         bodyFormData.append('comment', state.value)
         bodyFormData.append('type', 'article')
 
@@ -92,6 +95,7 @@ export default ({props}) => {
                         onSubmit={handleSubmit}
                         submitting={state.submitting}
                         value={state.value}
+                        parentId={parentId}
                     />
                 }
             />

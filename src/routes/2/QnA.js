@@ -5,15 +5,28 @@ import QnAlist from "./QnAlist";
 import QnATopNav from "../../function/QnATopNav";
 import WriteButton from "../../function/WriteButton";
 import data from "../../json/Userdata.json"
+import {useEffect} from "react";
+import axios from "axios";
 
 function QnA() {
     let searchword;
     let [search, setSearch] = useState('');
     const {Search} = Input;
-    const onSearch = value => {
-        setSearch(value);
-    }
+    const onSearch = value => {setSearch(value)}
+    const [qnalist, setQnalist] = useState(null)
 
+    useEffect(() => {
+        const bodyFormData = new FormData();
+        bodyFormData.append('page', '10');
+        bodyFormData.append('index', '0');
+        bodyFormData.append('articleType', 'question');
+        bodyFormData.append('sortType', 'recent');
+
+        axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData)
+            .then(res => {
+                setQnalist(res.data)
+            })
+    }, [])
 
     return (
         <div className="QnA" style={{backgroundColor: 'white'}}>
@@ -27,19 +40,19 @@ function QnA() {
             <QnATopNav/>
             <div className="mid-menu padding">
                 <Search placeholder="검색어를 입력하세요" onSearch={onSearch} style={{width: '100%', margin: '40px 0 6px'}}/>
-                <ReloadOutlined style={{margin: '12px'}} onClick={()=>{window.location.reload()}}/>
+                <ReloadOutlined style={{margin: '12px'}}/>
                 <div style={{
                     width: '100%', height: '2px', backgroundColor: 'lightgray', marginBottom: '12px'
                 }}></div>
 
-                {data[0].qna.filter((item) => {
+                {Array.from(qnalist).filter((item) => {
                     if (search == '') {
                         return item
                     } else if (item.title.includes(search)) {
                         return item
                     }
                 }).map(item => {
-                    return (<QnAlist props={item}/>)
+                    return (<QnAlist props={item} key={item.id}/>)
                 })}
             </div>
             <WriteButton/>

@@ -17,9 +17,7 @@ function SelectedArticle() {
     const [article, setArticle] = useState('')
     const [profile, setProfile] = useState('')
     const [comments, setComments] = useState('')
-
-    const actions = [
-        <span key="comment-basic-reply-to">답글</span>]
+    const [selectComment, setSelectComment] = useState(-1)
 
     useEffect(() => {
             const bodyFormData = new FormData();
@@ -59,12 +57,14 @@ function SelectedArticle() {
         }, [comments]
     )
 
+    // console.log(comments)
+
     const contentStyle = {
         height: '310px', lineHeight: '310px', textAlign: 'center', margin: '0 auto',
     };
 
     function ImageSlide() {
-        if (article.imageCount <= 0){
+        if (article.imageCount <= 0) {
             return (<div><img alt="이미지가 존재하지 않습니다" style={contentStyle}/></div>)
         }
         const imagarray = [];
@@ -80,6 +80,14 @@ function SelectedArticle() {
         return imagarray
     }
 
+    function toggleComment(index) {
+        if (index === selectComment) {
+            setSelectComment(-1)
+        } else
+            setSelectComment(index)
+    }
+
+    // console.log(comments)
     return (<>
         <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
             <div className="top-nav">
@@ -140,31 +148,35 @@ function SelectedArticle() {
                 <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
                     <p style={{padding: '0.5vh 0 20px'}}>{article.context}</p>
                 </div>
-
-                <div style={{width: '100%', height: '1px', backgroundColor: 'lightgray'}}> </div>
+                
+                <div style={{width: '100%', height: '1px', backgroundColor: 'lightgray'}}></div>
                 <div className="comment" style={{marginTop: '8px'}}>
                     <List
                         className="comment-list"
                         // header={`공감 ${data[0].articleIds[0].liked}　댓글 ${comments.length}`}
                         itemLayout="horizontal"
                         dataSource={comments}
-                        renderItem={item => (<li style={{padding: 0, marginBottom: -10}}>
-                            <Comment
-                                actions={actions}
+                        renderItem={(item, index) => (<li key={index} style={{padding: 0, marginBottom: -10}}>
+                            <Comment style={item.inserted ? {paddingLeft: '6vh'} : {paddingLeft: '0'}}
+                                actions={item.inserted ? false : [<span onClick={() => {toggleComment(index)}}>답글</span>]}
                                 author={item.nickname}
-                                // avatar={'http://environment.goldenmine.kr:8080/images/view/'+item.authorId}
-                                avatar={'http://environment.goldenmine.kr:8080/images/view/'+item.authorId == null ? 'http://environment.goldenmine.kr:8080/images/view/'+item.authorId
-                                     : 'https://joeschmoe.io/api/v1/random' }
+                                avatar={<Avatar
+                                    src={'http://environment.goldenmine.kr:8080/images/view/' + item.authorId} alt="img"
+                                    onerror='/img/noimage.jpg'/>}
                                 content={item.comment}
                                 // datetime={item.datetime}
                             />
+                            {selectComment === index ? <CommentInput key={index} props={no} parentId={index}/> : false}
+                            <div>index: {index}</div>
                         </li>)}
                     />
                 </div>
-                <CommentInput className="commentInput" props={no}/>
+                {/*{selectComment === -1 ? <CommentInput className="commentInput" props={no} parentId={-1}/> : false}*/}
+                {/*<div style={{width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '4vh auto 1vh'}}></div>*/}
+                <CommentInput className="commentInput" props={no} parentId={-1}/>
             </div>
         </div>
-        <div style={{width: '100%', height: '4vh', backgroundColor:'white'}}></div>
+        <div style={{width: '100%', height: '20vh', backgroundColor: 'white'}}></div>
     </>)
 }
 ;
