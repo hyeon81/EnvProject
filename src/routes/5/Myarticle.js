@@ -47,10 +47,14 @@ function MyArticle() {
                     textAlign: 'center',
                     margin: '30px 0'
                 }}>
-                    <Avatar size={140} icon={<UserOutlined/>}/>
+                    <Avatar size={140} icon={<UserOutlined/>} src={'http://environment.goldenmine.kr:8080/images/view/'+info.state.id}/>
                     <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{profile.nickname}</div>
                     <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{profile.introduction}</div>
                     <div className="label">{profile.rank}</div>
+                    <Button size={'small'} style={{fontSize: '13px', width: '120px', margin: '10px'}}
+                            onClick={() => {
+                                navigate('/profileEdit')
+                            }}>프로필 수정</Button>
                 </div>
 
                 <div className="category">
@@ -61,8 +65,11 @@ function MyArticle() {
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
                     {profile && profile.articleIds.map((item) => {
-                        return (<div style={{width: '27.5vw', height: '27.5vw', float: 'left', border:'solid 1px white'}}
-                                     onClick={()=>{navigate('/selectedarticle/'+item)}}>
+                        return (
+                            <div style={{width: '27.5vw', height: '27.5vw', float: 'left', border: 'solid 1px white'}}
+                                 onClick={() => {
+                                     navigate('/selectedarticle/' + item)
+                                 }}>
                                 <img
                                     src={'http://environment.goldenmine.kr:8080/images/view/article-' + item + '-0.jpg'}
                                     alt="img"

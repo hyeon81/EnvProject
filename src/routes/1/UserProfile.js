@@ -42,7 +42,7 @@ function UserProfile() {
                     textAlign: 'center',
                     margin: '30px 0'
                 }}>
-                    <Avatar size={140} icon={<UserOutlined/>}/>
+                    <Avatar size={140} icon={<UserOutlined/>} src={'http://environment.goldenmine.kr:8080/images/view/'+userid}/>
                     <div style={{fontWeight: 'bold', fontSize: '15px', marginTop: '10px'}}>{profile.nickname}</div>
                     <div style={{fontSize: '13px', marginBottom: '2px', color: 'gray'}}>{profile.introduction}</div>
                     <div className="label">{profile.rank}</div>

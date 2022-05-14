@@ -16,56 +16,88 @@ function SelectedArticle() {
     const [article, setArticle] = useState('')
     const [profile, setProfile] = useState('')
     const [comments, setComments] = useState([])
-    const [nickname, setNickname] = useState([])
+    const [nicknames, setNicknames] = useState({})
     const [selectComment, setSelectComment] = useState(-1)
     const [like, setLike] = useState(false);
     const info = useContext(UserInfo);
 
+    // async () => {
+    //     const {data} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+    //     setArticle(data)
+    // }
+
+    // useEffect(() => {
+    //     axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData).then(res => {
+    //         setArticle(data)
+    //     })
+    // })
     useEffect(() => {
-        const bodyFormData = new FormData();
-        const bodyFormData2 = new FormData();
-        const bodyFormData3 = new FormData();
         const bodyFormData4 = new FormData();
-        bodyFormData.append('id', no);
-        bodyFormData.append('type', 'article');
 
         (async () => {
-            const {data} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
-            setArticle(data)
-            bodyFormData2.append('id', data.authorId);
+            // get article
+            const bodyFormDataArticle = new FormData();
+            bodyFormDataArticle.append('id', no);
+            bodyFormDataArticle.append('type', 'article');
+            const responseArticle = await axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormDataArticle)
+            setArticle(responseArticle.data)
 
-            for(const ids of data.commentIds)
-                bodyFormData3.append('ids', ids)
+            // get profile
+            const bodyFormDataProfile = new FormData();
+            bodyFormDataProfile.append('id', responseArticle.data.authorId);
+            const responseProfile = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormDataProfile)
+            console.log(responseProfile.data)
+            setProfile(responseProfile.data)
 
-            const res3 = await axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormData3)
-            const bodyFormData4 = new FormData();
-            setComments(res3.data)
-            let array = []
+            console.log(responseArticle.data.commentIds)
 
-            const promise = []
-            for (const object of res3.data) {
-                bodyFormData4.set('id', object.authorId)
-                promise.push(axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4))
+            // get comments
+            const bodyFormDataComments = new FormData();
+            for(const ids of responseArticle.data.commentIds) {
+                console.log(ids)
+                bodyFormDataComments.append('ids', ids)
+            }
+            const responseComments = await axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormDataComments)
+            console.log(responseComments.data)
+            console.log("asdfasdf")
+            setComments(responseComments.data)
 
-                // const res = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
-                // array.push(res.data.nickname)
+            const nicknames = {}
+            for (const object of responseComments.data) {
+                const bodyFormDataNickname = new FormData();
+                bodyFormDataNickname.set('id', object.authorId)
+
+                const response4 = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormDataNickname)
+                nicknames[object.authorId] = response4.data["nickname"]
             }
 
-            const resArray = await Promise.all(promise)
-
-            // Array.from(res3.data).forEach((object, index) => {
-            //     bodyFormData4.set('id', object.authorId)
-            //     axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
-            //         .then(res => {
-            //             array.push(res.data.nickname)
-            //         })
-            // })
-            setNickname(resArray.map(res => res.data.nickname))
+            setNicknames(nicknames)
+            // get comment author's nickname
+            // let array = []
+            // const promise = []
+            //
+            // for (const object of response3.data) {
+            //     const bodyFormDataNickname = new FormData();
+            //     bodyFormDataNickname.set('id', object.authorId)
+            //
+            //     const response4 = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormDataNickname)
+            //     promise.push(response4.data)
+            // }
+            //
+            // const resArray = await Promise.all(promise)
+            //
+            // // Array.from(res3.data).forEach((object, index) => {
+            // //     bodyFormData4.set('id', object.authorId)
+            // //     axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
+            // //         .then(res => {
+            // //             array.push(res.data.nickname)
+            // //         })
+            // // })
+            // setNickname(resArray.map(res => res.data.nickname))
             // setNickname(array)
-            const {data: data1} = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
-            setProfile(data1)
+
         })()
-    })
+    }, [])
 
     const toggleLike = () => {
         setLike(!like)
@@ -101,6 +133,7 @@ function SelectedArticle() {
             return (<div><img alt="이미지가 존재하지 않습니다" style={contentStyle}/></div>)
         }
         const imagarray = [];
+        // console.log(article.imageCount)
         for (let i = 0; i < article.imageCount; i++) {
             imagarray.push(
                 <div>
@@ -194,7 +227,7 @@ function SelectedArticle() {
                                      actions={item.inserted ? false : [<span onClick={() => {
                                          toggleComment(index)
                                      }}>답글</span>]}
-                                     author={<span onClick={()=>{navigate('/userprofile/'+item.authorId)}}>{nickname[index]}</span>}
+                                     author={<span onClick={()=>{navigate('/userprofile/'+item.authorId)}}>{nicknames[index]}</span>}
                                      avatar={<Avatar
                                          src={'http://environment.goldenmine.kr:8080/images/view/' + item.authorId}
                                          alt="img" onClick={()=>{navigate('/userprofile/'+item.authorId)}}/>}
@@ -207,6 +240,13 @@ function SelectedArticle() {
                         </li>)}
                     />}
                 </div>
+                {typeof(comments) !== undefined ?
+                    comments.map((item) => {
+                        return (
+                            <div>item.comment</div>
+                        )
+                    })
+                    : <div></div>}
                 {/*{selectComment === -1 ? <CommentInput className="commentInput" props={no} parentId={-1}/> : false}*/}
                 {/*<div style={{width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '4vh auto 1vh'}}></div>*/}
                 <CommentInput className="commentInput" props={no} parentId={-1}/>
