@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom"
-import {Checkbox, Button, Input, Form, Select, Upload} from 'antd';
-import {UploadOutlined} from '@ant-design/icons';
+import {Checkbox, Button, Input, Form, Select, Upload, Modal} from 'antd';
+import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import '../Style.css';
 import axios from 'axios';
 import {useContext} from "react";
 import UserInfo from "../../json/UserInfo";
+import async from "async";
 
 function Write() {
     const info = useContext(UserInfo);
@@ -13,10 +14,25 @@ function Write() {
     const element = useRef(null);
     const navigate = useNavigate();
 
-    let [humidity, SetHumidity] = useState('');
-    let [temp, SetTemp] = useState('');
-    let [des, SetDes] = useState('');
-    let [weather, SetWeather] = useState('');
+    const [humidity, SetHumidity] = useState('');
+    const [temp, SetTemp] = useState('');
+    const [des, SetDes] = useState('');
+    const [weather, SetWeather] = useState('');
+    const [set, setSet] = useState(new Set())
+
+    // 모달 추가
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
 
     // getlocation
     var lat;
@@ -32,7 +48,7 @@ function Write() {
             SetHumidity(res.data.main.humidity)
             SetTemp(res.data.main.temp)
             SetDes(res.data.weather[0].main)
-            SetWeather(res.data.weather[0].main+ ' 습도 ' +res.data.main.humidity+'% 온도 '+ res.data.main.temp + '°C')
+            SetWeather(res.data.weather[0].main + ' 습도 ' + res.data.main.humidity + '% 온도 ' + res.data.main.temp + '°C')
         }).catch((err) => {
             console.log(err)
         })
@@ -43,6 +59,21 @@ function Write() {
     };
 
     useEffect(() => {
+        const bodyFormData2 = new FormData();
+        bodyFormData2.append('id', info.state.id);
+        bodyFormData2.append('password', info.state.pwd);
+
+        async function LoadData() {
+            const {data: data1} = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+            const bodyFormData3 = new FormData();
+            bodyFormData3.append('type', 'article');
+            for (const ids of data1.articleIds)
+                bodyFormData3.append('ids', ids);
+            const {data: data2} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticles', bodyFormData3)
+            data2.map(item => set.add(item.title));
+            setSet(set)
+        }
+
         navigator.geolocation.getCurrentPosition(success, error);
     }, [])
 
@@ -53,8 +84,10 @@ function Write() {
         bodyFormData.append('id', info.state.id);
         bodyFormData.append('password', info.state.pwd);
         bodyFormData.append('type', "article");
-        {values.checkbox ? bodyFormData.append('weather', weather) :
-            bodyFormData.append('weather', '')}
+        {
+            values.checkbox ? bodyFormData.append('weather', weather) :
+                bodyFormData.append('weather', '')
+        }
         bodyFormData.append('title', values["category"]);
         bodyFormData.append('context', values["content"]);
 
@@ -64,8 +97,9 @@ function Write() {
         axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
             .then(function (res) {
                 console.log(res)
-                if(res.data.write_succeed)
-                    navigate("/currentarticle", true);
+                if (res.data.write_succeed)
+                    navigate("/timeline", true);
+                // navigate("/currentarticle", true);
             }).catch(function (error) {
             console.log(error)
         })
@@ -89,18 +123,27 @@ function Write() {
         }
     }
 
-    return (<div className='write' style={{width: '100vw'}}>
-        <div className='toolbox'>
-            도구함
-        </div>
+    return (<div className='write' style={{width: '100vw', minHeight: '100vh', height: '100%',}}>
+        {/*<div className='toolbox'>*/}
+        {/*    도구함*/}
+        {/*</div>*/}
         <Form onFinish={onFinish} autoComplete="off">
             <div className="category">
                 <Form.Item name="category" style={{width: 120}} rules={[{required: true, message: '카테고리를 선택하세요!'}]}>
                     <Select>
-                        <Select.Option value="basic">기본</Select.Option>
+                        {Array.from(set).map((item) => {
+                            return (<Select.Option value={item}>{item}</Select.Option>)
+                        })}
                     </Select>
                 </Form.Item>
-                <Button className="catebtn" onClick={() => (navigate('/categorysetting'))}>설정</Button>
+                <Button className="catebtn" onClick={showModal}>추가</Button>
+                <Modal title="카테고리 추가" visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
+                    <form>
+                        <div style={{padding: '4px'}}>카테고리의 이름을 입력하세요</div>
+                        <input type="text" name="add"/>
+                        <input type="submit" onClick={handleOk}/>
+                    </form>
+                </Modal>
             </div>
             <Form.Item
                 rules={[{required: true, message: '파일을 선택하세요!'}]}

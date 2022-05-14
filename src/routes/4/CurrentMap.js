@@ -2,18 +2,13 @@ import React, {useState} from "react";
 import {Col, Input, Row, Space} from "antd";
 import {CloseOutlined} from "@ant-design/icons";
 import {useNavigate} from "react-router-dom";
-import Map from "../../function/Map";
+import Map2 from "../../function/Map2";
 
 function CurrentMap() {
     const navigate = useNavigate();
     const {Search} = Input;
     const onSearch = value => console.log(value);
 
-    const BottomStyle = {
-        marginLeft: '18px', height: '100px', width: '100%',
-        display: "flex", flexDirection: "column", justifyContent: 'center',
-        marginBottom: '40px'
-    }
     return (
         <div className="background2 CurrentMap">
             <div className="top-nav" style={{
@@ -39,18 +34,7 @@ function CurrentMap() {
                         style={{width: '100%', margin: '36px 0 12px'}}/>
             </div>
             <div className="location-map" style={{textAlign: 'center'}}>
-                <Map/>
-            </div>
-            <div className="collection-content"
-                 style={{
-                     padding: '4% 8%', marginTop: '6%', borderTop: 'solid 2px #f1c40f', display: 'flex',
-                 }}>
-                <img src="/img/img1.png" alt="img"
-                     width="100px" height="100px"/>
-                <div style={BottomStyle}>
-                    <div style={{fontWeight: 'bold', fontSize: '16px'}}>장미</div>
-                    <div>쌍떡잎식물 장미목 장미과 장미속에 속하는 식물의 총칭.</div>
-                </div>
+                <Map2/>
             </div>
         </div>
     );

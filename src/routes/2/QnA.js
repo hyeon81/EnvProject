@@ -9,7 +9,6 @@ import {useEffect} from "react";
 import axios from "axios";
 
 function QnA() {
-    let searchword;
     let [search, setSearch] = useState('');
     const {Search} = Input;
     const onSearch = value => {setSearch(value)}
@@ -19,7 +18,8 @@ function QnA() {
         const bodyFormData = new FormData();
         bodyFormData.append('page', '10');
         bodyFormData.append('index', '0');
-        bodyFormData.append('articleType', 'question');
+        // bodyFormData.append('articleType', 'question');
+        bodyFormData.append('articleType', 'article');
         bodyFormData.append('sortType', 'recent');
 
         axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData)
@@ -42,10 +42,10 @@ function QnA() {
                 <Search placeholder="검색어를 입력하세요" onSearch={onSearch} style={{width: '100%', margin: '40px 0 6px'}}/>
                 <ReloadOutlined style={{margin: '12px'}}/>
                 <div style={{
-                    width: '100%', height: '2px', backgroundColor: 'lightgray', marginBottom: '12px'
+                    width: '100%', height: '1px', backgroundColor: 'lightgray', marginBottom: '12px'
                 }}></div>
 
-                {Array.from(qnalist).filter((item) => {
+                {qnalist && Array.from(qnalist).filter((item) => {
                     if (search == '') {
                         return item
                     } else if (item.title.includes(search)) {

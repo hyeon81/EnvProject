@@ -10,6 +10,8 @@ import data from "../../json/Userdata.json";
 import LikeButton from "../../function/LikeButton";
 
 import axios from "axios";
+import {useContext} from "react";
+import UserInfo from "../../json/UserInfo";
 
 const contentStyle = {
     height: '310px',
@@ -22,19 +24,22 @@ function Article({props}) {
     const navigate = useNavigate();
     const [like, setLike] = useState(false);
     const [profile, setProfile] = useState('');
+    const info = useContext(UserInfo);
+
+    const bodyFormData2 = new FormData();
+    bodyFormData2.append('id', info.state.id)
+    bodyFormData2.append('password', info.state.pwd)
+    bodyFormData2.append('type', 'article')
+    bodyFormData2.append('articleId', props.id)
 
     useEffect(() => {
-        // const fetchData = async () => {
-        //     const res = await axios.get('http://localhost:8080/')
-        //     if (res.data.type === 'liked')
-        setLike(true)
-        // }
-        // await fetchData()
-        // axios.post('http://environment.goldenmine.kr:8080/article/getcomment', bodyFormData)
-        //     .then(res => {
-        //         // console.log(res.data)
-        //         setObj(res.data)
-        //     })
+        // 좋아요 가져오기
+
+        axios.post('http://environment.goldenmine.kr:8080/article/isplus', bodyFormData2)
+            .then(res => {
+                setLike(res.data.plus)
+            })
+
 
         const bodyFormData = new FormData();
         bodyFormData.append('id', props.authorId);
@@ -45,14 +50,28 @@ function Article({props}) {
     }, []);
 
     const toggleLike = () => {
-        // const res = await axios.post('http://localhost:8080/')
-        // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
         setLike(!like)
+
+        if (like) {
+            axios.post('http://environment.goldenmine.kr:8080/article/unplus', bodyFormData2)
+                .then(res => {
+                    console.log('좋아요 취소')
+                    console.log(res.data)
+                })
+        }
+        else if(!like){
+            axios.post('http://environment.goldenmine.kr:8080/article/plus', bodyFormData2)
+                .then(res => {
+                    console.log('좋아요')
+                    console.log(res.data)
+                })
+        }
+        // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
     }
 
     function ImageSlide() {
         const imagarray = [];
-        if (props.imageCount <= 0){
+        if (props.imageCount <= 0) {
             return (<div><img alt="이미지가 존재하지 않습니다" style={contentStyle}/></div>)
         }
         for (let i = 0; i < props.imageCount; i++) {
@@ -72,9 +91,10 @@ function Article({props}) {
             <div className="Article" style={{backgroundColor: 'white', height: '100%', cursor: 'pointer'}}>
                 <div className="userinfo" style={{padding: '16px 8%', backgroundColor: 'lightgray'}}>
                     <Space size={12} onClick={() => {
-                        navigate('/userprofile/'+props.authorId)
+                        navigate('/userprofile/' + props.authorId)
                     }}>
-                        <Avatar size={30} src={'http://environment.goldenmine.kr:8080/images/view/' + props.authorId} icon={<UserOutlined/>}/>
+                        <Avatar size={30} src={'http://environment.goldenmine.kr:8080/images/view/' + props.authorId}
+                                icon={<UserOutlined/>}/>
                         <span className="username" style={{fontSize: '16px'}}>{profile.nickname}</span>
                     </Space>
                 </div>
@@ -106,16 +126,16 @@ function Article({props}) {
                                 <LikeButton like={like} onClick={toggleLike}/>
                                 <span
                                     style={{fontSize: '12px', marginLeft: '-8px', lineHeight: '30px'}}>
-                                {`공감 ${props.plusCount}`}</span>
+                                공감 {props.plusCount}</span>
                                 <MessageOutlined/> <span
                                 onClick={() => {
-                                    navigate('/selectedarticle/+props.id')
+                                    navigate('/selectedarticle/' + props.id)
                                 }}
                                 style={{
                                     fontSize: '12px',
                                     marginLeft: '-18px',
                                     lineHeight: '30px'
-                                }}>{`댓글 ${props.commentIds.length}`}</span>
+                                }}>댓글 {props.commentIds.length}</span>
                             </Space>
                         </Col>
                         <Col span={2}>
@@ -126,7 +146,7 @@ function Article({props}) {
                         lineHeight: '1.5', textAlign: 'justify', height: '40px',
                         overflowX: 'hidden', marginBottom: '24px'
                     }} onClick={() => {
-                        navigate('/selectedarticle/'+props.id)
+                        navigate('/selectedarticle/' + props.id)
                     }}>
                         <p>{props.context}</p>
                     </div>

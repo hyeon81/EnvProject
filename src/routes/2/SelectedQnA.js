@@ -10,10 +10,54 @@ import LikeButton from "../../function/LikeButton";
 import {IoReturnUpBack} from "react-icons/io5";
 import QnATopNav from "../../function/QnATopNav";
 import data from "../../json/Userdata.json";
+import {useEffect, useState} from "react";
 
 function SelectedQnA() {
     const navigate = useNavigate();
     const {no} = useParams();
+
+    const [article, setArticle] = useState('')
+    const [profile, setProfile] = useState('')
+    const [comments, setComments] = useState('')
+    const [selectComment, setSelectComment] = useState(-1)
+
+    useEffect(() => {
+            const bodyFormData = new FormData();
+            const bodyFormData2 = new FormData();
+            const bodyFormData3 = new FormData();
+            const bodyFormData4 = new FormData();
+            bodyFormData.append('id', no);
+            bodyFormData.append('type', 'article');
+
+            axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+                .then(res => {
+                    setArticle(res.data)
+                    bodyFormData2.append('id', res.data.authorId);
+
+                    res.data.commentIds.forEach(ids => {
+                        bodyFormData3.append('ids', ids)
+                    })
+                    axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormData3)
+                        .then(res3 => {
+                            setComments(res3.data)
+                        }).then(() => {
+                        Array.from(comments).forEach(object => {
+                            bodyFormData4.set('id', object.authorId)
+                            axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
+                                .then(res => {
+                                    object.nickname = res.data.nickname
+                                })
+                        })
+                    })
+                })
+                .then(() => {
+                    axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+                        .then(res2 => {
+                            setProfile(res2.data)
+                        })
+                })
+        }, [comments]
+    )
 
     return (
         <div style={{backgroundColor: 'white'}}>

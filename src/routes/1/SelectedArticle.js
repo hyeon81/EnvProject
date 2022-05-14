@@ -1,63 +1,96 @@
 import React, {useEffect, useState} from "react";
-import {
-    ArrowLeftOutlined, MessageOutlined, UserOutlined,
-} from "@ant-design/icons";
+import {ArrowLeftOutlined, MessageOutlined, UserOutlined,} from "@ant-design/icons";
 import "../Style.css";
 import axios from "axios";
-import {Avatar, Col, Row, Space, Comment, List, Carousel} from "antd";
-import moment from 'moment';
+import {Avatar, Carousel, Col, Comment, List, Row, Space} from "antd";
 import CommentInput from "../../function/CommentInput";
 import {useNavigate, useParams} from "react-router-dom";
 import data from "../../json/Userdata.json";
 import LikeButton from "../../function/LikeButton";
+import {useContext} from "react";
+import UserInfo from "../../json/UserInfo";
 
 function SelectedArticle() {
     const navigate = useNavigate();
     const {no} = useParams()
     const [article, setArticle] = useState('')
     const [profile, setProfile] = useState('')
-    const [comments, setComments] = useState('')
+    const [comments, setComments] = useState([])
+    const [nickname, setNickname] = useState([])
     const [selectComment, setSelectComment] = useState(-1)
+    const [like, setLike] = useState(false);
+    const info = useContext(UserInfo);
 
     useEffect(() => {
-            const bodyFormData = new FormData();
-            const bodyFormData2 = new FormData();
-            const bodyFormData3 = new FormData();
+        const bodyFormData = new FormData();
+        const bodyFormData2 = new FormData();
+        const bodyFormData3 = new FormData();
+        const bodyFormData4 = new FormData();
+        bodyFormData.append('id', no);
+        bodyFormData.append('type', 'article');
+
+        (async () => {
+            const {data} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+            setArticle(data)
+            bodyFormData2.append('id', data.authorId);
+
+            for(const ids of data.commentIds)
+                bodyFormData3.append('ids', ids)
+
+            const res3 = await axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormData3)
             const bodyFormData4 = new FormData();
-            bodyFormData.append('id', no);
-            bodyFormData.append('type', 'article');
+            setComments(res3.data)
+            let array = []
 
-            axios.post('http://environment.goldenmine.kr:8080/article/getarticle', bodyFormData)
+            const promise = []
+            for (const object of res3.data) {
+                bodyFormData4.set('id', object.authorId)
+                promise.push(axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4))
+
+                // const res = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
+                // array.push(res.data.nickname)
+            }
+
+            const resArray = await Promise.all(promise)
+
+            // Array.from(res3.data).forEach((object, index) => {
+            //     bodyFormData4.set('id', object.authorId)
+            //     axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
+            //         .then(res => {
+            //             array.push(res.data.nickname)
+            //         })
+            // })
+            setNickname(resArray.map(res => res.data.nickname))
+            // setNickname(array)
+            const {data: data1} = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+            setProfile(data1)
+        })()
+    })
+
+    const toggleLike = () => {
+        setLike(!like)
+        const LikeData = new FormData();
+        LikeData.append('id', info.state.id)
+        LikeData.append('password', info.state.pwd)
+        LikeData.append('type', 'article')
+        LikeData.append('articleId', article.id)
+
+        if (like) {
+            axios.post('http://environment.goldenmine.kr:8080/article/unplus', LikeData)
                 .then(res => {
-                    setArticle(res.data)
-                    bodyFormData2.append('id', res.data.authorId);
-
-                    res.data.commentIds.forEach(ids => {
-                        bodyFormData3.append('ids', ids)
-                    })
-                    axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormData3)
-                        .then(res3 => {
-                            setComments(res3.data)
-                        }).then(() => {
-                        Array.from(comments).forEach(object => {
-                            bodyFormData4.set('id', object.authorId)
-                            axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData4)
-                                .then(res => {
-                                    object.nickname = res.data.nickname
-                                })
-                        })
-                    })
+                    console.log('좋아요 취소')
+                    console.log(res.data)
                 })
-                .then(() => {
-                    axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
-                        .then(res2 => {
-                            setProfile(res2.data)
-                        })
+        }
+        else if(!like){
+            axios.post('http://environment.goldenmine.kr:8080/article/plus', LikeData)
+                .then(res => {
+                    console.log('좋아요')
+                    console.log(res.data)
                 })
-        }, [comments]
-    )
-
-    // console.log(comments)
+        }
+        // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
+    }
 
     const contentStyle = {
         height: '310px', lineHeight: '310px', textAlign: 'center', margin: '0 auto',
@@ -81,27 +114,28 @@ function SelectedArticle() {
     }
 
     function toggleComment(index) {
-        if (index === selectComment) {
-            setSelectComment(-1)
-        } else
-            setSelectComment(index)
+        setSelectComment(index === selectComment ? -1 : index)
+        console.log(index)
+        // if (index === selectComment) {
+        //     setSelectComment(-1)
+        // } else
+        //     setSelectComment(index)
     }
 
-    // console.log(comments)
     return (<>
         <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
             <div className="top-nav">
                 <Row style={{fontSize: '20px', padding: '0 6%'}}>
                     <Col span={21}>
                         <ArrowLeftOutlined onClick={() => {
-                            navigate('/timeline')
+                            navigate(-1)
                         }} style={{color: 'white'}}/>
                     </Col>
                 </Row>
             </div>
             <div className="userinfo" style={{padding: '8px 8%', backgroundColor: 'lightgray'}}>
                 <Space size={12} onClick={() => {
-                    navigate('/userprofile')
+                    navigate('/userprofile/'+article.authorId)
                 }}>
                     <Avatar size="large"
                             src={'http://environment.goldenmine.kr:8080/images/view/' + article.authorId}
@@ -111,7 +145,7 @@ function SelectedArticle() {
             </div>
 
             <div style={{color: 'gray', fontSize: '12px', padding: '0 8%', margin: '24px 0 8px'}}>
-                {data[0].articleIds[0].weather}
+                {article.weather}
             </div>
 
             <div className="img-slide">
@@ -134,8 +168,8 @@ function SelectedArticle() {
                 <Row style={{fontSize: '20px', margin: '8px 0'}}>
                     <Col span={22}>
                         <Space size={12}>
-                            <LikeButton/> <span style={{fontSize: '12px', marginLeft: '-20px', lineHeight: '30px'}}>
-                                {`공감 ${data[0].articleIds[0].liked}`}</span>
+                            <LikeButton like={like} onClick={toggleLike}/> <span style={{fontSize: '12px', marginLeft: '-20px', lineHeight: '30px'}}>
+                                공감 {article.plusCount}</span>
                             <MessageOutlined/> <span style={{
                             fontSize: '12px', marginLeft: '-18px', lineHeight: '30px'
                         }}>{`댓글 ${comments.length}`}</span>
@@ -148,35 +182,37 @@ function SelectedArticle() {
                 <div className="content" style={{lineHeight: '1.5', textAlign: 'justify'}}>
                     <p style={{padding: '0.5vh 0 20px'}}>{article.context}</p>
                 </div>
-                
-                <div style={{width: '100%', height: '1px', backgroundColor: 'lightgray'}}></div>
+
+                <div style={{width: '100%', height: '1px', backgroundColor: 'lightgray'}}/>
                 <div className="comment" style={{marginTop: '8px'}}>
-                    <List
+                    {<List
                         className="comment-list"
-                        // header={`공감 ${data[0].articleIds[0].liked}　댓글 ${comments.length}`}
                         itemLayout="horizontal"
                         dataSource={comments}
                         renderItem={(item, index) => (<li key={index} style={{padding: 0, marginBottom: -10}}>
                             <Comment style={item.inserted ? {paddingLeft: '6vh'} : {paddingLeft: '0'}}
-                                actions={item.inserted ? false : [<span onClick={() => {toggleComment(index)}}>답글</span>]}
-                                author={item.nickname}
-                                avatar={<Avatar
-                                    src={'http://environment.goldenmine.kr:8080/images/view/' + item.authorId} alt="img"
-                                    onerror='/img/noimage.jpg'/>}
-                                content={item.comment}
+                                     actions={item.inserted ? false : [<span onClick={() => {
+                                         toggleComment(index)
+                                     }}>답글</span>]}
+                                     author={<span onClick={()=>{navigate('/userprofile/'+item.authorId)}}>{nickname[index]}</span>}
+                                     avatar={<Avatar
+                                         src={'http://environment.goldenmine.kr:8080/images/view/' + item.authorId}
+                                         alt="img" onClick={()=>{navigate('/userprofile/'+item.authorId)}}/>}
+                                     content={item.comment}
                                 // datetime={item.datetime}
                             />
-                            {selectComment === index ? <CommentInput key={index} props={no} parentId={index}/> : false}
+                            {selectComment === index &&
+                                <CommentInput key={index} props={no} parentId={index}/>}
                             <div>index: {index}</div>
                         </li>)}
-                    />
+                    />}
                 </div>
                 {/*{selectComment === -1 ? <CommentInput className="commentInput" props={no} parentId={-1}/> : false}*/}
                 {/*<div style={{width: '100%', height: '1px', backgroundColor: 'lightgray', margin: '4vh auto 1vh'}}></div>*/}
                 <CommentInput className="commentInput" props={no} parentId={-1}/>
             </div>
         </div>
-        <div style={{width: '100%', height: '20vh', backgroundColor: 'white'}}></div>
+        <div style={{width: '100%', height: '6vh', backgroundColor: 'white'}}/>
     </>)
 }
 ;

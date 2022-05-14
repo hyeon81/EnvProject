@@ -24,7 +24,7 @@ function WriteCollection() {
     }
 
     return (
-        <div style={{backgroundColor: 'white', height: '100vh', width: '100%'}}>
+        <div style={{backgroundColor: 'white', height: '100vh', width: '100%', paddingBottom: '40px'}}>
             <div className="top-nav" style={{
                 padding: '0 6%', fontSize: '20px',
                 backgroundColor: 'white', border: 'solid 1px lightgray'
