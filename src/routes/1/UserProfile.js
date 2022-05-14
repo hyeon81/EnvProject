@@ -56,7 +56,7 @@ function UserProfile() {
                 </div>
                 <div className="gallery" style={{width: '100%', marginTop: '10px'}}>
                     {profile && profile.articleIds.map((item) => {
-                        return (<div style={{width: '27.5vw', height: '27.5vw', float:'left', border:'solid 1px white'}}
+                        return (<div style={{width: '27.5vw', height: '27.5vw', float:'left', border:'solid 2px white'}}
                             onClick={()=>{navigate('/selectedarticle/'+item)}}>
                                 <img
                                     src={'http://environment.goldenmine.kr:8080/images/view/article-' + item + '-0.jpg'}

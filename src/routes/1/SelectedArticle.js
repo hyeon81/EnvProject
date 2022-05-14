@@ -59,7 +59,6 @@ function SelectedArticle() {
             }
             const responseComments = await axios.post('http://environment.goldenmine.kr:8080/article/getcomments', bodyFormDataComments)
             console.log(responseComments.data)
-            console.log("asdfasdf")
             setComments(responseComments.data)
 
             const nicknames = {}
@@ -155,7 +154,8 @@ function SelectedArticle() {
         //     setSelectComment(index)
     }
 
-    return (<>
+    return (
+        <>
         <div className="CurrentArticle" style={{backgroundColor: 'white', height: '100%'}}>
             <div className="top-nav">
                 <Row style={{fontSize: '20px', padding: '0 6%'}}>

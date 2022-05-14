@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom"
-import {Checkbox, Button, Input, Form, Select, Upload, Modal} from 'antd';
+import {Checkbox, Button, Input, Form, Select, Upload, Modal, message} from 'antd';
 import {PlusOutlined, UploadOutlined} from '@ant-design/icons';
 import '../Style.css';
 import axios from 'axios';
@@ -19,14 +19,26 @@ function Write() {
     const [des, SetDes] = useState('');
     const [weather, SetWeather] = useState('');
     const [set, setSet] = useState(new Set())
+    const [add, isAdd] = useState(false)
+
+    //select에서 input 값 가져오기
+    const [text, setText] = useState('');
+    const [cate, setCate] = useState('');
+
+    const onChange = (e) => {
+        setText(e.target.value);
+    };
 
     // 모달 추가
     const [isModalVisible, setIsModalVisible] = useState(false);
     const showModal = () => {
+        isAdd(false)
         setIsModalVisible(true);
     };
 
     const handleOk = () => {
+        isAdd(true)
+        setCate(text)
         setIsModalVisible(false);
     };
 
@@ -58,27 +70,31 @@ function Write() {
         console.warn('ERROR(' + err.code + '): ' + err.message);
     };
 
+    const bodyFormData2 = new FormData();
+    async function LoadData() {
+        const {data: data1} = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
+        const bodyFormData3 = new FormData();
+        bodyFormData3.append('type', 'article');
+        for (const ids of data1.articleIds)
+            bodyFormData3.append('ids', ids);
+        const {data: data2} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticles', bodyFormData3)
+        data2.map(item => set.add(item.title));
+        setSet(set)
+    }
+
     useEffect(() => {
-        const bodyFormData2 = new FormData();
         bodyFormData2.append('id', info.state.id);
         bodyFormData2.append('password', info.state.pwd);
 
-        async function LoadData() {
-            const {data: data1} = await axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData2)
-            const bodyFormData3 = new FormData();
-            bodyFormData3.append('type', 'article');
-            for (const ids of data1.articleIds)
-                bodyFormData3.append('ids', ids);
-            const {data: data2} = await axios.post('http://environment.goldenmine.kr:8080/article/getarticles', bodyFormData3)
-            data2.map(item => set.add(item.title));
-            setSet(set)
-        }
-
+        LoadData();
         navigator.geolocation.getCurrentPosition(success, error);
     }, [])
 
     const onFinish = (values) => {
         console.log('Success:', values);
+        const success = () => {
+            message.success('일지쓰기에 성공했습니다');
+        };
 
         const bodyFormData = new FormData();
         bodyFormData.append('id', info.state.id);
@@ -98,8 +114,7 @@ function Write() {
             .then(function (res) {
                 console.log(res)
                 if (res.data.write_succeed)
-                    navigate("/timeline", true);
-                // navigate("/currentarticle", true);
+                    success()
             }).catch(function (error) {
             console.log(error)
         })
@@ -123,10 +138,7 @@ function Write() {
         }
     }
 
-    return (<div className='write' style={{width: '100vw', minHeight: '100vh', height: '100%',}}>
-        {/*<div className='toolbox'>*/}
-        {/*    도구함*/}
-        {/*</div>*/}
+    return (<div className='write' style={{width: '100vw', minHeight: '100vh', padding: '40px auto 80px'}}>
         <Form onFinish={onFinish} autoComplete="off">
             <div className="category">
                 <Form.Item name="category" style={{width: 120}} rules={[{required: true, message: '카테고리를 선택하세요!'}]}>
@@ -134,14 +146,15 @@ function Write() {
                         {Array.from(set).map((item) => {
                             return (<Select.Option value={item}>{item}</Select.Option>)
                         })}
+                        {add && <Select.Option value={cate}>{cate}</Select.Option>}
                     </Select>
                 </Form.Item>
                 <Button className="catebtn" onClick={showModal}>추가</Button>
                 <Modal title="카테고리 추가" visible={isModalVisible} footer={null} onOk={handleOk} onCancel={handleCancel}>
                     <form>
                         <div style={{padding: '4px'}}>카테고리의 이름을 입력하세요</div>
-                        <input type="text" name="add"/>
-                        <input type="submit" onClick={handleOk}/>
+                        <input type="text" name="add" onChange={onChange}/>
+                        <input type="submit" onClick={()=>{handleOk()}}/>
                     </form>
                 </Modal>
             </div>

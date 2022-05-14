@@ -34,16 +34,16 @@ function ProfileEdit() {
 
     const onFinish = (values) => {
         console.log('Success:', values);
-        navigate('/myarticle');
-
-        const bodyFormData = new FormData();
+        console.log(values.nickname)
+        
+        const bodyFormData3 = new FormData();
         const bodyFormData2 = new FormData();
-        bodyFormData.append('id', info.state.id);
-        bodyFormData.append('password', info.state.pwd);
-        bodyFormData.append('nickname', values["nickname"]);
-        bodyFormData.append('introduction', values["introduction"]);
+        bodyFormData3.append('id', info.state.id);
+        bodyFormData3.append('password', info.state.pwd);
+        bodyFormData3.append('nickname', values["nickname"]);
+        bodyFormData3.append('introduction', values["introduction"]);
 
-        axios.post('http://environment.goldenmine.kr:8080/article/writearticle', bodyFormData)
+        axios.post('http://environment.goldenmine.kr:8080/profile/changeprofile', bodyFormData3)
             .then(function (res) {
                 console.log(res)
             }).catch(function (error) {
@@ -52,18 +52,22 @@ function ProfileEdit() {
 
         bodyFormData2.append('id', info.state.id);
         bodyFormData2.append('password', info.state.pwd);
-        bodyFormData2.append('images', values.upload.file.originFileObj)
+        bodyFormData2.append('file', values.upload[0].originFileObj)
         axios.post('http://environment.goldenmine.kr:8080/profile/profileimage', bodyFormData2)
-            .then(r => {
-                    if (r.data.write_succeed)
-                        navigate("/myarticle", true);
+            .then(res => {
+                    console.log(res.data.succeed)
+                    if(res.data.succeed)
+                        navigate('/myarticle')
                 }
             )
     }
 
     return (
         <div className="profileEdit" style={{backgroundColor: 'white', height: '100vh'}}>
-            <Form onFinish={onFinish} autoComplete="off">
+            <Form onFinish={onFinish} autoComplete="off" initialValues={{
+                'nickname': profile.nickname,
+                'introduction': profile.introduction,
+            }}>
                 <div className="top-nav">
                     <Row style={{fontSize: '20px', padding: '0 4%'}}>
                         <Col span={20}>
@@ -86,7 +90,7 @@ function ProfileEdit() {
                     <Avatar size={140} icon={<UserOutlined/>} style={{margin: '30px'}}
                             src={'http://environment.goldenmine.kr:8080/images/view/' + info.state.id}/>
                     <Form.Item
-                        rules={[{required: true, message: '파일을 선택하세요!'}]}
+                        // rules={[{required: true, message: '파일을 선택하세요!'}]}
                         name="upload"
                         label=""
                         valuePropName="fileList"
@@ -99,12 +103,13 @@ function ProfileEdit() {
                     </Form.Item>
                     <div>닉네임</div>
                     <Form.Item name="nickname" label=""
-                               rules={[{required: true, message: ''}]}
-                    > <Input placeholder="닉네임을 입력해주세요" style={{width: '300px'}}
-                    /> </Form.Item>
+                        // rules={[{required: true, message: ''}]}
+                    >
+                        <Input placeholder="닉네임을 입력해주세요" style={{width: '300px'}}/>
+                    </Form.Item>
                     <div>자기소개</div>
                     <Form.Item name="introduction" label=""
-                               rules={[{required: true, message: ''}]}
+                        // rules={[{required: true, message: ''}]}
                     >
                         <Input.TextArea placeholder="자기소개를 입력해주세요" style={{width: '300px'}}/>
                     </Form.Item>

@@ -12,6 +12,7 @@ import LikeButton from "../../function/LikeButton";
 import axios from "axios";
 import {useContext} from "react";
 import UserInfo from "../../json/UserInfo";
+import BottomNav from "../../function/BottomNav";
 
 const contentStyle = {
     height: '310px',
@@ -24,6 +25,7 @@ function Article({props}) {
     const navigate = useNavigate();
     const [like, setLike] = useState(false);
     const [profile, setProfile] = useState('');
+    const [plus, setPlus] = useState(0)
     const info = useContext(UserInfo);
 
     const bodyFormData2 = new FormData();
@@ -34,12 +36,12 @@ function Article({props}) {
 
     useEffect(() => {
         // 좋아요 가져오기
+        setPlus(props.plusCount)
 
         axios.post('http://environment.goldenmine.kr:8080/article/isplus', bodyFormData2)
             .then(res => {
                 setLike(res.data.plus)
             })
-
 
         const bodyFormData = new FormData();
         bodyFormData.append('id', props.authorId);
@@ -57,6 +59,7 @@ function Article({props}) {
                 .then(res => {
                     console.log('좋아요 취소')
                     console.log(res.data)
+                    setPlus(plus - 1)
                 })
         }
         else if(!like){
@@ -64,6 +67,7 @@ function Article({props}) {
                 .then(res => {
                     console.log('좋아요')
                     console.log(res.data)
+                    setPlus(plus + 1)
                 })
         }
         // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
@@ -123,10 +127,10 @@ function Article({props}) {
                     <Row style={{fontSize: '20px', margin: '8px 0'}}>
                         <Col span={22}>
                             <Space size={12}>
-                                <LikeButton like={like} onClick={toggleLike}/>
+                                <LikeButton like={like} onClick={()=>{toggleLike()}}/>
                                 <span
                                     style={{fontSize: '12px', marginLeft: '-8px', lineHeight: '30px'}}>
-                                공감 {props.plusCount}</span>
+                                공감 {plus}</span>
                                 <MessageOutlined/> <span
                                 onClick={() => {
                                     navigate('/selectedarticle/' + props.id)

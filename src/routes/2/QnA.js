@@ -43,8 +43,7 @@ function QnA() {
                 <ReloadOutlined style={{margin: '12px'}}/>
                 <div style={{
                     width: '100%', height: '1px', backgroundColor: 'lightgray', marginBottom: '12px'
-                }}></div>
-
+                }}/>
                 {qnalist && Array.from(qnalist).filter((item) => {
                     if (search == '') {
                         return item

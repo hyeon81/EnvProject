@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import {
     Form,
     Input,
-    Button, Alert,
+    Button, Alert, message
 } from 'antd';
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const formItemLayout = {
     labelCol: {
@@ -38,8 +39,16 @@ const tailFormItemLayout = {
 };
 
 function Register() {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const [registerSucceed, setRegisterSucceed] = useState(0);
+    const success = () => {
+        message.success('회원가입에 성공했습니다');
+        navigate('/login')
+    };
+    const error = () => {
+        message.error('회원가입에 실패했습니다');
+    };
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
@@ -50,9 +59,11 @@ function Register() {
         bodyFormData.append('nickname', values["nickname"]);
 
         axios.post('http://environment.goldenmine.kr:8080/profile/register', bodyFormData).then(function (response) {
-            console.log(response)
-            setRegisterSucceed(response.data["register_succeed"] ? 2 : 1);
-
+            if (response.data.register_succeed)
+                success()
+            else
+                error()
+            // setRegisterSucceed(response.data["register_succeed"] ? 2 : 1);
             // setTimeout(function() { }, 3);
             // this.setState({registerSucceed: response.data["register_succeed"] ? 2 : 1})
         }).catch(function (error) {
@@ -73,7 +84,7 @@ function Register() {
             // }}
             scrollToFirstError
         >
-            {registerSucceed !== 0 ? (registerSucceed === 2 ? <Alert message="Success Text" type="success" /> : <Alert message="Error Text" type="error" />) : <div/>}
+            {/*{registerSucceed !== 0 ? (registerSucceed === 2 ? <Alert message="Success Text" type="success" /> : <Alert message="Error Text" type="error" />) : <div/>}*/}
             <Form.Item
                 name="email"
                 label="이메일"

@@ -3,7 +3,7 @@ import './BottomNavStyle.css';
 import {Link} from "react-router-dom";
 
 function BottomNav() {
-    const [activeNav, setActiveNav] = useState(3);
+    const [activeNav, setActiveNav] = useState(1);
 
     return (
         <>

@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState} from "react";
-import {Form, Input, Button, Checkbox} from 'antd';
+import {Form, Input, Button, message} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,16 @@ import UserInfo from "../../json/UserInfo";
 const Login = () => {
     const [id, setId] = useState('');
     const [pwd, setPwd] = useState('');
+    const navigate = useNavigate();
+
+    const success = () => {
+        message.success('로그인에 성공하였습니다');
+        navigate('/timeline')
+    };
+
+    const error = () => {
+        message.error('로그인에 실패하였습니다');
+    };
 
     const info = useContext(UserInfo)
     info.state = {
@@ -33,13 +43,14 @@ const Login = () => {
 
         axios.post('http://environment.goldenmine.kr:8080/profile/login', bodyFormData)
             .then(function (response) {
-                console.log(response)
+                if (response.data.login_succeed)
+                    success()
+                else
+                    error()
             }).catch(function (error) {
             console.log(error);
         })
     };
-
-    const navigate = useNavigate();
 
     return (
         <Form
@@ -88,7 +99,7 @@ const Login = () => {
                 <Button type="primary" htmlType="submit" className="login-form-button">
                     로그인
                 </Button>
-                또는 <a href="" onClick={() => {
+                 　또는　<a href="" onClick={() => {
                 navigate('/register')
             }}>회원가입</a>
             </Form.Item>

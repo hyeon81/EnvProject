@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {BrowserRouter, Redirect, Route, Navigate, Routes} from 'react-router-dom';
 import 'antd/dist/antd.variable.min.css';
 import Timeline from "../routes/1/Timeline";
@@ -40,52 +40,46 @@ function App() {
         }
     })
 
-    const info = useContext(UserInfo);
-    console.log('info.state.id')
-    console.log(info.state.id)
-    const isLogin = info.state.id.length && info.state.pwd.length
-
-
     return (
         <>
             <BrowserRouter>
                 <Routes>
                     {/*{*/}
-                        // isLogin ?
-                            // [
-                                <Route exact path="/" element={<ShowWeather/>}/>,
-                                <Route exact path="/write" element={<Write/>}/>,
-                                <Route exact path="/categorysetting" element={<CategorySetting/>}/>,
-                                <Route exact path="/categoryadd" element={<CategoryAdd/>}/>,
-                                <Route exact path="/timeline" element={<Timeline/>}/>,
-                                <Route exact path="/selectedarticle/:no" element={<SelectedArticle/>}/>,
-                                <Route exact path="/article" element={<Article/>}/>,
-                                <Route exact path="/userprofile/:userid" element={<UserProfile/>}/>,
-                                <Route exact path="/qna" element={<QnA/>}/>,
-                                <Route exact path="/selectedqna/:no" element={<SelectedQnA/>}/>,
-                                <Route exact path="/writeqna" element={<WriteQnA/>}/>,
-                                <Route exact path="/imagesearch" element={<ImageSearch/>}/>,
-                                <Route exact path="/searchresult" element={<SearchResult/>}/>,
-                                <Route exact path="/collection" element={<Collection/>}/>,
-                                <Route exact path="/currentMap" element={<CurrentMap/>}/>,
-                                <Route exact path="/plantdetail" element={<PlantDetail/>}/>,
-                                <Route exact path="/selectaddress" element={<SelectAddress/>}/>,
-                                <Route exact path="/writecollection" element={<WriteCollection/>}/>,
-                                <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>,
-                                <Route exact path="/myarticle" element={<MyArticle/>}/>,
-                                <Route exact path="/currentarticle" element={<CurrentArticle/>}/>,
-                                <Route exact path="/editarticle" element={<EditArticle/>}/>,
-                                <Route exact path="/profileEdit" element={<ProfileEdit/>}/>,
-                                <Route exact path="/Setting" element={<Setting/>}/>,
-                                <Route exact path="/register" element={<Register/>}/>,
-                                <Route exact path="/pwchange" element={<PWChange/>}/>,
-                                <Route exact path="*" element={<Navigate to={"/"}/>}/>
+                    // isLogin ?
+                    // [
+                    <Route exact path="/" element={<ShowWeather/>}/>,
+                    <Route exact path="/write" element={<Write/>}/>,
+                    <Route exact path="/categorysetting" element={<CategorySetting/>}/>,
+                    <Route exact path="/categoryadd" element={<CategoryAdd/>}/>,
+                    <Route exact path="/timeline" element={<Timeline/>}/>,
+                    <Route exact path="/selectedarticle/:no" element={<SelectedArticle/>}/>,
+                    <Route exact path="/article" element={<Article/>}/>,
+                    <Route exact path="/userprofile/:userid" element={<UserProfile/>}/>,
+                    <Route exact path="/qna" element={<QnA/>}/>,
+                    <Route exact path="/selectedqna/:no" element={<SelectedQnA/>}/>,
+                    <Route exact path="/writeqna" element={<WriteQnA/>}/>,
+                    <Route exact path="/imagesearch" element={<ImageSearch/>}/>,
+                    <Route exact path="/searchresult" element={<SearchResult/>}/>,
+                    <Route exact path="/collection" element={<Collection/>}/>,
+                    <Route exact path="/currentMap" element={<CurrentMap/>}/>,
+                    <Route exact path="/plantdetail" element={<PlantDetail/>}/>,
+                    <Route exact path="/selectaddress" element={<SelectAddress/>}/>,
+                    <Route exact path="/writecollection" element={<WriteCollection/>}/>,
+                    <Route exact path="/selecteddetail" element={<SelectedDetail/>}/>,
+                    <Route exact path="/myarticle" element={<MyArticle/>}/>,
+                    <Route exact path="/currentarticle" element={<CurrentArticle/>}/>,
+                    <Route exact path="/editarticle" element={<EditArticle/>}/>,
+                    <Route exact path="/profileEdit" element={<ProfileEdit/>}/>,
+                    <Route exact path="/Setting" element={<Setting/>}/>,
+                    <Route exact path="/register" element={<Register/>}/>,
+                    <Route exact path="/pwchange" element={<PWChange/>}/>,
+                    <Route exact path="*" element={<Navigate to={"/"}/>}/>
 
-                            // ] : [
-                                <Route exact path="/register" element={<Register/>}/>,
-                                <Route exact path="/login" element={<NormalLoginForm/>}/>,
-                                <Route exact path="*" element={<Navigate to={"/login"}/>}/>
-                            // ]
+                    // ] : [
+                    <Route exact path="/register" element={<Register/>}/>,
+                    <Route exact path="/login" element={<NormalLoginForm/>}/>,
+                    <Route exact path="*" element={<Navigate to={"/login"}/>}/>
+                    // ]
                     // }
                 </Routes>
                 <BottomNav/>

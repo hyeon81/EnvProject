@@ -35,7 +35,7 @@ function Weather() {
                     SetLocation(res1.data.documents[0].address_name)
                     SetHumidity(res2.data.main.humidity)
                     SetTemp(res2.data.main.temp)
-                    SetIcon('http://openweathermap.org/img/wn/' + res2.data.weather[0].icon + '@2x.png')
+                    SetIcon('http://openweathermap.org/img/wn/' + res2.data.weather[0].icon + '@4x.png')
                     SetDes(res2.data.weather[0].main)
                 })
             ).catch(err => {
