@@ -38,37 +38,37 @@ function Article({props}) {
         // 좋아요 가져오기
         setPlus(props.plusCount)
 
-        axios.post('http://environment.goldenmine.kr:8080/article/isplus', bodyFormData2)
-            .then(res => {
-                setLike(res.data.plus)
-            })
+        // axios.post('http://environment.goldenmine.kr:8080/article/isplus', bodyFormData2)
+        //     .then(res => {
+        //         setLike(res.data.plus)
+        //     })
 
         const bodyFormData = new FormData();
         bodyFormData.append('id', props.authorId);
-        axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
-            .then(res => {
-                setProfile(res.data)
-            })
+        // axios.post('http://environment.goldenmine.kr:8080/profile/getprofile', bodyFormData)
+        //     .then(res => {
+        //         setProfile(res.data)
+        //     })
     }, []);
 
     const toggleLike = () => {
         setLike(!like)
 
         if (like) {
-            axios.post('http://environment.goldenmine.kr:8080/article/unplus', bodyFormData2)
-                .then(res => {
-                    console.log('좋아요 취소')
-                    console.log(res.data)
-                    setPlus(plus - 1)
-                })
+            // axios.post('http://environment.goldenmine.kr:8080/article/unplus', bodyFormData2)
+            //     .then(res => {
+            //         console.log('좋아요 취소')
+            //         console.log(res.data)
+            //         setPlus(plus - 1)
+            //     })
         }
         else if(!like){
-            axios.post('http://environment.goldenmine.kr:8080/article/plus', bodyFormData2)
-                .then(res => {
-                    console.log('좋아요')
-                    console.log(res.data)
-                    setPlus(plus + 1)
-                })
+            // axios.post('http://environment.goldenmine.kr:8080/article/plus', bodyFormData2)
+            //     .then(res => {
+            //         console.log('좋아요')
+            //         console.log(res.data)
+            //         setPlus(plus + 1)
+            //     })
         }
         // // [POST] 사용자가 좋아요를 누름 -> DB 갱신 setLike(!like)
     }
@@ -81,14 +81,13 @@ function Article({props}) {
         for (let i = 0; i < props.imageCount; i++) {
             imagarray.push(
                 <div>
-                    <img src={
-                        'http://environment.goldenmine.kr:8080/images/view/article-' + props.id + '-' + i + '.jpg'
-                    } alt="userImage" style={contentStyle}/>
+                    <img src="/img/2021062427499722.jpg" alt="userImage" style={contentStyle}/>
                 </div>
             )
         }
         return imagarray
     }
+
 
     return (
         <>
@@ -99,7 +98,7 @@ function Article({props}) {
                     }}>
                         <Avatar size={30} src={'http://environment.goldenmine.kr:8080/images/view/' + props.authorId}
                                 icon={<UserOutlined/>}/>
-                        <span className="username" style={{fontSize: '16px'}}>{profile.nickname}</span>
+                        <span className="username" style={{fontSize: '16px'}}>{"닉네임"}</span>
                     </Space>
                 </div>
 

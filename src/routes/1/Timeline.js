@@ -17,11 +17,35 @@ function Timeline() {
         bodyFormData.append('articleType', 'article');
         bodyFormData.append('sortType', sort);
 
-        axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData)
-            .then(res => {
-                console.log(res.data)
-                setObj(res.data)
-            })
+        // axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData)
+        //     .then(res => {
+        //         console.log(res.data)
+        //         setObj(res.data)
+        //     })
+        setObj([
+            {
+                id: 1,
+                plusCount: 0,
+                authorId: 1,
+                imageCount: 1,
+                weather: "흐림 -2.6° 습도 68% ",
+                commentIds: {
+                    length: 1,
+                },
+                context: "내용입니다",
+            },
+            {
+                id: 1,
+                plusCount: 0,
+                authorId: 1,
+                imageCount: 1,
+                weather: "날씨: 눈 -9° 습도 68% ",
+                commentIds: {
+                    length: 1,
+                },
+                context: "내용입니다",
+            }
+        ])
     }, [sort])
 
     // 페이지 넘버별로 가져오기
@@ -33,8 +57,8 @@ function Timeline() {
         bodyFormData.append('articleType', 'article');
         bodyFormData.append('sortType', 'recent');
 
-        axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData).
-        then(res => setObj(res.data))
+        // axios.post('http://environment.goldenmine.kr:8080/article/feedarticles', bodyFormData).
+        // then(res => setObj(res.data))
     }
     const navigate = useNavigate();
     const [isModalVisible, setIsModalVisible] = useState(false);
